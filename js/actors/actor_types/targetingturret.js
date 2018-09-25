@@ -22,11 +22,16 @@ TargetingTurret.prototype.update = function(){
     if (!Actor.prototype.update.call(this)){
         return;
     }
+
+    if (this.targeter.checkTargetInRange())
+    {
+        this.updateFrame();
+    }
     
     if(this.game.time.now >= this.nextFire){  
         this.nextFire += this.fireRate;
         
-        if (this.targeter.acquireTarget() != null && this.targeter.checkTargetInRange()){
+        if (this.targeter.acquireTarget() && this.targeter.checkTargetInRange()){
             this.faceDirection = this.targeter.getDirectionToTarget();
             this.fire(this.targeter.getTargetPosition());
         }

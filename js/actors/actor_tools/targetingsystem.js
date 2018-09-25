@@ -2,18 +2,18 @@
     This object can be used by Actors to find other actors and their positions based on given criteria. 
     
     @param position StageCoord the current position of the Actor that owns this TargetingSystem
-    @param group Phser.Group containing the Actors in on the stage with the Actor that owns this TargetingSystem
+    @param group Phaser.Group containing the Actors in on the stage with the Actor that owns this TargetingSystem
     @param tag string the teamTag property of this TargetingSystem's owner
     @param range number the targeting range of this TargetingSystem's owner (optional. Defaults to 0)
     @param target Actor the actor for this Object to start out targeting.
 */
-function TargetingSystem(stage, position, group, tag, range=0, target=null){
+function TargetingSystem(stage, position, group, tag, range, target){
     this.stage = stage
     this.position = position;
     this.group = group;
     this.tag = tag;
-    this.range = range;
-    this.target = target;
+    this.range = range || 0;
+    this.target = target || null;
 }
 
 
@@ -85,12 +85,17 @@ TargetingSystem.prototype.checkInRange = function(obj1, obj2, range){
 
 
 /**
-    Checks if this object's current target is within range
+    Checks if this object's current target is within range. Will return false
+    if there is no current target
     
     @return bool (true if in range, false otherwise)
 */
 TargetingSystem.prototype.checkTargetInRange = function(){
-    return this.checkInRange(this.position, this.target, this.range);
+    if (this.target)
+    {
+        return this.checkInRange(this.position, this.target, this.range);
+    }
+    return false;
 }
 
 

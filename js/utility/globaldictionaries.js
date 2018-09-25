@@ -1,14 +1,14 @@
 //Direction enum
 var Direction = {
     NONE: 0,
-    NORTH: 1,
-    SOUTH: 2,
-    WEST: 3,
-    EAST: 4,
-    NORTHWEST: 5,
-    NORTHEAST: 6,
-    SOUTHWEST: 7,
-    SOUTHEAST: 8,
+    WEST: 1,
+    NORTHWEST: 2,
+    NORTH: 3,
+    NORTHEAST: 4,
+    EAST: 5,
+    SOUTHEAST: 6,
+    SOUTH: 7,
+    SOUTHWEST: 8,
     
     
     /***
@@ -24,14 +24,14 @@ var Direction = {
     ***/
     modifyer: {
         0: {x: 0, y: 0},
-        1: {x: 0, y:-1},
-        2: {x: 0, y: 1},
-        3: {x: -1, y: 0},
-        4: {x: 1, y: 0},
-        5: {x: -1, y: -1},
-        6: {x: 1, y: -1},
-        7: {x: -1, y: 1},
-        8: {x: 1, y: 1}
+        1: {x: -1, y: 0},
+        2: {x: -1, y: -1},
+        3: {x: 0, y:-1},
+        4: {x: 1, y: -1},
+        5: {x: 1, y: 0},
+        6: {x: 1, y: 1},
+        7: {x: 0, y: 1},
+        8: {x: -1, y: 1}
     },
     
     
@@ -43,21 +43,21 @@ var Direction = {
         
         if (modifyer.x == 0 && modifyer.y == 0){
             return 0;
-        } else if (modifyer.x == 0 && modifyer.y == -1){
-            return 1;
-        } else if (modifyer.x == 0 && modifyer.y == 1){
-            return 2;
         } else if (modifyer.x == -1 && modifyer.y == 0){
-            return 3;
-        } else if (modifyer.x == 1 && modifyer.y == 0){
-            return 4;
+            return 1;
         } else if (modifyer.x == -1 && modifyer.y == -1){
-            return 5;
+            return 2;
+        } else if (modifyer.x == 0 && modifyer.y == -1){
+            return 3;
         } else if (modifyer.x == 1 && modifyer.y == -1){
-            return 6;
-        } else if (modifyer.x == -1 && modifyer.y == 1){
-            return 7;
+            return 4;
+        } else if (modifyer.x == 1 && modifyer.y == 0){
+            return 5;
         } else if (modifyer.x == 1 && modifyer.y == 1){
+            return 6;
+        } else if (modifyer.x == 0 && modifyer.y == 1){
+            return 7;
+        } else if (modifyer.x == -1 && modifyer.y == 1){
             return 8;
         } 
     }

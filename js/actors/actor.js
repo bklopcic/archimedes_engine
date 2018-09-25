@@ -8,11 +8,11 @@
     @param key string name of image (or spritesheet) that this actor will use as its body
     @param direction Direction property representing the direction this Actor starts off facing (optional. Defaults to west)
 */
-function Actor(stage, coord, key, direction=Direction.WEST){
+function Actor(stage, coord, key, direction){
     this.scene = stage; //NOTE: this does make things a litte confusing... but Phaser.Sprite already
                         //has a definition for this.stage so we can't use that or everything breaks
     
-    this.faceDirection = direction;
+    this.faceDirection = direction || Direction.WEST;
     
     this.game = this.scene.game;
     
@@ -133,7 +133,7 @@ Actor.prototype.collideWithActor = function(other){}
     @param heat number the amount of heat to apply to this Actor
 */
 Actor.prototype.burn = function(){
-    console.log("I'm burning!");
+    //console.log("I'm burning!");
 }
 
 

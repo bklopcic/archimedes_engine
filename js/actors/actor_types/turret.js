@@ -8,10 +8,12 @@
     @param fireRate number (in miliseconds) the time between each shot of this turret (optional. Defaults to 1000)
 */
 function Turret(stage, coord, ammo, direction=Direction.WEST){
-    Actor.call(this, stage, coord, "turret", direction);
+    Actor.call(this, stage, coord, "crossbow", direction);
     
     this.ammoBox = ammo;
     this.ammoBox.addProp('bullet', 100, true);
+
+    this.faceFrames = [7, 15, 23, 31, 39, 47, 55, 63];
     
     this.body.static = true;
     
@@ -21,6 +23,8 @@ function Turret(stage, coord, ammo, direction=Direction.WEST){
     this.fireRate = 3000;
     this.bulletSpeed = 250;
     this.nextFire = this.game.time.now + this.fireRate;
+
+    this.updateFrame();
 }
 
 Turret.prototype = Object.create(Actor.prototype);
@@ -72,4 +76,10 @@ Turret.prototype.fire = function(target){
     //yes... the +2 is necessary... just trust me on this one (rounding errors)
     bullet.reset(this.x +(((this.width/2)+(bullet.width/2)+3) * modifyerX), this.y+(((this.height/2)+(bullet.height/2)+3) * modifyerY));
     this.game.physics.arcade.moveToObject(bullet, target, this.bulletSpeed);
+}
+
+Turret.prototype.updateFrame = function()
+{
+    //console.log(this.faceDirection);
+    this.frame = this.faceFrames[this.faceDirection -1];
 }

@@ -5,15 +5,16 @@ var stage, player, display;
 var testState = {
     
     preload : function(){
-        this.load.image('tile', "assets/testTile.png");
-        this.load.image('targetBox', 'assets/targetbox.png');
-        this.load.spritesheet('spider', 'assets/spider.png', 25, 25);
-        this.load.image('wall', 'assets/wall.png');
-        this.load.image('turret', 'assets/turret.png');
-        this.load.image('bullet', 'assets/bullet.png');
-        this.load.image('x', 'assets/x.png');
-        this.load.image('fire', 'assets/fire.png');
-        this.load.json('data', 'test.json');
+        this.load.image('tile', "assets/img/testTile.png");
+        this.load.image('targetBox', 'assets/img/targetbox.png');
+        this.load.spritesheet('spider', 'assets/img/spider.png', 25, 25);
+        this.load.image('wall', 'assets/img/wall.png');
+        this.load.image('turret', 'assets/img/turret.png');
+        this.load.image('bullet', 'assets/img/bullet.png');
+        this.load.image('x', 'assets/img/x.png');
+        this.load.image('fire', 'assets/img/fire.png');
+        this.load.spritesheet('crossbow', 'assets/img/crossbow_spritesheet.png', 93, 91, 64);
+        this.load.json('data', 'data/test.json');
     
     },
     
