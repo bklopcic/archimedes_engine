@@ -25,6 +25,7 @@ TargetingTurret.prototype.update = function(){
 
     if (this.targeter.checkTargetInRange())
     {
+        this.faceDirection = this.targeter.getDirectionToTarget();
         this.updateFrame();
     }
     
@@ -32,7 +33,6 @@ TargetingTurret.prototype.update = function(){
         this.nextFire += this.fireRate;
         
         if (this.targeter.acquireTarget() && this.targeter.checkTargetInRange()){
-            this.faceDirection = this.targeter.getDirectionToTarget();
             this.fire(this.targeter.getTargetPosition());
         }
     }
