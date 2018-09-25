@@ -40,6 +40,8 @@ class Actor extends Phaser.Sprite
         this.maxHp = 1;
         this.hp = this.maxHp;
         this.attackDamage = 0;
+
+        this.animations = {};
         
         //used to overwrite any child class's update method when plugging them into an external controller
         this.overridden = false;     
@@ -49,7 +51,8 @@ class Actor extends Phaser.Sprite
         Updates this Actor's properties to reflect it's current coordinate on the stage
         NOTE: call any time an actor moves
     */
-    updatePosition() {
+    updatePosition() 
+    {
         
         const coord = this.scene.getCoordByPixels(this.x, this.y);
         
@@ -74,7 +77,8 @@ class Actor extends Phaser.Sprite
         
         @return bool representing whether a child class is permitted to continue performing update operations
     */
-    update() {
+    update() 
+    {
         
         if (this.currentTile.currentState == this.currentTile.STATES.BURNING){
             this.burn();
@@ -89,7 +93,8 @@ class Actor extends Phaser.Sprite
     /**
         Handles setting this actor's team
     */
-    setTeam(name) {
+    setTeam(name) 
+    {
         this.teamTag = name;
     }
 
@@ -98,7 +103,8 @@ class Actor extends Phaser.Sprite
         
         @param damage number the amount of this Actor's hp to subtract
     */
-    takeHit(damage) {
+    takeHit(damage) 
+    {
         this.hp -= damage;
         if (this.hp <= 0){
             this.die();
@@ -119,7 +125,8 @@ class Actor extends Phaser.Sprite
         
         @param heat number the amount of heat to apply to this Actor
     */
-    burn() {
+    burn() 
+    {
         //console.log("I'm burning!");
     }
 
@@ -128,7 +135,8 @@ class Actor extends Phaser.Sprite
         NOTE: This eliminates all internal references to this Actor, but in order for the physical object to be
         garbage collected all external references will need to be nullified as well
     */
-    die() {
+    die() 
+    {
         this.scene.leaveTile(this.scenePosition);
         this.scene.activateTile(this.scenePosition,.5);
         this.destroy();
@@ -139,7 +147,8 @@ class Actor extends Phaser.Sprite
         make a copt of this object. Mainly for outputting to JSON. This makes it easier for children to
         append properties when overriding Actor.toString.
     */
-    getDataLiteral() {
+    getDataLiteral() 
+    {
         const data = {};
         data.type = this.ACTOR_TYPE;
         data.scenePosition = this.scenePosition;
@@ -148,7 +157,8 @@ class Actor extends Phaser.Sprite
         return data;
     }
 
-    toString() {
+    toString() 
+    {
         return JSON.stringify(this.getDataLiteral());
     }
 }
