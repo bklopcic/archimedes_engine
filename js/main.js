@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 640, Phaser.CANVAS, 'test');
+var game = new Phaser.Game(800, 640, Phaser.CANVAS, "game");
 
 var stage, player, display;
 
@@ -13,7 +13,7 @@ var testState = {
         this.load.image('bullet', 'assets/img/bullet.png');
         this.load.image('x', 'assets/img/x.png');
         this.load.image('fire', 'assets/img/fire.png');
-        this.load.spritesheet('crossbow', 'assets/img/crossbow_spritesheet.png', 93, 91, 64);
+        this.load.spritesheet('crossbow', 'assets/img/crossbow_spritesheet.png', 92, 90, 64);
         this.load.json('data', 'data/test.json');
     
     },
