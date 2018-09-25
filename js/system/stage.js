@@ -13,9 +13,11 @@ class Stage extends StageGrid
      * @param offsetY number (in pixels) the vertical offset of the top left corner
        of the stage from the top left corner of the game world (optional. defaults to 0)
      */
-    constructor(game, xSize, ySize, offsetX=0, offsetY=0, data=null)
+    constructor(game, xSize, ySize, offsetX, offsetY, data)
     {
         data = data || null;
+        offsetX = offsetX || 0;
+        offsetY = offsetY || 0;
 
         if (data)
         {
@@ -171,9 +173,10 @@ class Stage extends StageGrid
         @param direction Direction property representing the starting face direction of the new Actor (Optional. Defaults to west)
         @return Actor a reference to the newly created Actor
     */
-    addActor(coord, type, team=null, direction)
+    addActor(coord, type, team, direction)
     {
-        direction = direction || Directio.WEST;
+        team = team || null;
+        direction = direction || Direction.WEST;
         var actor = this.createActor(coord, type, direction);
         
         this.actors.addChild(actor);
