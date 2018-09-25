@@ -1,4 +1,4 @@
-preload = {
+var preload = {
     preload: function()
     {
         
