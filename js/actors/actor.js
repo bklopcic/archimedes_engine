@@ -29,6 +29,7 @@ class Actor extends Phaser.Sprite
         this.scene.enterTile(this.scenePosition);
         
 
+        this.OBJ_TYPE = "actor";
         this.ACTOR_TYPE = "actor";
         
         this.game.physics.p2.enable(this);        

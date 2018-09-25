@@ -88,7 +88,7 @@ class StageGrid
             return;
         }
         
-        tile = this.getTileAt(coord.x, coord.y);
+        let tile = this.getTileAt(coord.x, coord.y);
         
         for (let i = 0; i < this.activeTiles.length; i++)
         {
