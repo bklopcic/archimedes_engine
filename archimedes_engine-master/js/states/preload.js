@@ -1,6 +1,0 @@
-var preload = {
-    preload: function()
-    {
-        
-    }
-}
