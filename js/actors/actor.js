@@ -40,8 +40,6 @@ class Actor extends Phaser.Sprite
         this.maxHp = 1;
         this.hp = this.maxHp;
         this.attackDamage = 0;
-
-        this.animations = {};
         
         //used to overwrite any child class's update method when plugging them into an external controller
         this.overridden = false;     
