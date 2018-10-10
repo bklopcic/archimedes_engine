@@ -1,3 +1,10 @@
+const config = 
+{
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+};
+
 var game = new Phaser.Game(800, 640, Phaser.CANVAS, "game");
 
 var stage, player, display;
