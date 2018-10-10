@@ -4,7 +4,7 @@
     in this or a child class's update method will be called internall by Phaser during the update step. 
     
 */
-class Actor extends Phaser.Sprite
+class Actor extends Phaser.GameObjects.Sprite
 {
     /**
         @param stage Stage that this Actor belongs to
@@ -18,7 +18,9 @@ class Actor extends Phaser.Sprite
         const scenePosition = new StageCoord(coord.x, coord.y); 
         const currentTile = stage.getTileAt(scenePosition.x, scenePosition.y);
         
-        super(stage.game, currentTile.x, currentTile.y, key); //call parent constructor in our own context
+        super(stage.game, currentTile.x, currentTile.y); //call parent constructor in our own context
+        this.setTexture(key);
+        //this.setPosition(currentTile.x, currentTile.y);
         this.game.add.existing(this); //add ourself to Phaser parent container
         
         this.scene = stage; //NOTE: this does make things a litte confusing... but Phaser.Sprite already
@@ -32,8 +34,8 @@ class Actor extends Phaser.Sprite
         this.OBJ_TYPE = "actor";
         this.ACTOR_TYPE = "actor";
         
-        this.game.physics.p2.enable(this);        
-        this.body.setRectangle(this.width, this.height);
+        //this.game.physics.p2.enable(this);        
+        //this.body.setRectangle(this.width, this.height);
         
         this.teamTag = "-1";
         this.targetable = false;

@@ -4,7 +4,8 @@
     dictate when their heat should be spread to the tiles around them
 */
 function FireTile(game, x, y, key){
-    Phaser.Sprite.call(this, game, x, y, key);
+    Phaser.GameObjects.Sprite.call(this, game, x, y);
+    this.setTexture(key);
     this.game.add.existing(this);
     this.anchor.set(.5,.5);
     
@@ -22,7 +23,7 @@ function FireTile(game, x, y, key){
     this.tileId = FireTile.prototype.NUM_TILES_CREATED++;
 }
 
-FireTile.prototype = Object.create(Phaser.Sprite.prototype);
+FireTile.prototype = Object.create(Phaser.GameObjects.Sprite.prototype);
 FireTile.prototype.constructor = FireTile;
 
 //modify these to change how how fire interacts
