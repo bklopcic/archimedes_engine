@@ -19,7 +19,7 @@ class Spider extends Actor
         super(stage, coord, 'spider', direction);
         this.ACTOR_TYPE = "spider";
         
-        this.body.fixedRotation = true;
+        //this.body.fixedRotation = true;
         
         this.speed = 100;
         this.targetable = true;
@@ -28,8 +28,8 @@ class Spider extends Actor
         this.hp = this.maxHp;
         this.targetPosition;
         this.targetTile;
-        this.targetBox = this.game.add.sprite(0, 0, 'targetBox');
-        this.targetBox.anchor.set(.5,.5);
+        this.targetBox = this.scene.add.sprite(0, 0, 'targetBox');
+        this.targetBox.setOrigin(.5,.5);
         this.updateTarget(); //initializes target variables
     }
 
@@ -39,13 +39,13 @@ class Spider extends Actor
     updatePosition() {
         const xModifyer = Direction.modifyer[this.faceDirection].x;
         const yModifyer = Direction.modifyer[this.faceDirection].y;
-        const coord = this.scene.getCoordByPixels(this.x +((this.width/2)*xModifyer), this.y+((this.height/2)*yModifyer));
+        const coord = this.stage.getCoordByPixels(this.x +((this.width/2)*xModifyer), this.y+((this.height/2)*yModifyer));
         
-        if (!this.scenePosition.compareCoord(coord)){
-            this.scene.leaveTile(this.scenePosition);
-            this.scenePosition = coord;
-            this.currentTile = this.scene.getTileAt(this.scenePosition.x, this.scenePosition.y);
-            this.scene.enterTile(this.scenePosition);
+        if (!this.stagePosition.compareCoord(coord)){
+            this.stage.leaveTile(this.stagePosition);
+            this.stagePosition = coord;
+            this.currentTile = this.stage.getTileAt(this.stagePosition.x, this.stagePosition.y);
+            this.stage.enterTile(this.stagePosition);
         }
         
         this.updateTarget();
@@ -55,9 +55,9 @@ class Spider extends Actor
         Handles updating the target tile of this Spider
     */
     updateTarget() {
-        this.targetPosition = this.scenePosition.getNeighbor(this.faceDirection);
-        if (this.scene.checkInBounds(this.targetPosition)){
-            this.targetTile = this.scene.getTileAt(this.targetPosition.x, this.targetPosition.y);
+        this.targetPosition = this.stagePosition.getNeighbor(this.faceDirection);
+        if (this.stage.checkInBounds(this.targetPosition)){
+            this.targetTile = this.stage.getTileAt(this.targetPosition.x, this.targetPosition.y);
             this.targetBox.x = this.targetTile.x;
             this.targetBox.y = this.targetTile.y;
             this.targetBox.visible = true;
@@ -75,8 +75,8 @@ class Spider extends Actor
         @return bool whether the new Actor was successfully built
     */
     build(actorType) {
-        if (this.scene.checkInBounds(this.targetPosition) && this.scene.checkIfEmpty(this.targetPosition)){
-            this.scene.addActor(this.targetPosition, actorType, this.teamTag, this.faceDirection);
+        if (this.stage.checkInBounds(this.targetPosition) && this.stage.checkIfEmpty(this.targetPosition)){
+            this.stage.addActor(this.targetPosition, actorType, this.teamTag, this.faceDirection);
             return true;
         }
         return false

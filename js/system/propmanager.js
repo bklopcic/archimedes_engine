@@ -30,7 +30,7 @@ class PropManager
         @param collide bool whether or not this new prop type should collide with Actors (optional, defaults to false)
     */
     addProp(name, num=10, collide=false)
-     {
+    {
         //TODO: implement turning off collisions
         if(this.particleGroups.hasOwnProperty(name))
         {

@@ -13,7 +13,7 @@ class Stage extends StageGrid
      * @param offsetY number (in pixels) the vertical offset of the top left corner
        of the stage from the top left corner of the game world (optional. defaults to 0)
      */
-    constructor(game, xSize, ySize, offsetX, offsetY, data)
+    constructor(scene, xSize, ySize, offsetX, offsetY, data)
     {
         data = data || null;
         offsetX = offsetX || 0;
@@ -21,21 +21,21 @@ class Stage extends StageGrid
 
         if (data)
         {
-            super(game, data.xSize, data.ySize, data.tile, offsetX, offsetY);
+            super(scene, data.xSize, data.ySize, data.tile, offsetX, offsetY);
         }
         else
         {
-            super(game, xSize, ySize, 'tile', offsetX, offsetY);
+            super(scene, xSize, ySize, 'tile', offsetX, offsetY);
         }
         this.teamNames = [];
         
-        this.actorCollisionGroup = this.game.physics.p2.createCollisionGroup();
-        this.propCollisionGroup = this.game.physics.p2.createCollisionGroup();
+        //this.actorCollisionGroup = this.game.physics.p2.createCollisionGroup();
+        //this.propCollisionGroup = this.game.physics.p2.createCollisionGroup();
         
         //NOTE: the order that these groups are created matters for layer sorting... do not touch :)
-        this.propBox = new PropManager(this.game, this.propCollisionGroup, [this.actorCollisionGroup]);
+        this.propBox = new PropManager(this.scene, this.propCollisionGroup, [this.actorCollisionGroup]);
          
-        this.actors = this.game.add.group(); 
+        this.actors = this.scene.add.group(); 
         
         if (data)
         {
@@ -179,10 +179,10 @@ class Stage extends StageGrid
         direction = direction || Direction.WEST;
         var actor = this.createActor(coord, type, direction);
         
-        this.actors.addChild(actor);
+        this.actors.add(actor);
             
-        actor.body.setCollisionGroup(this.actorCollisionGroup);
-        actor.body.collides([this.actorCollisionGroup, this.propCollisionGroup], this.collisionHandler, this);
+        //actor.body.setCollisionGroup(this.actorCollisionGroup);
+        //actor.body.collides([this.actorCollisionGroup, this.propCollisionGroup], this.collisionHandler, this);
         
         
         this.addToTeam(actor, team);

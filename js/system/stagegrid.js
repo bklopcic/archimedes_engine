@@ -4,23 +4,24 @@
     @param game Phaser.Game that this StageGrid exists in
     @param xSize number the horizontal number of tiles
     @param ySize number the vertical number of tiles
-    @param tileKey string the key used to crate the tiles
-    @param offsetX number the vertical offset of grid from left side of the game world
-    @param offsetY number the horizontal offset of the grid from the top of the game world
+    @param tileKeys string array the keys used to crate the tiles
+    @param offsetX number the vertical offset of grid from left side of the game world (optional)
+    @param offsetY number the horizontal offset of the grid from the top of the game world (optional)
 */
 class StageGrid 
 {
-    constructor(game, xSize, ySize, tileKey, offsetX, offsetY) 
+    constructor(scene, xSize, ySize, tileKeys, offsetX, offsetY) 
     {
-        this.game = game;
+        this.scene = scene;
         this.xSize = xSize;
         this.ySize = ySize;
-        this.tileKey = tileKey;
+        this.tileKeys = tileKeys;
         offsetX = offsetX || 0;
         offsetY = offsetY || 0;
         
         //get our tile width and height directly from the image in the cache
-        let testTile = this.game.cache.getImage(this.tileKey);
+        console.log(this.scene);
+        let testTile = this.scene.textures.get(this.tileKeys[0]);
         this.tileWidth = testTile.width;
         this.tileHeight = testTile.height;
         testTile = null;
@@ -29,7 +30,7 @@ class StageGrid
         this.offsetX = offsetX + (this.tileWidth/2); 
         this.offsetY = offsetY + (this.tileHeight/2);
         
-        this.grid = [];
+        this.grid = []; //TODO: eliminate this and everything having to do with it
         
         this.activeTiles = [];
         
@@ -38,9 +39,9 @@ class StageGrid
         this.enableGrid = true;
         this.nextBurnTime = 0;
         
-        this.borderGroup = this.game.add.group();
+        this.borderGroup = this.scene.add.group();
         
-        this.borderCollisionGroup = this.game.physics.p2.createCollisionGroup();
+        //this.borderCollisionGroup = this.game.physics.p2.createCollisionGroup();
         
         this.createGrid();
     }
@@ -59,7 +60,7 @@ class StageGrid
                 const xPos = (x*this.tileWidth)+this.offsetX;
                 const yPos = (y*this.tileHeight)+this.offsetY;
                 
-                this.grid[y][x] = new FireTile(this.game, xPos, yPos, this.tileKey);
+                this.grid[y][x] = this.scene.add.image(xPos, yPos, this.tileKeys[0]);
                 this.dataGrid[y][x] = 0;
             }
         }
@@ -72,7 +73,7 @@ class StageGrid
     createBorders() 
     {
         const topLeft = new Phaser.Point(this.offsetX-(this.tileWidth/2), this.offsetY-(this.tileHeight/2));
-        const border = this.game.add.sprite(topLeft.x, topLeft.y, this.tileKey);
+        const border = this.scene.add.sprite(topLeft.x, topLeft.y, this.tileKey);
         border.scale.set(this.xSize, .5);
         
         this.borderGroup.addChild(border);
@@ -113,7 +114,7 @@ class StageGrid
             return;
         }
         
-        if (this.game.time.now >= this.nextBurnTime) 
+        if (this.scene.time.now >= this.nextBurnTime) 
         {
             this.nextBurnTime += FireTile.prototype.SPREAD_INTERVAL;
 

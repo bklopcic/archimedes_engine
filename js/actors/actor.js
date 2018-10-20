@@ -15,20 +15,19 @@ class Actor extends Phaser.GameObjects.Sprite
     constructor(stage, coord, key, direction) {
         
         //in case what is passed in is not actually a StageCoord (JSON data)
-        const scenePosition = new StageCoord(coord.x, coord.y); 
-        const currentTile = stage.getTileAt(scenePosition.x, scenePosition.y);
+        const stagePosition = new StageCoord(coord.x, coord.y); 
+        const currentTile = stage.getTileAt(stagePosition.x, stagePosition.y);
         
-        super(stage.game, currentTile.x, currentTile.y); //call parent constructor in our own context
-        this.setTexture(key);
-        //this.setPosition(currentTile.x, currentTile.y);
-        this.game.add.existing(this); //add ourself to Phaser parent container
+        super(stage.scene, currentTile.x, currentTile.y, key); //call parent constructor in our own context
+        //this.setTexture(key);
+        this.setPosition(currentTile.x, currentTile.y);
+        this.scene.add.existing(this); //add ourself to Phaser parent container
         
-        this.scene = stage; //NOTE: this does make things a litte confusing... but Phaser.Sprite already
-        //has a definition for this.stage so we can't use that or everything breaks
+        this.stage = stage;
         this.faceDirection = direction || Direction.WEST;
-        this.scenePosition = scenePosition;
+        this.stagePosition = stagePosition;
         this.currentTile = currentTile;
-        this.scene.enterTile(this.scenePosition);
+        this.stage.enterTile(this.stagePosition);
         
 
         this.OBJ_TYPE = "actor";
@@ -54,13 +53,13 @@ class Actor extends Phaser.GameObjects.Sprite
     updatePosition() 
     {
         
-        const coord = this.scene.getCoordByPixels(this.x, this.y);
+        const coord = this.stage.getCoordByPixels(this.x, this.y);
         
-        if (!this.scenePosition.compareCoord(coord)){
-            this.scene.leaveTile(this.scenePosition);
-            this.scenePosition = coord;
-            this.currentTile = this.scene.getTileAt(this.scenePosition.x, this.scenePosition.y);
-            this.scene.enterTile(this.scenePosition);
+        if (!this.stagePosition.compareCoord(coord)){
+            this.stage.leaveTile(this.scenePosition);
+            this.stagePosition = coord;
+            this.currentTile = this.stage.getTileAt(this.stagePosition.x, this.stagePosition.y);
+            this.stage.enterTile(this.stagePosition);
         }
     }
 
@@ -137,8 +136,8 @@ class Actor extends Phaser.GameObjects.Sprite
     */
     die() 
     {
-        this.scene.leaveTile(this.scenePosition);
-        this.scene.activateTile(this.scenePosition,.5);
+        this.stage.leaveTile(this.stagePosition);
+        this.stage.activateTile(this.stagePosition,.5);
         this.destroy();
     }
 
@@ -151,7 +150,7 @@ class Actor extends Phaser.GameObjects.Sprite
     {
         const data = {};
         data.type = this.ACTOR_TYPE;
-        data.scenePosition = this.scenePosition;
+        data.stagePosition = this.stagePosition;
         data.team = this.teamTag;
         data.faceDirection = this.faceDirection;
         return data;
