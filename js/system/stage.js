@@ -25,100 +25,17 @@ class Stage extends StageGrid
         }
         else
         {
-            super(scene, xSize, ySize, 'tile', offsetX, offsetY);
+            super(scene, xSize, ySize, ["tile"], offsetX, offsetY);
         }
         this.teamNames = [];
-        
-        //this.actorCollisionGroup = this.game.physics.p2.createCollisionGroup();
-        //this.propCollisionGroup = this.game.physics.p2.createCollisionGroup();
-        
-        //NOTE: the order that these groups are created matters for layer sorting... do not touch :)
-        this.propBox = new PropManager(this.scene, this.propCollisionGroup, [this.actorCollisionGroup]);
-         
-        this.actors = this.scene.add.group(); 
+
+        this.spawn = new ActorManager(this.scene.add.group());
         
         if (data)
         {
-            this.createFromData(data);
+            this.spawn.loadActorsFromData(data);
         }
     }
-
-
-
-    /**
-        Sets up the grid based on JSON data
-    */
-    createFromData(data)
-    {
-        for (var i = 0; i < data.actors.length; i++)
-        {
-            const actor = data.actors[i];
-            this.addActor(actor.scenePosition, actor.type, actor.team, actor.faceDirection);
-        }
-    }
-
-
-
-    /**
-        Handles adding a team to the stage. 
-        
-        @param name string the name of the team to be added (optional. If team name not specified id number will be assigned (as a string))
-        @return string the name of the team that was added
-    */
-    addTeam(name)
-    {
-        if (typeof name == "undefined" || name==null)
-        {
-            name = this.teamNames.length.toString();
-        } 
-        else if (typeof name != "string")
-        {
-            name = name.toString();
-        }
-        this.teamNames.push(name);
-        return name;
-    }
-
-
-
-    /**
-        Makes an actor a member of a team. If the specified team does not exist, creates a new team 
-        with the specified name and adds the actor to it.
-        
-        @param actor Actor the Actor object to be added to a team
-        @param teamName string the name of the team to add the Actor to
-    */
-    addToTeam(actor, teamName)
-    {
-        
-        if (!this.checkTeamExists(teamName))
-        {
-            teamName = this.addTeam(teamName);
-        }
-        
-        actor.setTeam(teamName);
-    }
-
-
-
-    /**
-        Checks if a specifed team has been added to the stage
-        
-        @param name string team name to check
-        @return bool
-    */
-    checkTeamExists(name){
-        for (var i = 0; i < this.teamNames.length; i++)
-        {
-            if(this.teamNames[i] == name)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
 
     /**
         <INTERNAL>
@@ -244,12 +161,9 @@ class Stage extends StageGrid
         data.xSize = this.xSize;
         data.ySize = this.ySize;
         data.tile = this.tileKey;
-        data.actors = [];
+        data.actors = this.spawn.dataLiteral;
         
-        this.actors.forEach(function(a)
-        {
-            data.actors.push(a.getDataLiteral());
-        }, this);
+        
         return JSON.stringify(data);
     }
 }

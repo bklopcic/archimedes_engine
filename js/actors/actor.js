@@ -12,16 +12,13 @@ class Actor extends Phaser.GameObjects.Sprite
         @param key string name of image (or spritesheet) that this actor will use as its body
         @param direction Direction property representing the direction this Actor starts off facing (optional. Defaults to west)
     */
-    constructor(stage, coord, key, direction) {
+    constructor(stage, x, y, key, direction) {
         
         //in case what is passed in is not actually a StageCoord (JSON data)
-        const stagePosition = new StageCoord(coord.x, coord.y); 
+        const stagePosition = stage.getCoordByPixels(x, y);
         const currentTile = stage.getTileAt(stagePosition.x, stagePosition.y);
         
         super(stage.scene, currentTile.x, currentTile.y, key); //call parent constructor in our own context
-        //this.setTexture(key);
-        this.setPosition(currentTile.x, currentTile.y);
-        this.scene.add.existing(this); //add ourself to Phaser parent container
         
         this.stage = stage;
         this.faceDirection = direction || Direction.WEST;
@@ -32,9 +29,6 @@ class Actor extends Phaser.GameObjects.Sprite
 
         this.OBJ_TYPE = "actor";
         this.ACTOR_TYPE = "actor";
-        
-        //this.game.physics.p2.enable(this);        
-        //this.body.setRectangle(this.width, this.height);
         
         this.teamTag = "-1";
         this.targetable = false;
@@ -138,7 +132,23 @@ class Actor extends Phaser.GameObjects.Sprite
     {
         this.stage.leaveTile(this.stagePosition);
         this.stage.activateTile(this.stagePosition,.5);
-        this.destroy();
+        this.setActive(false);
+        this.setVisible(false);
+    }
+
+    /**
+     * 
+     * @param {xint} x position to place this actor
+     * @param {int} y position to place this actor
+     * @param {Direction} faceDirection faceDirection of this actor (optional)
+     */
+    reset(x, y, faceDirection)
+    {
+        this.setPosition(x, y);
+        this.faceDirection = faceDirection || Direction.WEST;
+        this.updatePosition();
+        this.setActive(true);
+        this.setVisible(true);
     }
 
     /**

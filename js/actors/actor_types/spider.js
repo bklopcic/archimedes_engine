@@ -13,10 +13,10 @@ class Spider extends Actor
      @param coord StageCoord of the starting position of this Spider
      @param direction the starting faceDirection of this Spider (optional. Defaults to west)
      */
-    constructor(stage, coord, direction) 
+    constructor(stage, x, y, direction) 
     {
         direction = direction || Direction.WEST;
-        super(stage, coord, 'spider', direction);
+        super(stage, x, y, 'spider', direction);
         this.ACTOR_TYPE = "spider";
         
         //this.body.fixedRotation = true;

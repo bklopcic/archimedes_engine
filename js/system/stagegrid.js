@@ -20,8 +20,8 @@ class StageGrid
         offsetY = offsetY || 0;
         
         //get our tile width and height directly from the image in the cache
-        console.log(this.scene);
-        let testTile = this.scene.textures.get(this.tileKeys[0]);
+        let testTile = this.scene.textures.get(this.tileKeys[0]).source[0];
+        console.log(testTile);
         this.tileWidth = testTile.width;
         this.tileHeight = testTile.height;
         testTile = null;
@@ -39,10 +39,8 @@ class StageGrid
         this.enableGrid = true;
         this.nextBurnTime = 0;
         
-        this.borderGroup = this.scene.add.group();
-        
-        //this.borderCollisionGroup = this.game.physics.p2.createCollisionGroup();
-        
+        //this.borderGroup = this.scene.add.group();
+                
         this.createGrid();
     }
 
@@ -64,7 +62,7 @@ class StageGrid
                 this.dataGrid[y][x] = 0;
             }
         }
-        //this.createBorders(); TODO
+        //this.createBorders(); //TODO
     }
 
     /**
@@ -82,26 +80,6 @@ class StageGrid
         
     }
 
-    activateTile(coord, spreadChance) 
-    {
-        if (!this.checkInBounds(coord))
-        {
-            return;
-        }
-        
-        let tile = this.getTileAt(coord.x, coord.y);
-        
-        for (let i = 0; i < this.activeTiles.length; i++)
-        {
-            if (tile.tileId == this.activeTiles[i].tileId)
-            {
-                return;
-            }
-        }
-        
-        tile.startFire(spreadChance);
-        this.activeTiles.push(tile);
-    }
 
     /**
         Handles updating all the tiles in the grid
@@ -109,76 +87,18 @@ class StageGrid
     update() 
     {
         
-        if (!this.enableGrid)
-        {
-            return;
-        }
-        
-        if (this.scene.time.now >= this.nextBurnTime) 
-        {
-            this.nextBurnTime += FireTile.prototype.SPREAD_INTERVAL;
-
-            for (const tile of this.activeTiles) 
-            {
-                if (tile.currentState == tile.STATES.BURNING)
-                {
-
-                    const coord = this.getCoordByPixels(tile.x, tile.y);
-                    const burningTiles = this.spreadFire(coord);
-
-                    tile.stopFire();
-
-                } else if (tile.currentState == tile.STATES.BURNT)
-                {
-                    tile.futureState = tile.STATES.NONE;
-                }
-            }
-
-            for (let k = 0; k < this.activeTiles.length; k++)
-            {
-                this.activeTiles[k].swapStates();
-                if (this.activeTiles[k].currentState == this.activeTiles[k].STATES.NONE)
-                {
-                    this.activeTiles.splice(k, 1);
-                }
-            }
-        }
     }
 
-    /**
-        Handles adding heat to adjascent tiles
-    */
-    spreadFire(coord) {
-        
-        const spreadDirections = [Direction.NORTHWEST, Direction.NORTH, Direction.NORTHEAST, Direction.WEST,
-                               Direction.EAST, Direction.SOUTHWEST, Direction.SOUTH, Direction.SOUTHEAST];
-        
-        const tile = this.getTileAt(coord.x, coord.y);
-            
-        for (let i = 0; i < spreadDirections.length; i++)
-        {
-            const pos = coord.getNeighbor(spreadDirections[i]);
-            
-            if (this.checkInBounds(pos) && Math.random() <= tile.spreadChance)
-            {
-                
-                const tileToBurn = this.getTileAt(pos.x, pos.y);
-                
-                this.activateTile(pos, tile.spreadChance - .2);
-            }
-        }
-    }
 
     /**
         Returns the tile at a specified position in the Stage's tile grid
         
-        @param x number the horizontal position of the requested tile
-        @param y number the the vertical position of the requested tile
+        @param {StageCoord} coord the position on the grid to retrieve the tile from
         @return Phaser.Sprite
     */
-    getTileAt(x, y) 
+    getTileAt(coord) 
     {
-        return this.grid[y][x];
+        return this.grid[coord.y][coord.x];
     }
 
     /**

@@ -40,14 +40,14 @@ class TestScene extends Phaser.Scene
         
         var data = this.cache.json.get('data');
         
-        //stage = new Stage(game, width, height);
-        this.stage = new Stage(this, 0, 0, 0, 0, data);
+        this.stage = new Stage(this, width, height);
+        //this.stage = new Stage(this, 0, 0, 0, 0, data);
         console.log(this.stage.dataGrid);
         
-        //player = new SpiderController(stage.addActor(new StageCoord(10, 7), 'spider'));
-        this.player = new SpiderController(this.stage.getActorByType('spider'));
+        this.player = new SpiderController(this.stage.spawn.spider(100, 100, Direction.NORTH));
+        //this.player = new SpiderController(this.stage.getActorByType('spider'));
         
-        this.display = new HUD(this.player);
+        //this.display = new HUD(this.player);
         
 //        for (var i = 0; i < 4; i++){
 //            stage.addActor(new StageCoord(genRandInt(0, width), genRandInt(0, height)), 'targetingturret', "enemy", Direction.EAST);
@@ -63,7 +63,7 @@ class TestScene extends Phaser.Scene
     update()
     {
         this.stage.update();
-        this.player.update();
-        this.display.update();
+        //this.player.update();
+        //this.display.update();
     }
 }
