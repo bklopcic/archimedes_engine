@@ -2,13 +2,7 @@ class TestScene extends Phaser.Scene
 {
     constructor()
     {
-        super({
-            key: "test",
-            // map: {
-            //     game: "game",
-            //     cache: "cache"
-            // }
-        });
+        super({key: "test"});
 
         this.player;
         this.stage;
@@ -32,8 +26,6 @@ class TestScene extends Phaser.Scene
     
     create()
     {
-        //this.physics.startSystem(Phaser.Physics.ARCADE);
-        //this.physics.p2.setImpactEvents(true);
         
         var width = 17;
         var height = 13;
@@ -44,8 +36,9 @@ class TestScene extends Phaser.Scene
         //this.stage = new Stage(this, 0, 0, 0, 0, data);
         console.log(this.stage.dataGrid);
         
-        this.stage.spawn.spider(200, 200, Direction.SOUTH);
-        //this.player = new SpiderController(this.stage.getActorByType('spider'));
+        const spider = this.stage.spawn.spider(200, 200, Direction.SOUTH);
+        this.stage.spawn.turret(100, 100, Direction.EAST);
+        this.player = new SpiderController(spider);
         
         //this.display = new HUD(this.player);
         
@@ -63,7 +56,7 @@ class TestScene extends Phaser.Scene
     update()
     {
         this.stage.update();
-        //this.player.update();
+        this.player.update();
         //this.display.update();
     }
 }

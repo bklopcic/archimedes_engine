@@ -17,9 +17,10 @@ class TargetingTurret extends Turret
     }
 
     /**
-        Override parent update. Handles updating this sprite
+    * Handles updating this actor
     */
-    update() {
+    action()
+    {
         if (!Actor.prototype.update.call(this)){
             return;
         }
@@ -44,6 +45,6 @@ class TargetingTurret extends Turret
     */
     setTeam(name) {
         this.targeter.tag = name;
-        Actor.prototype.setTeam.call(this, name);
+        super.setTeam(name);
     }
 }

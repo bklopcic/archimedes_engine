@@ -27,7 +27,6 @@ class Stage extends StageGrid
         {
             super(scene, xSize, ySize, ["tile"], offsetX, offsetY);
         }
-        this.teamNames = [];
 
         this.spawn = new ActorManager(this, this.scene.add.group());
         
@@ -36,78 +35,6 @@ class Stage extends StageGrid
             this.spawn.loadActorsFromData(data);
         }
     }
-
-    /**
-        <INTERNAL>
-        Creates an actor based on a specified string. Abstract object factory pattern.
-        NOTE: This is an interal method. To add an actor use stage.addActor()
-        
-        @param StageCoord the position on the grid to add the new actor
-        @param type string the type of actor to be created
-        @param direction Direction property the direction the new Actor will face to start (optional. Defaults to west)
-        @return Actor the newly created Actor
-    */
-    createActor(coord, type, direction)
-    {
-        direction = direction || Direction.WEST;
-        type = type.toUpperCase();
-        
-        switch(type){ //maybe I'll set up an enum for this at some point
-            
-            case "WALL":
-                return new Wall(this, coord);
-                
-            case "TURRET":
-                return new Turret(this, coord, this.propBox, direction);
-                
-            case "TARGETINGTURRET":
-                return new TargetingTurret(this, coord, this.propBox, direction);
-                
-            case "SPIDER":
-                return new Spider(this, coord, direction);
-                
-            case "DECOY":
-                return new Decoy(this, coord);
-                
-            case "GATLINGTURRET":
-                return new GatlingTurret(this, coord, this.propBox, direction);
-                
-            default: 
-                return null;
-        }
-    }
-
-
-
-    /**
-        Creates a new actor of the specified type and adds it to the scene at the specified position. 
-        
-        @param coord StageCoord the starting position of the new Actor
-        @param type string the type of actor to create
-        @param team string the team to add this actor to (optional. If no team is specified a new one will be created for this Actor.).
-        If a team name is passed in that has not yet been added then that team will be added to the Stage and the new Actor will 
-        be a member of it.
-        @param direction Direction property representing the starting face direction of the new Actor (Optional. Defaults to west)
-        @return Actor a reference to the newly created Actor
-    */
-    addActor(coord, type, team, direction)
-    {
-        team = team || null;
-        direction = direction || Direction.WEST;
-        var actor = this.createActor(coord, type, direction);
-        
-        this.actors.add(actor);
-            
-        //actor.body.setCollisionGroup(this.actorCollisionGroup);
-        //actor.body.collides([this.actorCollisionGroup, this.propCollisionGroup], this.collisionHandler, this);
-        
-        
-        this.addToTeam(actor, team);
-        
-        return actor;
-    }
-
-
 
     /**
         Gets the last actor of the specified type

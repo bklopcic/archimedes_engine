@@ -22,7 +22,6 @@ class ActorManager
         const dataArr = [];
         for (let group in this.actorGroups)
         {
-            console.log(group);
             this.actorGroups[group].getChildren().forEach(function(a)
             {
                 dataArr.push(a.getDataLiteral());
@@ -109,7 +108,7 @@ class ActorManager
         for (var i = 0; i < data.actors.length; i++)
         {
             const actor = data.actors[i];
-            this.addActor(actor.type, data.x, data.y, actor.faceDirection);
+            this.spawnActor(actor.type, data.x, data.y, actor.faceDirection);
         }
     }
 
@@ -125,12 +124,12 @@ class ActorManager
         {
             const actor = new ACTOR_TYPES[actorType](this.stage, x, y, faceDirection);
             actor.setActive(false);
-            this.actorGroups[actorType].add(actor, true);
+            this.actorGroups[actorType].add(actor, true); //second arg adds actor to scene
         }
         return this.actorGroups[actorType].getFirstDead();
     }
 
-    addActor(key, x, y, direction, team)
+    spawnActor(key, x, y, direction, team)
     {
         if (!this.actorGroups.hasOwnProperty(key))
         {
@@ -147,19 +146,24 @@ class ActorManager
         return actor;
     }
 
-    spider(x, y, direction)
+    spider(x, y, direction, team)
     {
-        return this.addActor("spider", x, y, direction);
+        return this.spawnActor("spider", x, y, direction, team);
     }
 
-    wall(x, y, direction)
+    wall(x, y, direction, team)
     {
-        return this.addActor("wall", x, y, direction);
+        return this.spawnActor("wall", x, y, direction, team);
     }
 
-    turret(x, y, direction)
+    turret(x, y, direction, team)
     {
-        return this.addActor("turret", x, y, direction);
+        return this.spawnActor("turret", x, y, direction, team);
+    }
+
+    bullet(x, y, direction, team)
+    {
+        return this.spawnActor("bullet", x, y, direction, team);
     }
 }
 
@@ -169,5 +173,6 @@ var ACTOR_TYPES =
     "wall": Wall, 
     "turret": Turret,
     "gatlingturret": GatlingTurret,
-    "decoy": Decoy
+    "decoy": Decoy,
+    "bullet": Bullet
 }

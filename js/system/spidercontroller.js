@@ -67,8 +67,8 @@ class SpiderController
         } 
         else 
         {
-            this.spider.body.velocity.x = this.spider.speed * moveDirection.x;
-            this.spider.body.velocity.y = this.spider.speed * moveDirection.y;
+            this.spider.body.velocity.x = 0;
+            this.spider.body.velocity.y = 0;
         }
         
         //check for building select toggle

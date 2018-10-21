@@ -12,20 +12,26 @@ class Actor extends Phaser.GameObjects.Sprite
         @param key string name of image (or spritesheet) that this actor will use as its body
         @param direction Direction property representing the direction this Actor starts off facing (optional. Defaults to west)
     */
-    constructor(stage, x, y, key, direction) {
-        
+    constructor(stage, x, y, key, direction, belongsToGrid)
+    {    
         const stagePosition = stage.getCoordByPixels(x, y);
-        console.log(stagePosition);
         const currentTile = stage.getTileAt(stagePosition);
         
         super(stage.scene, x, y, key); //call parent constructor in our own context
         
         this.stage = stage;
         this.faceDirection = direction || Direction.WEST;
-        this.stagePosition = stagePosition;
-        this.currentTile = currentTile;
-        this.stage.enterTile(this.stagePosition);
-        
+        this.belongsToGrid = belongsToGrid || true;
+        this.stagePosition = null;
+        this.currentTile = null;
+        if (this.belongsToGrid)
+        {
+            this.stagePosition = stagePosition;
+            this.currentTile = currentTile;
+            this.stage.enterTile(this.stagePosition);
+        }
+
+        this.scene.physics.add.existing(this);
 
         this.OBJ_TYPE = "actor";
         this.ACTOR_TYPE = "actor";
@@ -37,7 +43,7 @@ class Actor extends Phaser.GameObjects.Sprite
         this.attackDamage = 0;
         
         //used to overwrite any child class's update method when plugging them into an external controller
-        this.overridden = false;     
+        this.overridden = false;
     }
 
     /**
@@ -70,18 +76,20 @@ class Actor extends Phaser.GameObjects.Sprite
         
         @return bool representing whether a child class is permitted to continue performing update operations
     */
-    update() 
+    preUpdate() 
     {
-        
-        if (this.currentTile.currentState == this.currentTile.STATES.BURNING){
-            this.burn();
-        }
-        
         if (this.overridden){
-            return false;
+            return;
         }
-        return true;
+        this.action();
     }
+
+    /**
+     * This method should be overriden by child class to process their own internal logic.
+     * action will be called automatically by the parent class if actor is currently able to 
+     * take its own actions.
+     */
+    action(){}
 
     /**
         Handles setting this actor's team
@@ -114,24 +122,16 @@ class Actor extends Phaser.GameObjects.Sprite
     collideWithActor(other) {}
 
     /**
-        Handles the interaction between Actors and FireTiles
-        
-        @param heat number the amount of heat to apply to this Actor
-    */
-    burn() 
-    {
-        //console.log("I'm burning!");
-    }
-
-    /**
         Handles destroying this object.
         NOTE: This eliminates all internal references to this Actor, but in order for the physical object to be
         garbage collected all external references will need to be nullified as well
     */
     die() 
     {
-        this.stage.leaveTile(this.stagePosition);
-        //this.stage.activateTile(this.stagePosition,.5);
+        if (this.belongsToGrid)
+        {
+            this.stage.leaveTile(this.stagePosition);
+        }
         this.setActive(false);
         this.setVisible(false);
     }
@@ -146,7 +146,11 @@ class Actor extends Phaser.GameObjects.Sprite
     {
         this.setPosition(x, y);
         this.faceDirection = faceDirection || Direction.WEST;
-        this.updatePosition();
+        
+        if(this.belongsToGrid)
+        {
+            this.updatePosition();
+        }
         this.setActive(true);
         this.setVisible(true);
     }

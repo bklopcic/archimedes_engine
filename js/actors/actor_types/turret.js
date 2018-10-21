@@ -9,49 +9,59 @@
 */
 class Turret extends Actor
 {
-    constructor(stage, coord, ammo, direction) 
+    constructor(stage, x, y, direction) 
     {
         direction = direction || Direction.WEST;
-        super(stage, coord, "crossbow", direction);
+        super(stage, x, y, "crossbow", direction);
 
         this.ACTOR_TYPE = "turret";
-        
-        this.ammoBox = ammo;
-        this.ammoBox.addProp('bullet', 100, true);
 
         this.faceFrames = [7, 15, 23, 31, 39, 47, 55, 63];
         
-        this.body.static = true;
+        //this.body.static = true;
         
         this.targetable = true;
         
         this.hp = 7;
         this.fireRate = 3000;
         this.bulletSpeed = 250;
-        this.nextFire = this.game.time.now + this.fireRate;
+        this.canFire = false;
 
-        this.updateFrame();
+        //this.updateFrame();
+    }
+
+    reset(x, y, faceDirection)
+    {
+        super.reset(x, y, faceDirection);
+
+        this.canFire = false;
+        this.hp = 7;
+
+        this.setFireEvent();
     }
 
     /**
         Handles updating this turret 
     */
-    update() {
-        if (!Actor.prototype.update.call(this)){
-            return;
-        }
-        
-        if (this.game.time.now >= this.nextFire){
-            this.nextFire += this.fireRate;
-            
+    action()
+    {
+        if (this.canFire)
+        {
+            this.canFire = false;
+            this.setFireEvent();            
             const modifyerX = Direction.modifyer[this.faceDirection].x;
             const modifyerY = Direction.modifyer[this.faceDirection].y;
             
             //standard turret calculates its target as two tiles in front of it in its facing direction
-            const target = new Phaser.Point(this.x +((this.width*2) * modifyerX), this.y+((this.height*2) * modifyerY));
+            const target = new Phaser.Geom.Point(this.x +((this.width*2) * modifyerX), this.y+((this.height*2) * modifyerY));
             
             this.fire(target);        
         }
+    }
+
+    setFireEvent()
+    {
+        this.scene.time.addEvent({delay: this.fireRate, callback: function(){this.canFire = true}, callbackScope: this});
     }
 
     /**
@@ -60,25 +70,24 @@ class Turret extends Actor
         
         @param target Phaser.Point (or any object with x and y properties) to fire the bullet at
     */
-    fire(target) {
-        if (target == null || typeof target == "undefined"){
+    fire(target)
+    {
+        if (!target)
+        {
             return;
         }
-        
-        const bullet = this.ammoBox.getProp('bullet');
-        bullet.OBJ_TYPE = "bullet";
-        bullet.teamTag = this.teamTag;
-        bullet.attackDamage = 1;
+        const bullet = this.stage.spawn.bullet(0, 0, this.faceDirection, this.teamTag);
         const modifyerX = Direction.modifyer[this.faceDirection].x;
         const modifyerY = Direction.modifyer[this.faceDirection].y;
+        bullet.setPosition(this.x +(((this.width/2)+(bullet.width/2)+3) * modifyerX), this.y+(((this.height/2)+(bullet.height/2)+3) * modifyerY));
+        bullet.attackDamage = 1;
         
-        //yes... the +2 is necessary... just trust me on this one (rounding errors)
-        bullet.reset(this.x +(((this.width/2)+(bullet.width/2)+3) * modifyerX), this.y+(((this.height/2)+(bullet.height/2)+3) * modifyerY));
-        this.game.physics.arcade.moveToObject(bullet, target, this.bulletSpeed);
+        this.scene.physics.moveToObject(bullet, target, this.bulletSpeed);
     }
 
-    updateFrame() {
-        //console.log(this.faceDirection);
+    updateFrame()
+    {
+        //this should be taken care of by parent class
         this.frame = this.faceFrames[this.faceDirection -1];
     }
 }

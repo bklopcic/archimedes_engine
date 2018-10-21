@@ -4,7 +4,10 @@ const phaserConfig =
     width: 800,
     height: 600,
     parent: "game-container",
-    scene: [TestScene]
+    scene: [TestScene],
+    physics: {
+        default: "arcade"
+    }
 };
 
 const game = new Phaser.Game(phaserConfig);
