@@ -11,7 +11,7 @@ class ActorManager
     constructor(stage, parentSortGroup)
     {
         this.stage = stage;
-        this.sortGroup = parentSortGroup || this.stage.scene.add.group();
+        this.sortGroup = parentSortGroup || this.stage.scene.add.group(); //TODO: change this to container
 
         this.actorGroups = {};
         this.teamNames = [];
@@ -84,6 +84,7 @@ class ActorManager
     }
 
     /**
+     * Creates a new actor group
      * 
      * @param {string} name the name of this type of actor
      * @param {obj} num (optional) the settings to apply to this group and its members
@@ -95,9 +96,11 @@ class ActorManager
             return;
         }        
         //create a new group and add it to the parent sort group
-        const group = this.actorGroups[name] = new ActorGroup(this.stage.scene, classType);
-        console.log(group);
-        //this.sortGroup.add(group);
+        //TODO: add new group to container (for sorting)
+        this.actorGroups[name] = new ActorGroup(this.stage.scene, classType);
+        for (const group in this.actorGroups) {
+            this.stage.scene.physics.add.overlap(this.actorGroups[name], this.actorGroups[group], this.stage.collisionHandler, this.stage);
+        }
     }
 
     /**
@@ -108,7 +111,7 @@ class ActorManager
         for (var i = 0; i < data.actors.length; i++)
         {
             const actor = data.actors[i];
-            this.spawnActor(actor.type, data.x, data.y, actor.faceDirection);
+            this.spawnActor(actor.type, actor.x, actor.y, actor.faceDirection, actor.team);
         }
     }
 
