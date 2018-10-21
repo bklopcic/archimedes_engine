@@ -44,7 +44,7 @@ class Spider extends Actor
         if (!this.stagePosition.compareCoord(coord)){
             this.stage.leaveTile(this.stagePosition);
             this.stagePosition = coord;
-            this.currentTile = this.stage.getTileAt(this.stagePosition.x, this.stagePosition.y);
+            this.currentTile = this.stage.getTileAt(this.stagePosition);
             this.stage.enterTile(this.stagePosition);
         }
         
@@ -57,7 +57,7 @@ class Spider extends Actor
     updateTarget() {
         this.targetPosition = this.stagePosition.getNeighbor(this.faceDirection);
         if (this.stage.checkInBounds(this.targetPosition)){
-            this.targetTile = this.stage.getTileAt(this.targetPosition.x, this.targetPosition.y);
+            this.targetTile = this.stage.getTileAt(this.targetPosition);
             this.targetBox.x = this.targetTile.x;
             this.targetBox.y = this.targetTile.y;
             this.targetBox.visible = true;

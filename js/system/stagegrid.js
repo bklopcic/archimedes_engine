@@ -31,6 +31,8 @@ class StageGrid
         this.offsetY = offsetY + (this.tileHeight/2);
         
         this.grid = []; //TODO: eliminate this and everything having to do with it
+
+        this.tileGroup = this.scene.add.group();
         
         this.activeTiles = [];
         
@@ -59,6 +61,7 @@ class StageGrid
                 const yPos = (y*this.tileHeight)+this.offsetY;
                 
                 this.grid[y][x] = this.scene.add.image(xPos, yPos, this.tileKeys[0]);
+                this.tileGroup.add(this.grid[y][x]);
                 this.dataGrid[y][x] = 0;
             }
         }
@@ -114,6 +117,7 @@ class StageGrid
     {
         const rawOffsetX = this.offsetX - (this.tileWidth/2);
         const rawOffsetY = this.offsetY - (this.tileHeight/2);
+        console.log(rawOffsetX, rawOffsetY);
         return new StageCoord(Math.floor((x-rawOffsetX)/this.tileWidth), Math.floor((y-rawOffsetY)/this.tileHeight));
     }
 

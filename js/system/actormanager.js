@@ -20,9 +20,10 @@ class ActorManager
     get dataLiteral()
     {
         const dataArr = [];
-        for (group in this.actorGroups)
+        for (let group in this.actorGroups)
         {
-            group.children.each(function(a)
+            console.log(group);
+            this.actorGroups[group].getChildren().forEach(function(a)
             {
                 dataArr.push(a.getDataLiteral());
             });
@@ -123,7 +124,8 @@ class ActorManager
         for (let i = 0; i < num; i++)
         {
             const actor = new ACTOR_TYPES[actorType](this.stage, x, y, faceDirection);
-            this.actorGroups[actorType].add(actor);
+            actor.setActive(false);
+            this.actorGroups[actorType].add(actor, true);
         }
         return this.actorGroups[actorType].getFirstDead();
     }
@@ -134,9 +136,14 @@ class ActorManager
         {
             this.addActorGroup(key, ACTOR_TYPES[key]);
         }
-        const actor = this.instantiateActor(key);
-        this.addActorToTeam(this, team);
+        let actor = this.actorGroups[key].getFirstDead();
+        if (!actor)
+        {
+            actor = this.instantiateActor(key, x, y, direction);
+        }
+        this.addActorToTeam(actor, team);
         actor.reset(x, y, direction);
+        console.log(actor);
         return actor;
     }
 

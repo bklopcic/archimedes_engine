@@ -29,7 +29,7 @@ class Stage extends StageGrid
         }
         this.teamNames = [];
 
-        this.spawn = new ActorManager(this.scene.add.group());
+        this.spawn = new ActorManager(this, this.scene.add.group());
         
         if (data)
         {

@@ -14,11 +14,11 @@ class Actor extends Phaser.GameObjects.Sprite
     */
     constructor(stage, x, y, key, direction) {
         
-        //in case what is passed in is not actually a StageCoord (JSON data)
         const stagePosition = stage.getCoordByPixels(x, y);
-        const currentTile = stage.getTileAt(stagePosition.x, stagePosition.y);
+        console.log(stagePosition);
+        const currentTile = stage.getTileAt(stagePosition);
         
-        super(stage.scene, currentTile.x, currentTile.y, key); //call parent constructor in our own context
+        super(stage.scene, x, y, key); //call parent constructor in our own context
         
         this.stage = stage;
         this.faceDirection = direction || Direction.WEST;
@@ -52,7 +52,7 @@ class Actor extends Phaser.GameObjects.Sprite
         if (!this.stagePosition.compareCoord(coord)){
             this.stage.leaveTile(this.scenePosition);
             this.stagePosition = coord;
-            this.currentTile = this.stage.getTileAt(this.stagePosition.x, this.stagePosition.y);
+            this.currentTile = this.stage.getTileAt(this.stagePosition);
             this.stage.enterTile(this.stagePosition);
         }
     }
@@ -131,7 +131,7 @@ class Actor extends Phaser.GameObjects.Sprite
     die() 
     {
         this.stage.leaveTile(this.stagePosition);
-        this.stage.activateTile(this.stagePosition,.5);
+        //this.stage.activateTile(this.stagePosition,.5);
         this.setActive(false);
         this.setVisible(false);
     }

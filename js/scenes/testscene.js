@@ -44,7 +44,7 @@ class TestScene extends Phaser.Scene
         //this.stage = new Stage(this, 0, 0, 0, 0, data);
         console.log(this.stage.dataGrid);
         
-        this.player = new SpiderController(this.stage.spawn.spider(100, 100, Direction.NORTH));
+        this.stage.spawn.spider(200, 200, Direction.SOUTH);
         //this.player = new SpiderController(this.stage.getActorByType('spider'));
         
         //this.display = new HUD(this.player);
