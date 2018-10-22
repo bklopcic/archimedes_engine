@@ -30,9 +30,8 @@ class StageGrid
         this.offsetX = offsetX + (this.tileWidth/2); 
         this.offsetY = offsetY + (this.tileHeight/2);
         
-        this.grid = []; //TODO: eliminate this and everything having to do with it
-
-        this.tileGroup = this.scene.add.group();
+        //a single txture 
+        this.tiles = this.scene.add.renderTexture(0, 0, this.tileWidth * this.xSize, this.tileHeight * this.ySize);
         
         this.activeTiles = [];
         
@@ -53,15 +52,13 @@ class StageGrid
     {
         for (let y = 0; y < this.ySize; y++)
         {
-            this.grid[y] = [];
             this.dataGrid[y] = [];
             for(let x = 0; x < this.xSize; x++)
             {
                 const xPos = (x*this.tileWidth)+this.offsetX;
                 const yPos = (y*this.tileHeight)+this.offsetY;
                 
-                this.grid[y][x] = this.scene.add.image(xPos, yPos, this.tileKeys[0]);
-                this.tileGroup.add(this.grid[y][x]);
+                this.tiles.draw(this.scene.add.image(xPos, yPos, this.tileKeys[0]));
                 this.dataGrid[y][x] = 0;
             }
         }
@@ -94,14 +91,14 @@ class StageGrid
 
 
     /**
-        Returns the tile at a specified position in the Stage's tile grid
+        Returns the pixel coordinate of a specified StageCoord
         
         @param {StageCoord} coord the position on the grid to retrieve the tile from
-        @return Phaser.Sprite
+        @return Phaser.Geom.Point representing the pixel coordinate of the StageCoord
     */
     getTileAt(coord) 
     {
-        return this.grid[coord.y][coord.x];
+        return new Phaser.Geom.Point(coord.x * this.tileWidth + this.offsetX, coord.y * this.tileHeight + this.offsetY);
     }
 
     /**
@@ -128,7 +125,7 @@ class StageGrid
     */
     checkInBounds(coord) 
     {
-        return (coord.x >= 0 && coord.x < this.grid[0].length && coord.y >= 0 && coord.y < this.grid.length);
+        return (coord.x >= 0 && coord.x < this.xSize && coord.y >= 0 && coord.y < this.ySize);
     }
 
     /**

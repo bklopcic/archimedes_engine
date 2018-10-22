@@ -7,10 +7,11 @@
 class Actor extends Phaser.GameObjects.Sprite
 {
     /**
-        @param stage Stage that this Actor belongs to
-        @param coord StageCoord of the starting position of this Actor
-        @param key string name of image (or spritesheet) that this actor will use as its body
-        @param direction Direction property representing the direction this Actor starts off facing (optional. Defaults to west)
+        @param {Stage} stage Stage that this Actor belongs to
+        @param {StageCoord} coord StageCoord of the starting position of this Actor
+        @param {string} key string name of image (or spritesheet) that this actor will use as its body
+        @param {Direction.prop} direction Direction property representing the direction this Actor starts off facing (optional. Defaults to west)
+        @param {bool} belongsToGrid whether the grid should track this Actor's position
     */
     constructor(stage, x, y, key, direction, belongsToGrid)
     {    
@@ -32,7 +33,7 @@ class Actor extends Phaser.GameObjects.Sprite
         }
 
         this.scene.physics.add.existing(this);
-        
+
         //whether or not collision physics should effect this actor when it overlaps another actor
         //collision will only occur if both actors have collideable set to true
         //if neither object is collideable then collision callbacks will not occur
@@ -109,9 +110,6 @@ class Actor extends Phaser.GameObjects.Sprite
     takeHit(damage) 
     {
         this.hp -= damage;
-        if (this.hp <= 0){
-            this.die();
-        }
     }
 
     /**
@@ -132,9 +130,15 @@ class Actor extends Phaser.GameObjects.Sprite
 
     /**
      * This method is called after the collision handler has been called on both actors.
-     * This is where Actors should run any necessary operations on themselves for collision
+     * This is where Actors should run any necessary operations on themselves for collision.
      */
-    postCollision(){}
+    postCollision()
+    {
+        if (this.hp <= 0)
+        {
+            this.die();
+        }
+    }
 
     /**
         Handles destroying this object.
@@ -149,6 +153,7 @@ class Actor extends Phaser.GameObjects.Sprite
         }
         this.setActive(false);
         this.setVisible(false);
+        this.body.enable = false;
     }
 
     /**
@@ -168,6 +173,7 @@ class Actor extends Phaser.GameObjects.Sprite
         }
         this.setActive(true);
         this.setVisible(true);
+        this.body.enable = true;
     }
 
     /**
@@ -179,9 +185,10 @@ class Actor extends Phaser.GameObjects.Sprite
     {
         const data = {};
         data.type = this.ACTOR_TYPE;
-        data.stagePosition = this.stagePosition;
-        data.team = this.teamTag;
+        data.x = this.x;
+        data.y = this.y;
         data.faceDirection = this.faceDirection;
+        data.team = this.teamTag;
         return data;
     }
 

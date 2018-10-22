@@ -37,8 +37,8 @@ class TestScene extends Phaser.Scene
         console.log(this.stage.dataGrid);
         
         const spider = this.stage.spawn.spider(200, 200, Direction.SOUTH);
-        this.stage.spawn.turret(100, 100, Direction.EAST);
-        this.stage.spawn.turret(400, 100, Direction.EAST);
+        this.stage.spawn.turret(100, 100, Direction.EAST, "enemy");
+        this.stage.spawn.targetingTurret(400, 100, Direction.EAST, "enemy");
         this.player = new SpiderController(spider);
         
         //this.display = new HUD(this.player);

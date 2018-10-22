@@ -13,7 +13,7 @@ class TargetingTurret extends Turret
             
         this.fireRate = 2000;
         this.range = 300; 
-        this.targeter = new TargetingSystem(this.scene, new Phaser.Point(this.x, this.y), this.scene.actors, this.teamTag, this.range);
+        this.targeter = new TargetingSystem(this.stage, new Phaser.Geom.Point(this.x, this.y), this.teamTag, this.range);
     }
 
     /**
@@ -21,18 +21,15 @@ class TargetingTurret extends Turret
     */
     action()
     {
-        if (!Actor.prototype.update.call(this)){
-            return;
-        }
-
         if (this.targeter.checkTargetInRange())
         {
             this.faceDirection = this.targeter.getDirectionToTarget();
             this.updateFrame();
         }
         
-        if(this.game.time.now >= this.nextFire){  
-            this.nextFire += this.fireRate;
+        if(this.canFire){  
+            this.canFire = false;
+            this.setFireEvent();
             
             if (this.targeter.acquireTarget() && this.targeter.checkTargetInRange()){
                 this.fire(this.targeter.getTargetPosition());

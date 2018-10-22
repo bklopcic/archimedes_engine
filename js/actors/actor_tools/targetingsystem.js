@@ -2,18 +2,17 @@
     This object can be used by Actors to find other actors and their positions based on given criteria. 
     
     @param position StageCoord the current position of the Actor that owns this TargetingSystem
-    @param group Phaser.Group containing the Actors in on the stage with the Actor that owns this TargetingSystem
+    @param group actorGroup container containing the Actors in on the stage with the Actor that owns this TargetingSystem
     @param tag string the teamTag property of this TargetingSystem's owner
     @param range number the targeting range of this TargetingSystem's owner (optional. Defaults to 0)
     @param target Actor the actor for this Object to start out targeting.
 */
 class TargetingSystem 
 {
-    constructor(stage, position, group, tag, range, target)
+    constructor(stage, position, tag, range, target)
     {
         this.stage = stage
         this.position = position;
-        this.group = group;
         this.tag = tag;
         this.range = range || 0;
         this.target = target || null;
@@ -26,7 +25,6 @@ class TargetingSystem
     */
     acquireTarget() 
     {
-        
         this.target = this.findClosestEnemy();
         return this.target;
     }
@@ -36,8 +34,13 @@ class TargetingSystem
     */
     getTargetCoord() 
     {
-        if (this.target != null){
-            return this.target.scenePosition;
+        if (this.target)
+        {
+            const pos = this.target.stagePosition;
+            if (pos)
+            {
+                return new StageCoord(pos.x, pos.y);
+            }
         }
         return null;
     }
@@ -49,7 +52,7 @@ class TargetingSystem
     {
         if (this.target != null)
         {
-            return new Phaser.Point(this.target.x, this.target.y);
+            return new Phaser.Geom.Point(this.target.x, this.target.y);
         }
         return null;
     }
@@ -64,7 +67,7 @@ class TargetingSystem
     */
     getDistance(obj1, obj2) 
     {
-        return Phaser.Math.distance(obj1.x, obj1.y, obj2.x, obj2.y);
+        return Phaser.Math.Distance.Between(obj1.x, obj1.y, obj2.x, obj2.y);
     }
 
     /**
@@ -101,7 +104,7 @@ class TargetingSystem
     */
     calcDistanceToTarget() 
     {
-        if (this.target != null)
+        if (this.target)
         {
             return this.getDistance(this.position, this.target);
         }
@@ -131,27 +134,34 @@ class TargetingSystem
     }
 
     /**
-        Finds the nearest enemy
-        DEV NOTE: The current version of Phaser has an implementation of this (group.getClosestTo). This method should be
-        replaced by Phaser's if Arena is updated to the most recent verion of Phaser
+        Finds the nearest targetable enemy
+
+        NOTE: avoid calling this more often than you need to
         
         @return Actor
     */
     findClosestEnemy() 
     {
-        let closest = null;
-        let distance = null;
-        this.group.forEach(function(a)
+        let closest, distance;
+        const actors = this.stage.spawn.actorArray;
+
+        for (let i = 0; i < actors.length; i++)
         {
+            const a = actors[i];
+            if (!a.active || !a.targetable) //inefficient to have to iterate through dead actors... find something to do about this?
+            {
+                continue;
+            }
             if (this.checkIfEnemy(a))
             {
-                if (closest == null || this.getDistance(this.position, a) < distance)
+                const objDist = this.getDistance(this.position, a);
+                if (!closest || objDist < distance)
                 {
                     closest = a;
-                    distance = this.getDistance(this.position, a);
+                    distance = objDist;
                 }
             }
-        }, this);
+        }
         return closest;
     }
 

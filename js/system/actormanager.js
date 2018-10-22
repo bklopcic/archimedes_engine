@@ -14,6 +14,7 @@ class ActorManager
         this.sortGroup = parentSortGroup || this.stage.scene.add.group(); //TODO: change this to container
 
         this.actorGroups = {};
+        this.actorArray = []; //this exists for quick iteration of all actors
         this.teamNames = [];
     }
 
@@ -128,6 +129,7 @@ class ActorManager
             const actor = new ACTOR_TYPES[actorType](this.stage, x, y, faceDirection);
             actor.setActive(false);
             this.actorGroups[actorType].add(actor, true); //second arg adds actor to scene
+            this.actorArray.push(actor);
         }
         return this.actorGroups[actorType].getFirstDead();
     }
@@ -163,6 +165,11 @@ class ActorManager
         return this.spawnActor("turret", x, y, direction, team);
     }
 
+    targetingTurret(x, y, direction, team)
+    {
+        return this.spawnActor("targetingturret", x, y, direction, team);
+    }
+
     bullet(x, y, direction, team)
     {
         return this.spawnActor("bullet", x, y, direction, team);
@@ -171,10 +178,11 @@ class ActorManager
 
 var ACTOR_TYPES = 
 {
-    "spider": Spider, 
-    "wall": Wall, 
-    "turret": Turret,
-    "gatlingturret": GatlingTurret,
-    "decoy": Decoy,
-    "bullet": Bullet
+    spider: Spider, 
+    wall: Wall, 
+    turret: Turret,
+    targetingturret: TargetingTurret,
+    gatlingturret: GatlingTurret,
+    decoy: Decoy,
+    bullet: Bullet
 }
