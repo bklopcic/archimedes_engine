@@ -17,15 +17,16 @@ class Turret extends Actor
         this.ACTOR_TYPE = "turret";
 
         this.faceFrames = [7, 15, 23, 31, 39, 47, 55, 63];
-        
-        //this.body.static = true;
-        
+                
         this.targetable = true;
+        this.collideable = true;
+        this.body.immovable = true;
         
         this.hp = 7;
         this.fireRate = 3000;
         this.bulletSpeed = 250;
         this.canFire = false;
+
 
         //this.updateFrame();
     }

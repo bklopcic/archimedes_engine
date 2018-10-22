@@ -99,7 +99,7 @@ class ActorManager
         //TODO: add new group to container (for sorting)
         this.actorGroups[name] = new ActorGroup(this.stage.scene, classType);
         for (const group in this.actorGroups) {
-            this.stage.scene.physics.add.overlap(this.actorGroups[name], this.actorGroups[group], this.stage.collisionHandler, this.stage);
+            this.stage.scene.physics.add.overlap(this.actorGroups[name], this.actorGroups[group], this.stage.collisionHandler, null, this.stage);
         }
     }
 
@@ -145,7 +145,6 @@ class ActorManager
         }
         this.addActorToTeam(actor, team);
         actor.reset(x, y, direction);
-        console.log(actor);
         return actor;
     }
 

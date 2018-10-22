@@ -32,9 +32,11 @@ class Actor extends Phaser.GameObjects.Sprite
         }
 
         this.scene.physics.add.existing(this);
-
-        this.OBJ_TYPE = "actor";
-        this.ACTOR_TYPE = "actor";
+        
+        //whether or not collision physics should effect this actor when it overlaps another actor
+        //collision will only occur if both actors have collideable set to true
+        //if neither object is collideable then collision callbacks will not occur
+        this.collideable = false;
         
         this.teamTag = "-1";
         this.targetable = false;
@@ -113,13 +115,26 @@ class Actor extends Phaser.GameObjects.Sprite
     }
 
     /**
-        Hanldes collisions between this Actor and other Actors
-        NOTE: the actor passed into this method should generally not be mutated as, during collision event,
-        that actor will have this same method called on it as well with this object passed in.
-        
-        @param other Actor that this Actor collided with
+    *   Handles collisions between this Actor and other Actors on a different team
+    * 
+    *   NOTE: this method is called on both Actors  
+    *   @param {Actor} other Actor that this Actor collided with
     */
-    collideWithActor(other) {}
+    enemyCollision(other) {}
+
+    /**
+    *   Handles collisions between this Actor and other Actors on the same team
+    *   
+    *   NOTE: this method is called on both Actors  
+    *   @param {Actor} other Actor that this Actor collided with
+    */
+    friendlyCollision(other) {}
+
+    /**
+     * This method is called after the collision handler has been called on both actors.
+     * This is where Actors should run any necessary operations on themselves for collision
+     */
+    postCollision(){}
 
     /**
         Handles destroying this object.

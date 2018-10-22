@@ -117,7 +117,6 @@ class StageGrid
     {
         const rawOffsetX = this.offsetX - (this.tileWidth/2);
         const rawOffsetY = this.offsetY - (this.tileHeight/2);
-        console.log(rawOffsetX, rawOffsetY);
         return new StageCoord(Math.floor((x-rawOffsetX)/this.tileWidth), Math.floor((y-rawOffsetY)/this.tileHeight));
     }
 

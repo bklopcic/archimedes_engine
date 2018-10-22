@@ -6,5 +6,7 @@ class Bullet extends Actor
     constructor(stage, x, y, direction)
     {
         super(stage, x, y, "bullet", direction, false);
+
+        this.collideable = true;
     }
 }

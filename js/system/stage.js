@@ -57,30 +57,47 @@ class Stage extends StageGrid
 
 
     /**
-        Resolves collisions between two bodies on the stage (Actor or prop)
+     * resolves collisions between actors by the following ruleset:
+     *      - actors' collision handlers will only be called if at least one actor is collideable
+     * 
+     *      - if both actors are collideable, collision physics will be applied, otherwise they will simply overlap
+     * 
+     *      - if colliding actors are on the same team, their internal friendlyCollision() methods will be
+     *        called in turn, passing in a reference to the other actor
+     * 
+     *      - if the actors are not on the same team, enemyCollision() wil be called instead, also passing a reference
+     * 
+     *      - each actor will have postCollision() called after either enemyCollision  or friendlyCollision has been
+     *        invoked on both actors
     */
-    collisionHandler(obj1, obj2)
+    collisionHandler(actor1, actor2)
     {
-        obj1 = obj1.sprite; 
-        obj2 = obj2.sprite;
-        if(obj2.OBJ_TYPE == "bullet" && obj2.alive && obj1.OBJ_TYPE == "actor")
+        if (actor1.collideable || actor2.collideable)
         {
-            if (obj2.teamTag != obj1.teamTag)
+            if (actor1.collideable && actor2.collideable)
             {
-                obj1.takeHit(obj2.attackDamage);
-            } 
-            obj2.kill();
-        } 
-        else if (obj2.OBJ_TYPE == "actor" && obj1.OBJ_TYPE == "actor")
-        {
-            obj1.collideWithActor(obj2);
+                this.scene.physics.collide(actor1, actor2); //apply collision physics
+            }
+
+            if (actor1.teamTag == actor2.teamTag)
+            {
+                actor1.friendlyCollision(actor2);
+                actor2.friendlyCollision(actor1);
+            }
+            else
+            {
+                actor1.enemyCollision(actor2);
+                actor2.enemyCollision(actor1);
+            }
+            actor1.postCollision();
+            actor2.postCollision();
         }
     }
     
     
     
     /**
-        @retutn a JSON validate stringification of essential datamembers of this stage
+        @return a JSON validate stringification of essential datamembers of this stage
     */
     toString()
     {
