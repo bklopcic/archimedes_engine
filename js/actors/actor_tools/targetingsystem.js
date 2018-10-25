@@ -172,14 +172,8 @@ class TargetingSystem
     */
     getDirectionToTarget() 
     {
-        const targetCoord = this.getTargetCoord();
-        const coord = this.stage.getCoordByPixels(this.position.x, this.position.y);
-        let offsetX = targetCoord.x - coord.x;
-        let offsetY = targetCoord.y - coord.y;
-        offsetX = offsetX == 0 ? offsetX : offsetX/Math.abs(offsetX); //so that we don't try to divide by 0...
-        offsetY = offsetY == 0 ? offsetY : offsetY/Math.abs(offsetY);
-        const modifyer = {x: offsetX, y:offsetY};
-        
-        return Direction.modifyerToDirection(modifyer);
+        const angle = Phaser.Math.Angle.BetweenPoints(this.position, this.target);
+        const direction = Math.ceil((angle/((Math.PI * 2)/8)+4)%8); //transform radian angle to direction
+        return direction;
     }
 }

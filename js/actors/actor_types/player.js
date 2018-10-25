@@ -5,7 +5,7 @@
     its current position and the direction it's facing
     
     */
-class Spider extends Actor
+class Player extends Actor
 {
     
     /**
@@ -16,8 +16,8 @@ class Spider extends Actor
     constructor(stage, x, y, direction) 
     {
         direction = direction || Direction.WEST;
-        super(stage, x, y, 'spider', direction);
-        this.ACTOR_TYPE = "spider";
+        super(stage, x, y, "ball", direction);
+        this.ACTOR_TYPE = "player";
         
         //this.body.fixedRotation = true;
         
@@ -30,13 +30,15 @@ class Spider extends Actor
         this.targetTile;
         this.targetBox = this.scene.add.sprite(0, 0, 'targetBox');
         this.targetBox.setOrigin(.5,.5);
+        this.setScale(.8,.8);
         this.updateTarget(); //initializes target variables
     }
 
     /**
         Handles updating this Spider's position on the stage and setting all values accordingly.
     */
-    updatePosition() {
+    updatePosition() 
+    {
         const xModifyer = Direction.modifyer[this.faceDirection].x;
         const yModifyer = Direction.modifyer[this.faceDirection].y;
         const coord = this.stage.getCoordByPixels(this.x +((this.width/2)*xModifyer), this.y+((this.height/2)*yModifyer));
@@ -54,14 +56,18 @@ class Spider extends Actor
     /**
         Handles updating the target tile of this Spider
     */
-    updateTarget() {
+    updateTarget()
+    {
         this.targetPosition = this.stagePosition.getNeighbor(this.faceDirection);
-        if (this.stage.checkInBounds(this.targetPosition)){
+        if (this.stage.checkInBounds(this.targetPosition))
+        {
             this.targetTile = this.stage.getTileAt(this.targetPosition);
             this.targetBox.x = this.targetTile.x;
             this.targetBox.y = this.targetTile.y;
             this.targetBox.visible = true;
-        } else {
+        } 
+        else 
+        {
             this.targetTile = null;
             this.targetBox.visible = false;
         }
@@ -74,7 +80,8 @@ class Spider extends Actor
         @param actorType string the type of Actor to create
         @return bool whether the new Actor was successfully built
     */
-    build(actorType) {
+    build(actorType) 
+    {
         if (this.stage.checkInBounds(this.targetPosition) && this.stage.checkIfEmpty(this.targetPosition)){
             this.stage.addActor(this.targetPosition, actorType, this.teamTag, this.faceDirection);
             return true;
@@ -85,7 +92,8 @@ class Spider extends Actor
     /**
         Override parent die method. Hanldes cleaning up this Spider's other associated sprites
     */
-    die() {
+    die() 
+    {
         this.targetBox.destroy();
         Actor.prototype.die.call(this);
     }

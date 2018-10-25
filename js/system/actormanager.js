@@ -150,9 +150,9 @@ class ActorManager
         return actor;
     }
 
-    spider(x, y, direction, team)
+    player(x, y, direction, team)
     {
-        return this.spawnActor("spider", x, y, direction, team);
+        return this.spawnActor("player", x, y, direction, team);
     }
 
     wall(x, y, direction, team)
@@ -178,7 +178,7 @@ class ActorManager
 
 var ACTOR_TYPES = 
 {
-    spider: Spider, 
+    player: Player, 
     wall: Wall, 
     turret: Turret,
     targetingturret: TargetingTurret,

@@ -19,6 +19,7 @@ class TestScene extends Phaser.Scene
         this.load.image('bullet', 'assets/img/bullet.png');
         this.load.image('x', 'assets/img/x.png');
         this.load.image('fire', 'assets/img/fire.png');
+        this.load.image("ball", "assets/img/greenball.png");
         this.load.spritesheet('crossbow', 'assets/img/crossbow_spritesheet.png', {frameWidth: 92, frameHeight: 90, frameCount:64});
         this.load.json('data', 'data/test.json');
     
@@ -36,10 +37,10 @@ class TestScene extends Phaser.Scene
         //this.stage = new Stage(this, 0, 0, 0, 0, data);
         console.log(this.stage.dataGrid);
         
-        const spider = this.stage.spawn.spider(200, 200, Direction.SOUTH);
+        const player = this.stage.spawn.player(200, 200, Direction.SOUTH);
         this.stage.spawn.turret(100, 100, Direction.EAST, "enemy");
         this.stage.spawn.targetingTurret(400, 100, Direction.EAST, "enemy");
-        this.player = new SpiderController(spider);
+        this.player = new SpiderController(player);
         
         //this.display = new HUD(this.player);
         

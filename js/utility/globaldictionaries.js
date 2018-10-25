@@ -42,23 +42,23 @@ var Direction = {
         //NOTE: if the syntax for this changes, TargetingSystem.getDirectionToTarget will need to be updated
         
         if (modifyer.x == 0 && modifyer.y == 0){
-            return 0;
+            return this.NONE;
         } else if (modifyer.x == -1 && modifyer.y == 0){
-            return 1;
+            return this.WEST;
         } else if (modifyer.x == -1 && modifyer.y == -1){
-            return 2;
+            return this.NORTHWEST;
         } else if (modifyer.x == 0 && modifyer.y == -1){
-            return 3;
+            return this.NORTH;
         } else if (modifyer.x == 1 && modifyer.y == -1){
-            return 4;
+            return this.NORTHEAST;
         } else if (modifyer.x == 1 && modifyer.y == 0){
-            return 5;
+            return this.EAST;
         } else if (modifyer.x == 1 && modifyer.y == 1){
-            return 6;
+            return this.SOUTHEAST;
         } else if (modifyer.x == 0 && modifyer.y == 1){
-            return 7;
+            return this.SOUTH;
         } else if (modifyer.x == -1 && modifyer.y == 1){
-            return 8;
+            return this.SOUTHWEST;
         } 
     }
 }
