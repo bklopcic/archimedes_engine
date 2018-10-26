@@ -78,7 +78,7 @@ class Stage extends StageGrid
             {
                 this.scene.physics.collide(actor1, actor2); //apply collision physics
             }
-
+            
             if (actor1.teamTag == actor2.teamTag)
             {
                 actor1.friendlyCollision(actor2);
@@ -106,8 +106,6 @@ class Stage extends StageGrid
         data.ySize = this.ySize;
         data.tile = this.tileKey;
         data.actors = this.spawn.dataLiteral;
-        
-        
         return JSON.stringify(data);
     }
 }

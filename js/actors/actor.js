@@ -32,7 +32,9 @@ class Actor extends Phaser.GameObjects.Sprite
             this.stage.enterTile(this.stagePosition);
         }
 
+        this.setOrigin(.5,.5);
         this.scene.physics.add.existing(this);
+
 
         //whether or not collision physics should effect this actor when it overlaps another actor
         //collision will only occur if both actors have collideable set to true

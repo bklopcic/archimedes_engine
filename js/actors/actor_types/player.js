@@ -23,6 +23,7 @@ class Player extends Actor
         
         this.speed = 100;
         this.targetable = true;
+        this.collideable = true;
             
         this.maxHp = 10;
         this.hp = this.maxHp;
