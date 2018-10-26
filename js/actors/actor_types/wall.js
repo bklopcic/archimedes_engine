@@ -6,14 +6,15 @@
 */
 class Wall extends Actor
 {
-    constructor(stage, coord)
+    constructor(stage, x, y)
     {
-        super(stage, coord, 'wall');
+        super(stage, x, y, 'wall');
 
         this.ACTOR_TYPE = "wall";
         
-        this.body.static = true; //He doesn't move
+        this.body.immovable = true; //He doesn't move
         
+        this.collideable = true;
         this.targetable = false; //He can't be directly targeted
     }
 }

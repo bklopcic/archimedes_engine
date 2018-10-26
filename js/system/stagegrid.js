@@ -20,8 +20,8 @@ class StageGrid
         offsetY = offsetY || 0;
         
         //get our tile width and height directly from the image in the cache
+        //TODO: change this to be stored in a json file that has info about a scene's tiles
         let testTile = this.scene.textures.get(this.tileKeys[0]).source[0];
-        console.log(testTile);
         this.tileWidth = testTile.width;
         this.tileHeight = testTile.height;
         testTile = null;

@@ -31,7 +31,7 @@ class Player extends Actor
         this.targetTile;
         this.targetBox = this.scene.add.sprite(0, 0, 'targetBox');
         this.targetBox.setOrigin(.5,.5);
-        this.setScale(.8,.8);
+        this.setScale(.4,.4);
         this.updateTarget(); //initializes target variables
     }
 
@@ -42,6 +42,7 @@ class Player extends Actor
     {
         const xModifyer = Direction.modifyer[this.faceDirection].x;
         const yModifyer = Direction.modifyer[this.faceDirection].y;
+        //an acotr's position is the last tile any part of it moved into
         const coord = this.stage.getCoordByPixels(this.x +((this.width/2)*xModifyer), this.y+((this.height/2)*yModifyer));
         
         if (!this.stagePosition.compareCoord(coord)){
@@ -84,7 +85,7 @@ class Player extends Actor
     build(actorType) 
     {
         if (this.stage.checkInBounds(this.targetPosition) && this.stage.checkIfEmpty(this.targetPosition)){
-            this.stage.addActor(this.targetPosition, actorType, this.teamTag, this.faceDirection);
+            this.stage.spawn.spawnActor(actorType, this.targetBox.x, this.targetBox.y, this.faceDirection, this.teamTag);
             return true;
         }
         return false

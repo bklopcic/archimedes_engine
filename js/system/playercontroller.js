@@ -28,7 +28,8 @@ class PlayerController
             DOWN: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN),
             LEFT: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
             RIGHT: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
-            SPACEBAR: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+            SPACEBAR: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
+            E: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
         };
     }
 
@@ -58,18 +59,19 @@ class PlayerController
             this.actor.body.setVelocity(0, 0);
         }
         
-        // //check for building select toggle
-        // if(this.game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 10))
-        // {
-        //     this.selectedBuilding = (this.selectedBuilding + 1) % this.buildings.length;
-        // }
+        //check for building select toggle
+        if(this.controlKeys.SPACEBAR.duration >= 10)
+        {
+            this.selectedBuilding = (this.selectedBuilding + 1) % this.buildings.length;
+        }
         
-        // //check for build input
-        // if (this.game.input.keyboard.downDuration(Phaser.Keyboard.E, 10)) 
-        // {
-        //     this.spider.build(this.buildings[this.selectedBuilding]);
-        //     console.log(this.spider.scene.dataGrid);
-        // }
+        //check for build input
+        if (this.controlKeys.E.duration >= 10) 
+        {
+            this.controlKeys.E.reset();
+            this.actor.build(this.buildings[this.selectedBuilding]);
+            console.log(this.actor.stage.dataGrid);
+        }
     }
 
     checkMoveInput()

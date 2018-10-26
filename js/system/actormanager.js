@@ -21,13 +21,9 @@ class ActorManager
     get dataLiteral()
     {
         const dataArr = [];
-        for (let group in this.actorGroups)
-        {
-            this.actorGroups[group].getChildren().forEach(function(a)
-            {
-                dataArr.push(a.getDataLiteral());
-            });
-        }
+        this.actorArray.forEach(a => {
+            dataArr.push(a.dataLiteral);
+        });
         return dataArr;
     }
 

@@ -52,6 +52,22 @@ class Actor extends Phaser.GameObjects.Sprite
     }
 
     /**
+    *   Returns an object literal containing the essential properties the stage needs to know in order to
+    *   make a copt of this object. Mainly for outputting to JSON. This makes it easier for children to
+    *   append properties when overriding Actor.toString.
+    */
+    get dataLiteral()
+    {
+        const data = {};
+        data.type = this.ACTOR_TYPE;
+        data.x = this.x;
+        data.y = this.y;
+        data.faceDirection = this.faceDirection;
+        data.team = this.teamTag;
+        return data;
+    }
+
+    /**
         Updates this Actor's properties to reflect it's current coordinate on the stage
         NOTE: call any time an actor moves
     */
@@ -61,7 +77,7 @@ class Actor extends Phaser.GameObjects.Sprite
         const coord = this.stage.getCoordByPixels(this.x, this.y);
         
         if (!this.stagePosition.compareCoord(coord)){
-            this.stage.leaveTile(this.scenePosition);
+            this.stage.leaveTile(this.stagePosition);
             this.stagePosition = coord;
             this.currentTile = this.stage.getTileAt(this.stagePosition);
             this.stage.enterTile(this.stagePosition);
@@ -176,22 +192,6 @@ class Actor extends Phaser.GameObjects.Sprite
         this.setActive(true);
         this.setVisible(true);
         this.body.enable = true;
-    }
-
-    /**
-        Returns an object literal containing the essential properties the stage needs to know in order to
-        make a copt of this object. Mainly for outputting to JSON. This makes it easier for children to
-        append properties when overriding Actor.toString.
-    */
-    getDataLiteral() 
-    {
-        const data = {};
-        data.type = this.ACTOR_TYPE;
-        data.x = this.x;
-        data.y = this.y;
-        data.faceDirection = this.faceDirection;
-        data.team = this.teamTag;
-        return data;
     }
 
     toString() 
