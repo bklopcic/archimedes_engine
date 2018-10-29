@@ -81,7 +81,7 @@ class Turret extends Actor
         const bullet = this.stage.spawn.bullet(0, 0, this.faceDirection, this.teamTag);
         const modifyerX = Direction.modifyer[this.faceDirection].x;
         const modifyerY = Direction.modifyer[this.faceDirection].y;
-        bullet.setPosition(this.x +(((this.width/2)+(bullet.width/2)+3) * modifyerX), this.y+(((this.height/2)+(bullet.height/2)+3) * modifyerY));
+        bullet.setPosition(this.x +(((this.sprite.width/2)+(bullet.width/2)+3) * modifyerX), this.y+(((this.sprite.height/2)+(bullet.height/2)+3) * modifyerY));
         bullet.attackDamage = this.attackDamage;
         
         this.scene.physics.moveToObject(bullet, target, this.bulletSpeed);
@@ -90,6 +90,6 @@ class Turret extends Actor
     updateFrame()
     {
         //this should be taken care of by parent class
-        this.setFrame(this.faceFrames[this.faceDirection -1]);
+        this.sprite.setFrame(this.faceFrames[this.faceDirection -1]);
     }
 }

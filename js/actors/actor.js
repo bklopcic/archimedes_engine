@@ -4,25 +4,26 @@
     in this or a child class's update method will be called internall by Phaser during the update step. 
     
 */
-class Actor extends Phaser.GameObjects.Sprite
+class Actor extends Phaser.GameObjects.Container
 {
     /**
         @param {Stage} stage Stage that this Actor belongs to
         @param {StageCoord} coord StageCoord of the starting position of this Actor
         @param {string} key string name of image (or spritesheet) that this actor will use as its body
         @param {Direction.prop} direction Direction property representing the direction this Actor starts off facing (optional. Defaults to west)
-        @param {bool} belongsToGrid whether the grid should track this Actor's position
+        @param {bool} belongsToGrid whether this Actor should report its position to the grid (optional, defaults to true)
     */
     constructor(stage, x, y, key, direction, belongsToGrid)
     {    
         const stagePosition = stage.getCoordByPixels(x, y);
         const currentTile = stage.getTileAt(stagePosition);
         
-        super(stage.scene, x, y, key); //call parent constructor in our own context
-        
+        super(stage.scene, x, y); //call parent constructor in our own context
+        this.sprite = this.scene.add.sprite(0, 0, key); //we place the sprite at 0, 0 because it is relative to the container's position
+        this.add(this.sprite);
         this.stage = stage;
         this.faceDirection = direction || Direction.WEST;
-        this.belongsToGrid = belongsToGrid || true;
+        this.belongsToGrid = (typeof belongsToGrid=="undefined"||typeof belongsToGrid==null)?true:belongsToGrid;
         this.stagePosition = null;
         this.currentTile = null;
         if (this.belongsToGrid)
@@ -32,7 +33,7 @@ class Actor extends Phaser.GameObjects.Sprite
             this.stage.enterTile(this.stagePosition);
         }
 
-        this.setOrigin(.5,.5);
+        this.sprite.setOrigin(.5,.5);
         this.scene.physics.add.existing(this);
 
 
@@ -42,6 +43,7 @@ class Actor extends Phaser.GameObjects.Sprite
         this.collideable = false;
         
         this.teamTag = "-1";
+        //whether this actor can be targeted by other actors
         this.targetable = false;
         this.maxHp = 1;
         this.hp = this.maxHp;
@@ -68,8 +70,8 @@ class Actor extends Phaser.GameObjects.Sprite
     }
 
     /**
-        Updates this Actor's properties to reflect it's current coordinate on the stage
-        NOTE: call any time an actor moves
+    * Updates this Actor's properties to reflect it's current coordinate on the stage
+    * NOTE: call any time an actor moves
     */
     updatePosition() 
     {
@@ -85,19 +87,9 @@ class Actor extends Phaser.GameObjects.Sprite
     }
 
     /**
-        Performs a root level checks for the actor, including interacting with grid tiles. 
-        When child classes override this method they should ALWAYS be sure to call the parent method
-        in the following fashion before performing any additional operations: 
-        
-        if (!Actor.prototype.update.call(this)){
-            return;
-        }
-        
-        //do stuff
-        
-        @return bool representing whether a child class is permitted to continue performing update operations
+        <private> Performs a root level checks for the actor. Calls action on child classes if actor can update
     */
-    preUpdate() 
+    update() 
     {
         if (this.overridden){
             return;

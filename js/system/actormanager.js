@@ -5,8 +5,8 @@ class ActorManager
 {
     /**
      * 
-     * @param {*Phaser.Scene} scene the phaser scene this manager exists in
-     * @param {*Phaser.group} parentSortGroup the group that will be the parent for all actors (optional)
+     * @param {Phaser.Scene} scene the phaser scene this manager exists in
+     * @param {Phaser.group} parentSortGroup the group that will be the parent for all actors (optional)
      */
     constructor(stage, parentSortGroup)
     {
@@ -109,6 +109,16 @@ class ActorManager
         {
             const actor = data.actors[i];
             this.spawnActor(actor.type, actor.x, actor.y, actor.faceDirection, actor.team);
+        }
+    }
+
+    /**
+     * updates all actors belonging to this ActorManager
+     */
+    update()
+    {
+        for (const group in this.actorGroups) {
+            this.actorGroups[group].preUpdate();
         }
     }
 

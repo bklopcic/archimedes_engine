@@ -54,7 +54,11 @@ class Stage extends StageGrid
         return actor;
     }
 
-
+    update()
+    {
+        super.update();
+        this.spawn.update();
+    }
 
     /**
      * resolves collisions between actors by the following ruleset:
