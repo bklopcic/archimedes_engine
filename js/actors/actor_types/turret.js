@@ -2,10 +2,9 @@
     This is an extnesion of the actor class that will fire bullets at a fixed interval in a set direction
     
     @param stage Stage that hisTurret belongs to
-    @param coord StageCoord this Turret's position on the stage
-    @param ammo PropManager that will supply this Turret with sprites for bullets
+    @param x the horizontal position of this turret
+    @param y the vertical position of this turret
     @param direction Direction property the facing (and firing) direction of this turret (optional. Default to west)
-    @param fireRate number (in miliseconds) the time between each shot of this turret (optional. Defaults to 1000)
 */
 class Turret extends Actor
 {
@@ -21,6 +20,8 @@ class Turret extends Actor
         this.targetable = true;
         this.collideable = true;
         this.body.immovable = true;
+
+        this.body.setCircle(30, -30, -25);
         
         this.hp = 7;
         this.fireRate = 3000;
@@ -55,7 +56,7 @@ class Turret extends Actor
             const modifyerY = Direction.modifyer[this.faceDirection].y;
             
             //standard turret calculates its target as two tiles in front of it in its facing direction
-            const target = new Phaser.Geom.Point(this.x +((this.width*2) * modifyerX), this.y+((this.height*2) * modifyerY));
+            const target = new Phaser.Geom.Point(this.x +((this.sprite.width*2) * modifyerX), this.y+((this.sprite.height*2) * modifyerY));
             
             this.fire(target);        
         }
@@ -81,9 +82,8 @@ class Turret extends Actor
         const bullet = this.stage.spawn.bullet(0, 0, this.faceDirection, this.teamTag);
         const modifyerX = Direction.modifyer[this.faceDirection].x;
         const modifyerY = Direction.modifyer[this.faceDirection].y;
-        bullet.setPosition(this.x +(((this.sprite.width/2)+(bullet.width/2)+3) * modifyerX), this.y+(((this.sprite.height/2)+(bullet.height/2)+3) * modifyerY));
+        bullet.setPosition(this.x +(((this.sprite.width/2)+(bullet.sprite.width/2)+3) * modifyerX), this.y+(((this.sprite.height/2)+(bullet.sprite.height/2)+3) * modifyerY));
         bullet.attackDamage = this.attackDamage;
-        
         this.scene.physics.moveToObject(bullet, target, this.bulletSpeed);
     }
 

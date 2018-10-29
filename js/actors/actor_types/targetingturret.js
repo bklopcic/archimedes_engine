@@ -4,10 +4,10 @@
 */
 class TargetingTurret extends Turret
 {
-    constructor(stage, coord, ammo, direction) 
+    constructor(stage, x, y, direction) 
     {
         direction = direction || Direction.WEST;
-        super(stage, coord, ammo, direction);
+        super(stage, x, y, direction);
 
         this.ACTOR_TYPE = "targetingturret";
             
@@ -23,24 +23,34 @@ class TargetingTurret extends Turret
     {
         if (this.targeter.checkTargetInRange())
         {
-            this.faceDirection = this.targeter.getDirectionToTarget();
-            this.updateFrame();
+            this.updateDirection();
         }
         
-        if(this.canFire){  
+        if(this.canFire)
+        {  
             this.canFire = false;
             this.setFireEvent();
             
-            if (this.targeter.acquireTarget() && this.targeter.checkTargetInRange()){
+            if (this.targeter.acquireTarget() && this.targeter.checkTargetInRange())
+            {
+                this.updateDirection();
                 this.fire(this.targeter.getTargetPosition());
             }
         }
     }
 
+    updateDirection()
+    {
+        
+        this.faceDirection = this.targeter.getDirectionToTarget();
+        this.updateFrame();
+    }
+
     /**
         Override parent method. Additionally handles setting the team of this TargetingTurret's members
     */
-    setTeam(name) {
+    setTeam(name)
+    {
         this.targeter.tag = name;
         super.setTeam(name);
     }

@@ -33,8 +33,11 @@ class Actor extends Phaser.GameObjects.Container
             this.stage.enterTile(this.stagePosition);
         }
 
-        this.sprite.setOrigin(.5,.5);
         this.scene.physics.add.existing(this);
+        //child classes are responsible for appropriately resizing and repositioning their hitbox
+        //NOTE: can also set body to be a circle using: this.body.setCircle()
+        this.body.setSize(this.sprite.width, this.sprite.height);
+        this.body.setOffset(-this.sprite.width/2, -this.sprite.height/2);
 
 
         //whether or not collision physics should effect this actor when it overlaps another actor
@@ -74,8 +77,7 @@ class Actor extends Phaser.GameObjects.Container
     * NOTE: call any time an actor moves
     */
     updatePosition() 
-    {
-        
+    {        
         const coord = this.stage.getCoordByPixels(this.x, this.y);
         
         if (!this.stagePosition.compareCoord(coord)){

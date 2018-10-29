@@ -2,7 +2,16 @@ class TestScene extends Phaser.Scene
 {
     constructor()
     {
-        super({key: "test"});
+        super(
+        {
+            key: "test", 
+            physics:
+            {
+                default: 'arcade',
+                arcade: 
+                {
+                    debug: true
+        }}});
 
         this.player;
         this.stage;
@@ -39,7 +48,7 @@ class TestScene extends Phaser.Scene
         
         const player = this.stage.spawn.player(200, 200, Direction.SOUTH);
         this.stage.spawn.turret(100, 100, Direction.EAST, "enemy");
-        this.stage.spawn.targetingTurret(400, 100, Direction.EAST, "enemy");
+        this.stage.spawn.targetingTurret(400, 300, Direction.EAST, "enemy");
         this.player = new PlayerController(player);
         
         //this.display = new HUD(this.player);
