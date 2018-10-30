@@ -51,6 +51,10 @@ class Actor extends Phaser.GameObjects.Container
         this.maxHp = 1;
         this.hp = this.maxHp;
         this.attackDamage = 0;
+
+        //props that can be assigned in child classes
+        this.ui = null;
+        this.targeter = null;
         
         //used to overwrite any child class's update method when plugging them into an external controller
         this.overridden = false;
@@ -112,6 +116,10 @@ class Actor extends Phaser.GameObjects.Container
     setTeam(name) 
     {
         this.teamTag = name;
+        if (this.ui)
+        {
+            this.ui.setTheme(this.teamTag);
+        }
     }
 
     /**
@@ -122,6 +130,10 @@ class Actor extends Phaser.GameObjects.Container
     takeHit(damage) 
     {
         this.hp -= damage;
+        if (this.ui)
+        {
+            this.ui.updateHealthBar();
+        }
     }
 
     /**

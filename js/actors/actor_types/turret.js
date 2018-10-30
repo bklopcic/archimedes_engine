@@ -23,13 +23,14 @@ class Turret extends Actor
 
         this.body.setCircle(30, -30, -25);
         
-        this.hp = 7;
+        this.maxHp = 7;
+        this.hp = this.maxHp;
         this.fireRate = 3000;
         this.bulletSpeed = 250;
         this.attackDamage = 2;
         this.canFire = false;
 
-
+        this.ui = new ActorUI(this);
         this.updateFrame();
     }
 
@@ -82,7 +83,7 @@ class Turret extends Actor
         const bullet = this.stage.spawn.bullet(0, 0, this.faceDirection, this.teamTag);
         const modifyerX = Direction.modifyer[this.faceDirection].x;
         const modifyerY = Direction.modifyer[this.faceDirection].y;
-        bullet.setPosition(this.x +(((this.sprite.width/2)+(bullet.sprite.width/2)+3) * modifyerX), this.y+(((this.sprite.height/2)+(bullet.sprite.height/2)+3) * modifyerY));
+        bullet.setPosition(this.x +(((this.sprite.width/2)+(bullet.sprite.width/2)) * modifyerX), this.y+(((this.sprite.height/2)+(bullet.sprite.height/2)) * modifyerY));
         bullet.attackDamage = this.attackDamage;
         this.scene.physics.moveToObject(bullet, target, this.bulletSpeed);
     }

@@ -7,7 +7,6 @@
     */
 class Player extends Actor
 {
-    
     /**
      @param stage the stage that this Spider belongs to
      @param coord StageCoord of the starting position of this Spider
@@ -18,9 +17,7 @@ class Player extends Actor
         direction = direction || Direction.WEST;
         super(stage, x, y, "ball", direction);
         this.ACTOR_TYPE = "player";
-        
-        //this.body.fixedRotation = true;
-        
+                
         this.speed = 100;
         this.targetable = true;
         this.collideable = true;
@@ -31,8 +28,12 @@ class Player extends Actor
         this.targetTile;
         this.targetBox = this.scene.add.sprite(0, 0, 'targetBox');
         this.targetBox.setOrigin(.5,.5);
-        this.setScale(.4,.4);
+        this.sprite.setScale(.4,.4);
+        this.body.setSize(this.sprite.width * .4, this.sprite.height * .4);
+        this.body.setOffset(-(this.sprite.width*.4)/2, -(this.sprite.height*.4)/2);
         this.updateTarget(); //initializes target variables
+
+        this.ui = new ActorUI(this);
     }
 
     /**
@@ -45,7 +46,8 @@ class Player extends Actor
         //an acotr's position is the last tile any part of it moved into
         const coord = this.stage.getCoordByPixels(this.x +((this.width/2)*xModifyer), this.y+((this.height/2)*yModifyer));
         
-        if (!this.stagePosition.compareCoord(coord)){
+        if (!this.stagePosition.compareCoord(coord))
+        {
             this.stage.leaveTile(this.stagePosition);
             this.stagePosition = coord;
             this.currentTile = this.stage.getTileAt(this.stagePosition);
