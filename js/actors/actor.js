@@ -224,6 +224,11 @@ class Actor extends Phaser.GameObjects.Container
         this.body.enable = true;
     }
 
+    addUI()
+    {
+        this.ui = new ActorUI(this);
+    }
+
     toString() 
     {
         return JSON.stringify(this.getDataLiteral());

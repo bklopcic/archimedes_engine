@@ -149,6 +149,8 @@ class ActorManager
         let actor = this.actorGroups[key].getFirstDead();
         if (!actor)
         {
+            console.log(x, y);
+
             actor = this.instantiateActor(key, x, y, direction);
         }
         this.addActorToTeam(actor, team);
@@ -180,6 +182,11 @@ class ActorManager
     {
         return this.spawnActor("bullet", x, y, direction, team);
     }
+
+    resource(x, y, direction, team)
+    {
+        return this.spawnActor("resource", x, y, direction, team);
+    }
 }
 
 var ACTOR_TYPES = 
@@ -191,5 +198,7 @@ var ACTOR_TYPES =
     gatlingturret: GatlingTurret,
     decoy: Decoy,
     bullet: Bullet,
-    playerattack: PlayerAttack
+    playerattack: PlayerAttack,
+    pickupitem: PickupItem,
+    resource: Resource
 }
