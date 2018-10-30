@@ -190,10 +190,16 @@ class Actor extends Phaser.GameObjects.Container
     {
         this.setPosition(x, y);
         this.faceDirection = faceDirection || Direction.WEST;
-        
+        this.hp = this.maxHp;
+        if(this.ui)
+        {
+            this.ui.updateHealthBar();
+        }
         if(this.belongsToGrid)
         {
-            this.updatePosition();
+            this.stagePosition = this.stage.getCoordByPixels(x, y);
+            this.currentTile = this.stage.getTileAt(this.stagePosition);
+            this.stage.enterTile(this.stagePosition);
         }
         this.setActive(true);
         this.setVisible(true);

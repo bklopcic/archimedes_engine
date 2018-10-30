@@ -98,7 +98,16 @@ class Player extends Actor
     */
     die() 
     {
-        this.targetBox.destroy();
-        Actor.prototype.die.call(this);
+        super.die();
+        this.targetBox.setActive(false);
+        this.targetBox.setVisible(false);
+    }
+
+    reset(x, y, faceDirection)
+    {
+        super.reset(x, y, faceDirection);
+        this.targetBox.setActive(true);
+        this.targetBox.setVisible(true);
+        this.updateTarget();
     }
 }

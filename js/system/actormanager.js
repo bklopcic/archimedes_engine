@@ -133,7 +133,7 @@ class ActorManager
         for (let i = 0; i < num; i++)
         {
             const actor = new ACTOR_TYPES[actorType](this.stage, x, y, faceDirection);
-            actor.setActive(false);
+            actor.die();
             this.actorGroups[actorType].add(actor, true); //second arg adds actor to scene
             this.actorArray.push(actor);
         }

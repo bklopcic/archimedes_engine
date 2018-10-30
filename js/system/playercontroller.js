@@ -1,7 +1,7 @@
 /**
     This class overrides a Spider actor's internal update logic and connects it instead to user input
     
-    @param spider Spider to be controlled by this controller
+    @param actor Actor to be controlled by this controller
 */
 class PlayerController 
 {
@@ -15,7 +15,7 @@ class PlayerController
         
         this.actor.overridden = true;
         
-        this.buildings = ['wall', 'turret', 'targetingturret', 'decoy'];
+        this.buildings = ['wall', 'turret', 'targetingturret'];
         this.selectedBuilding = 0;
 
         this.controlKeys = 
@@ -62,6 +62,7 @@ class PlayerController
         //check for building select toggle
         if(this.controlKeys.SPACEBAR.duration >= 10)
         {
+            //this.controlKeys.SPACEBAR.reset();
             this.selectedBuilding = (this.selectedBuilding + 1) % this.buildings.length;
         }
         
