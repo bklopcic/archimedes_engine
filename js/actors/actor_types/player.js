@@ -24,6 +24,7 @@ class Player extends Actor
             
         this.maxHp = 10;
         this.hp = this.maxHp;
+        this.attackDamage = .5;
         this.targetPosition;
         this.targetTile;
         this.targetBox = this.scene.add.sprite(0, 0, 'targetBox');
@@ -68,27 +69,37 @@ class Player extends Actor
             this.targetTile = this.stage.getTileAt(this.targetPosition);
             this.targetBox.x = this.targetTile.x;
             this.targetBox.y = this.targetTile.y;
-            this.targetBox.visible = true;
+            this.targetBox.setVisible(true);
         } 
         else 
         {
             this.targetTile = null;
-            this.targetBox.visible = false;
+            this.targetBox.setVisible(false);
         }
     }
 
     /**
-        Places a new actor on the stage at this Spider's current target tile. The new actor is passed
-        the spider's current face direction as well as it's team tag
+        Places a new actor on the stage at this player's current target tile. The new actor is passed
+        the player's current face direction as well as it's team tag
         
         @param actorType string the type of Actor to create
         @return bool whether the new Actor was successfully built
     */
     build(actorType) 
     {
-        if (this.stage.checkInBounds(this.targetPosition) && this.stage.checkIfEmpty(this.targetPosition)){
-            this.stage.spawn.spawnActor(actorType, this.targetBox.x, this.targetBox.y, this.faceDirection, this.teamTag);
-            return true;
+        if (this.stage.checkInBounds(this.targetPosition))
+        {
+            if (this.stage.checkIfEmpty(this.targetPosition))
+            {
+                this.stage.spawn.spawnActor(actorType, this.targetBox.x, this.targetBox.y, this.faceDirection, this.teamTag);
+                return true;
+            }
+            else
+            {
+                const attack = this.stage.spawn.spawnActor("playerattack", this.targetBox.x, this.targetBox.y, this.faceDirection, this.teamTag);
+                attack.attackDamage = this.attackDamage;
+                return true;
+            }
         }
         return false
     }

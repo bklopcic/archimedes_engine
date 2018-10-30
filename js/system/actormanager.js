@@ -190,5 +190,6 @@ var ACTOR_TYPES =
     targetingturret: TargetingTurret,
     gatlingturret: GatlingTurret,
     decoy: Decoy,
-    bullet: Bullet
+    bullet: Bullet,
+    playerattack: PlayerAttack
 }

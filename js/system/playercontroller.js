@@ -62,7 +62,7 @@ class PlayerController
         //check for building select toggle
         if(this.controlKeys.SPACEBAR.duration >= 10)
         {
-            //this.controlKeys.SPACEBAR.reset();
+            this.controlKeys.SPACEBAR.reset();
             this.selectedBuilding = (this.selectedBuilding + 1) % this.buildings.length;
         }
         

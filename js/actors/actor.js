@@ -136,6 +136,15 @@ class Actor extends Phaser.GameObjects.Container
         }
     }
 
+    heal(amt)
+    {
+        this.hp+=amt;
+        if (this.hp > this.maxHp)
+        {
+            this.hp = this.maxHp;
+        }
+    }
+
     /**
     *   Handles collisions between this Actor and other Actors on a different team
     * 
