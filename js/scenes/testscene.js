@@ -29,6 +29,8 @@ class TestScene extends Phaser.Scene
         this.load.image('x', 'assets/img/x.png');
         this.load.image('fire', 'assets/img/fire.png');
         this.load.image("ball", "assets/img/greenball.png");
+        this.load.image("rockpile", "assets/img/rockpile.png");
+        this.load.image("stoneresource", "assets/img/stone_drop.png");
         this.load.spritesheet('crossbow', 'assets/img/crossbow_spritesheet.png', {frameWidth: 92, frameHeight: 90, frameCount:64});
         this.load.json('data', 'data/test.json');
     

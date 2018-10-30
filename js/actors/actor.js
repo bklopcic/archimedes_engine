@@ -136,12 +136,21 @@ class Actor extends Phaser.GameObjects.Container
         }
     }
 
+    /**
+     * adds to this actor's hp. Hp will not exceed max
+     * 
+     * @param {number} amt amount of hp to add to this actor
+     */
     heal(amt)
     {
-        this.hp+=amt;
+        this.hp += amt;
         if (this.hp > this.maxHp)
         {
             this.hp = this.maxHp;
+        }
+        if (this.ui)
+        {
+            this.ui.updateHealthBar();
         }
     }
 

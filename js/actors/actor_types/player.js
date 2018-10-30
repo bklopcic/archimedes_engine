@@ -27,9 +27,10 @@ class Player extends Actor
         this.attackDamage = .5;
         this.targetPosition;
         this.targetTile;
-        this.targetBox = this.scene.add.sprite(0, 0, 'targetBox');
+        this.targetBox = this.scene.add.sprite(0, 0, "targetBox");
         this.targetBox.setOrigin(.5,.5);
         this.sprite.setScale(.4,.4);
+        //NOTE: the .4 is to account for the scale resizing. This should be eliminated when a regular texture is implemented for this actor
         this.body.setSize(this.sprite.width * .4, this.sprite.height * .4);
         this.body.setOffset(-(this.sprite.width*.4)/2, -(this.sprite.height*.4)/2);
         this.updateTarget(); //initializes target variables
@@ -38,13 +39,13 @@ class Player extends Actor
     }
 
     /**
-        Handles updating this Spider's position on the stage and setting all values accordingly.
+        Handles updating this Player's position on the stage and setting all values accordingly.
     */
     updatePosition() 
     {
         const xModifyer = Direction.modifyer[this.faceDirection].x;
         const yModifyer = Direction.modifyer[this.faceDirection].y;
-        //an acotr's position is the last tile any part of it moved into
+        //this actor's position is the last tile any part of it moved into
         const coord = this.stage.getCoordByPixels(this.x +((this.width/2)*xModifyer), this.y+((this.height/2)*yModifyer));
         
         if (!this.stagePosition.compareCoord(coord))
@@ -59,11 +60,12 @@ class Player extends Actor
     }
 
     /**
-        Handles updating the target tile of this Spider
+        Handles updating the target tile of this Player
     */
     updateTarget()
     {
-        this.targetPosition = this.stagePosition.getNeighbor(this.faceDirection);
+        const modifyer = Direction.modifyer[this.faceDirection];
+        this.targetPosition = this.stage.getCoordByPixels(this.x + ((this.sprite.width/1.5)*modifyer.x), this.y + ((this.sprite.height/1.5)*modifyer.y));;
         if (this.stage.checkInBounds(this.targetPosition))
         {
             this.targetTile = this.stage.getTileAt(this.targetPosition);
