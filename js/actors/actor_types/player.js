@@ -1,10 +1,8 @@
 /**
-    This Class represents the actor that the player controls. This class handles tying keyboard input
-    to player movement.
-    The Spider has a target tile (the tile is can build on/interact with) that is updated based on 
-    its current position and the direction it's facing
-    
-    */
+* This Class represents the actor that the player controls.
+* The Player has a target tile (the tile is can build on/interact with) that is updated based on 
+* its current position and the direction it's facing   
+*/
 class Player extends Actor
 {
     /**
@@ -25,6 +23,10 @@ class Player extends Actor
         this.maxHp = 10;
         this.hp = this.maxHp;
         this.attackDamage = .5;
+        //dictionary used to store which items this player has (keys) and how many it has (values)
+        //if this gets too complex, or other actors need similar functionality can be refactored into an
+        //an inventory class as an actor tool
+        this.pickUpItems = {};
         this.targetPosition;
         this.targetTile;
         this.targetBox = this.scene.add.sprite(0, 0, "targetBox");

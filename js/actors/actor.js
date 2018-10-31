@@ -97,7 +97,9 @@ class Actor extends Phaser.GameObjects.Container
     */
     update() 
     {
-        if (this.overridden){
+        this.depth = this.body.y;
+        if (this.overridden)
+        {
             return;
         }
         this.action();
