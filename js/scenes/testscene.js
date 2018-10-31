@@ -48,7 +48,7 @@ class TestScene extends Phaser.Scene
         //this.stage = new Stage(this, 0, 0, 0, 0, data);
         console.log(this.stage.dataGrid);
         
-        const player = this.stage.spawn.player(200, 200, Direction.SOUTH, "player");
+        const player = this.stage.spawn.player(700, 200, Direction.SOUTH, "player");
         this.stage.spawn.turret(100, 100, Direction.EAST, "enemy");
         this.stage.spawn.targetingTurret(400, 300, Direction.EAST, "enemy");
         this.stage.spawn.resource(600, 500, Direction.WEST, "neutral");

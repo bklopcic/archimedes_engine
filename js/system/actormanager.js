@@ -149,8 +149,6 @@ class ActorManager
         let actor = this.actorGroups[key].getFirstDead();
         if (!actor)
         {
-            console.log(x, y);
-
             actor = this.instantiateActor(key, x, y, direction);
         }
         this.addActorToTeam(actor, team);

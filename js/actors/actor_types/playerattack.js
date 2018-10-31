@@ -17,7 +17,14 @@ class PlayerAttack extends Actor
 
     enemyCollision(other)
     {
-        other.takeHit(this.attackDamage);
+        if (other.ACTOR_TYPE === "resource")
+        {
+            other.takeHit(this.attackDamage * 10);
+        }
+        else
+        {
+            other.takeHit(this.attackDamage);
+        }
     }
 
     postCollision()

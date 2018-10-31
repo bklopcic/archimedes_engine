@@ -7,13 +7,14 @@ class Resource extends Actor
         this.collideable = true;
         this.targetable = false;
         
-        this.maxHp = 5;
+        this.maxHp = 14;
         this.hp = this.maxHp;
         
         this.body.immovable = true;
         this.body.setSize(this.sprite.width, this.sprite.height/2);
         this.body.setOffset(-this.sprite.width/2, 0);
 
+        this.ACTOR_TYPE = "resource";
         this.addUI();
     }
 
@@ -28,12 +29,12 @@ class Resource extends Actor
 
     spawnRocks()
     {
-        const num = genRandInt(1, 4);
+        const num = genRandInt(1, 4); //variable reward
         for (let i = 0; i < num; i++)
         {
             const randX = genRandInt(0, 2) > 0 ? -1 : 1;
             const randY = genRandInt(0, 2) > 0 ? -1 : 1;
-            this.stage.spawn.spawnActor("pickupitem", this.x + (genRandInt(0,8) * randX), this.y + (genRandInt(0,8) * randY), Direction.WEST, this.teamTag);
+            this.stage.spawn.spawnActor("pickupitem", this.x + (genRandInt(0,this.body.width/2) * randX), this.y + (genRandInt(0,this.body.height/2) * randY), Direction.WEST, this.teamTag);
         }
     }
 }
