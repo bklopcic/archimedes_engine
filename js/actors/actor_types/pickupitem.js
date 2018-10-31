@@ -4,16 +4,17 @@ class PickupItem extends Actor
     {
         super(stage, x, y, "stoneresource", Direction.WEST, false);
 
-        this.collideable = false;
+        this.collidable = false;
         this.targetable = false;
         this.collected = false;
     }
 
     enemyCollision(other)
     {
-        if (other.ACTOR_TYPE == "player")
+        if (other.inventory)
         {
             this.collected = true;
+            other.inventory.addItem("stone", 1);
         }
     }
 

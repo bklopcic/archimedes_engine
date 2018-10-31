@@ -71,14 +71,14 @@ class Stage extends StageGrid
      * 
      *      - if the actors are not on the same team, enemyCollision() wil be called instead, also passing a reference
      * 
-     *      - each actor will have postCollision() called after either enemyCollision  or friendlyCollision has been
+     *      - each actor will have postCollision() called after either enemyCollision or friendlyCollision has been
      *        invoked on both actors
     */
     collisionHandler(actor1, actor2)
     {
-        if (actor1.collideable || actor2.collideable)
+        if (actor1.collidable || actor2.collidable)
         {
-            if (actor1.collideable && actor2.collideable)
+            if (actor1.collidable && actor2.collidable)
             {
                 this.scene.physics.collide(actor1, actor2); //apply collision physics
             }

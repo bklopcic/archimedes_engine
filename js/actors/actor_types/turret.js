@@ -18,7 +18,7 @@ class Turret extends Actor
         this.faceFrames = [7, 15, 23, 31, 39, 47, 55, 63];
                 
         this.targetable = true;
-        this.collideable = true;
+        this.collidable = true;
         this.body.immovable = true;
 
         this.body.setCircle(30, -30, -25);

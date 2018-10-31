@@ -8,7 +8,7 @@ class Bullet extends Actor
         super(stage, x, y, "bullet", direction, false);
 
         this.targetable = false;
-        this.collideable = false;
+        this.collidable = false;
     }
 
     enemyCollision(other)

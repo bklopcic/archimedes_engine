@@ -18,7 +18,7 @@ class Player extends Actor
                 
         this.speed = 100;
         this.targetable = true;
-        this.collideable = true;
+        this.collidable = true;
             
         this.maxHp = 10;
         this.hp = this.maxHp;
@@ -38,6 +38,7 @@ class Player extends Actor
         this.updateTarget(); //initializes target variables
 
         this.addUI();
+        this.inventory = new Inventory();
     }
 
     /**
@@ -109,7 +110,7 @@ class Player extends Actor
     }
 
     /**
-        Override parent die method. Hanldes cleaning up this Spider's other associated sprites
+        Override parent die method. Handles cleaning up this Spider's other associated sprites
     */
     die() 
     {

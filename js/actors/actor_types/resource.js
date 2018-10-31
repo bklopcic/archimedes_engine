@@ -4,7 +4,7 @@ class Resource extends Actor
     {
         super(stage, x, y, "rockpile");
 
-        this.collideable = true;
+        this.collidable = true;
         this.targetable = false;
         
         this.maxHp = 14;

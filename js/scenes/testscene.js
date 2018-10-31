@@ -10,7 +10,7 @@ class TestScene extends Phaser.Scene
                 default: 'arcade',
                 arcade: 
                 {
-                    debug: true
+                    debug: false
         }}});
 
         this.player;
@@ -52,6 +52,10 @@ class TestScene extends Phaser.Scene
         this.stage.spawn.turret(100, 100, Direction.EAST, "enemy");
         this.stage.spawn.targetingTurret(400, 300, Direction.EAST, "enemy");
         this.stage.spawn.resource(600, 500, Direction.WEST, "neutral");
+        this.stage.spawn.resource(650, 100, Direction.WEST, "neutral");
+        this.stage.spawn.resource(650, 250, Direction.WEST, "neutral");
+        this.stage.spawn.resource(650, 350, Direction.WEST, "neutral");
+        this.stage.spawn.resource(650, 500, Direction.WEST, "neutral");
         this.player = new PlayerController(player);
         
         //this.display = new HUD(this.player);

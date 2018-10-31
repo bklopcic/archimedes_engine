@@ -43,7 +43,7 @@ class Actor extends Phaser.GameObjects.Container
         //whether or not collision physics should effect this actor when it overlaps another actor
         //collision will only occur if both actors have collideable set to true
         //if neither object is collideable then collision callbacks will not occur
-        this.collideable = false;
+        this.collidable = false;
         
         this.teamTag = "-1";
         //whether this actor can be targeted by other actors
@@ -55,6 +55,7 @@ class Actor extends Phaser.GameObjects.Container
         //props that can be assigned in child classes
         this.ui = null;
         this.targeter = null;
+        this.inventory = null;
         
         //used to overwrite any child class's update method when plugging them into an external controller
         this.overridden = false;

@@ -5,7 +5,7 @@ class PlayerAttack extends Actor
         super(stage, x, y, "", Direction.WEST, false);
         this.sprite.destroy();
 
-        this.collideable = false;
+        this.collidable = false;
 
         this.body.setSize(this.stage.tileWidth, this.stage.tileHeight);
     }

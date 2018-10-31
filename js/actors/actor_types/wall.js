@@ -14,7 +14,7 @@ class Wall extends Actor
         
         this.body.immovable = true; //He doesn't move
         
-        this.collideable = true;
+        this.collidable = true;
         this.targetable = false; //He can't be directly targeted
     }
 }
