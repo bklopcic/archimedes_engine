@@ -23,6 +23,27 @@ class GridChunkManager
         }
     }
 
+    setActiveRange(startIdx, endIdx, forceClean)
+    {
+        if (startIdx.x > endIdx.x || startIdx.y > endIdx.y)
+        {
+            throw "Invalid range parameters";
+        }
+        if (this.activeChunkRange.startIdx == startIdx && this.activeChunkRange.endIdx == endIdx)
+        {
+            return;
+        }
+        forceClean = typeof forceClean == "undefined" ? false : forceClean;
+        this.activeChunkRange.startIdx = startIdx;
+        this.activeChunkRange.endIdx = endIdx;
+
+        if (forceClean)
+        {
+            this.cleanActors();
+        }
+        this.loadChunkRange(this.activeChunkRange.startIdx, this.activeChunkRange.endIdx);
+    }
+
     loadChunk(coord)
     {
         const chunk = this.chunks[coord.y][coord.x];
@@ -30,21 +51,16 @@ class GridChunkManager
         chunk.clearActorData();
     }
 
-    unloadChunk(coord)
+    loadChunkRange(startIdx, endIdx)
     {
-         
-    }
-
-    loadChunkRange(startCoord, endCoord)
-    {
-        if (startCoord.x > endCoord.x || startCoord.y > endCoord.y)
+        if (startIdx.x > endIdx.x || startIdx.y > endIdx.y)
         {
             throw "Invalid range parameters";
         }
-
-        for (let i = startCoord.y; i < endCoord.y; i++)
+        
+        for (let i = startIdx.y; i < endIdx.y; i++)
         {
-            for (let j = startCoord.x; j < endCoord.x; j++)
+            for (let j = startIdx.x; j < endIdx.x; j++)
             {
                 const idx = new StageCoord(j, i);
                 if (!this.checkIdxActive(idx))
@@ -55,6 +71,24 @@ class GridChunkManager
         }
     }
 
+    cleanActors()
+    {
+        const actors = this.spawner.allActors;
+        for (let  i = 0; i < actors.length; i++)
+        {
+            const actor = actors[i];
+            if (actors.active && !this.checkInActiveBounds(actor))
+            {
+                actor.die();
+                if (actor.belongsToGrid)
+                {
+                    const actorIdx = this.getParentChunkIdx(actor);
+                    this.chunks[actorIdx.y][actorIdx.x].addActor(actor);
+                }
+            }
+        }
+    }
+    
     checkInActiveBounds(obj)
     {
         return this.checkIdxActive(this.getParentChunkIdx(obj));

@@ -14,14 +14,14 @@ class ActorManager
         this.sortGroup = parentSortGroup || this.stage.scene.add.group(); //TODO: change this to container
 
         this.actorGroups = {};
-        this.actorArray = []; //this exists for quick iteration of all actors
+        this.allActors = []; //this exists for quick iteration of all actors
         this.teamNames = [];
     }
 
     get dataLiteral()
     {
         const dataArr = [];
-        this.actorArray.forEach(a => {
+        this.allActors.forEach(a => {
             dataArr.push(a.dataLiteral);
         });
         return dataArr;
@@ -64,7 +64,7 @@ class ActorManager
     }
 
     /**
-         Checks if a specifed team has been added to the stage
+        Checks if a specifed team has been added to the stage
         
         @param name string team name to check
         @return bool
@@ -135,7 +135,7 @@ class ActorManager
             const actor = new ACTOR_TYPES[actorType](this.stage, x, y, faceDirection);
             actor.die();
             this.actorGroups[actorType].add(actor, true); //second arg adds actor to scene
-            this.actorArray.push(actor);
+            this.allActors.push(actor);
         }
         return this.actorGroups[actorType].getFirstDead();
     }
