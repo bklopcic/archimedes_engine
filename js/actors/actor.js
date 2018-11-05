@@ -234,6 +234,6 @@ class Actor extends Phaser.GameObjects.Container
 
     toString() 
     {
-        return JSON.stringify(this.getDataLiteral());
+        return JSON.stringify(this.dataLiteral);
     }
 }

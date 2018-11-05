@@ -30,15 +30,10 @@ class StageGrid
         this.offsetX = offsetX + (this.tileWidth/2); 
         this.offsetY = offsetY + (this.tileHeight/2);
         
-        //a single txture 
+        //a single texture 
         this.tiles = this.scene.add.renderTexture(0, 0, this.tileWidth * this.xSize, this.tileHeight * this.ySize);
-        
-        this.activeTiles = [];
-        
+                
         this.dataGrid = [];
-        
-        this.enableGrid = true;
-        this.nextBurnTime = 0;
         
         //this.borderGroup = this.scene.add.group();
                 
@@ -70,25 +65,15 @@ class StageGrid
      */
     createBorders() 
     {
-        const topLeft = new Phaser.Point(this.offsetX-(this.tileWidth/2), this.offsetY-(this.tileHeight/2));
-        const border = this.scene.add.sprite(topLeft.x, topLeft.y, this.tileKey);
-        border.scale.set(this.xSize, .5);
+        // const topLeft = new Phaser.Point(this.offsetX-(this.tileWidth/2), this.offsetY-(this.tileHeight/2));
+        // const border = this.scene.add.sprite(topLeft.x, topLeft.y, this.tileKey);
+        // border.scale.set(this.xSize, .5);
         
-        this.borderGroup.addChild(border);
+        // this.borderGroup.addChild(border);
             
-        border.body.setCollisionGroup(this.actorCollisionGroup);
+        // border.body.setCollisionGroup(this.actorCollisionGroup);
         
     }
-
-
-    /**
-        Handles updating all the tiles in the grid
-    */
-    update() 
-    {
-        
-    }
-
 
     /**
         Returns the pixel coordinate of a specified StageCoord

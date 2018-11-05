@@ -36,24 +36,6 @@ class Stage extends StageGrid
         }
     }
 
-    /**
-        Gets the last actor of the specified type
-        
-        @return Actor
-    */
-    getActorByType(type)
-    {
-        var actor = null;
-        this.actors.forEach(function(a)
-        {
-            if (a.ACTOR_TYPE == type)
-            {
-                actor = a;
-            }
-        }, this);
-        return actor;
-    }
-
     update()
     {
         super.update();
