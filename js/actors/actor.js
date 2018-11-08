@@ -34,6 +34,7 @@ class Actor extends Phaser.GameObjects.Container
         }
 
         this.scene.physics.add.existing(this);
+        this.body.setCollideWorldBounds(true);
         //child classes are responsible for appropriately resizing and repositioning their hitbox
         //NOTE: can also set body to be a circle using: this.body.setCircle()
         this.body.setSize(this.sprite.width, this.sprite.height);
@@ -57,7 +58,8 @@ class Actor extends Phaser.GameObjects.Container
         this.targeter = null;
         this.inventory = null;
         
-        //used to overwrite any child class's update method when plugging them into an external controller
+        //Setting this property to true will cause the actor to skip its "action()" call during update
+        //Use when connecting actor to external controller
         this.overridden = false;
     }
 
@@ -94,7 +96,7 @@ class Actor extends Phaser.GameObjects.Container
     }
 
     /**
-        <private> Performs a root level checks for the actor. Calls action on child classes if actor can update
+        <private> Performs a root level checks for the actor. Calls action() on child classes if defined and actor can update
     */
     update() 
     {
@@ -183,6 +185,10 @@ class Actor extends Phaser.GameObjects.Container
         {
             this.die();
         }
+    }
+
+    collidBounds(){
+        console.log("base class collide bounds");
     }
 
     /**

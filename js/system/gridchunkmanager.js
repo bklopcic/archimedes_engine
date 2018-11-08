@@ -99,6 +99,11 @@ class GridChunkManager
         return UtilFunctions.checkCoordInRange(this.activeChunkRange.topLeft, botttomRight, coord);
     }
 
+    checkIdxExists(coord)
+    {
+        return coord.x > -1 && coord.y > -1 && coord.x < this.chunks[0].length && coord.y < this.chunks.length;
+    }
+
     /**
      * gets the coordinate of the chunk that a specified object is currenlty in
      * @param {Object} obj the object to check

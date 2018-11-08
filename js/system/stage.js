@@ -29,6 +29,7 @@ class Stage extends StageGrid
         }
 
         this.spawn = new ActorManager(this, this.scene.add.group());
+        //this.chunker = new GridChunkManager(this);
         
         if (data)
         {
@@ -78,7 +79,11 @@ class Stage extends StageGrid
             actor2.postCollision();
         }
     }
-    
+
+    collideBounds(actorBody)
+    {
+        actorBody.gameObject.collideBounds();
+    }
     
     
     /**

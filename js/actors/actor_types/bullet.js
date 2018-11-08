@@ -9,6 +9,9 @@ class Bullet extends Actor
 
         this.targetable = false;
         this.collidable = false;
+
+        this.body.onWorldBounds = true;
+
     }
 
     enemyCollision(other)
@@ -17,6 +20,11 @@ class Bullet extends Actor
     }
 
     postCollision()
+    {
+        this.die();
+    }
+
+    collideBounds()
     {
         this.die();
     }

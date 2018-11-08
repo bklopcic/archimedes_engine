@@ -16,6 +16,8 @@ class ActorManager
         this.actorGroups = {};
         this.allActors = []; //this exists for quick iteration of all actors
         this.teamNames = [];
+
+        this.stage.scene.physics.world.on("worldbounds", this.stage.collideBounds, this.stage);
     }
 
     get dataLiteral()
