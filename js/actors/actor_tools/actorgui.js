@@ -1,4 +1,4 @@
-class ActorUI
+class ActorGUI
 {
     /**
      * 

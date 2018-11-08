@@ -30,7 +30,7 @@ class Turret extends Actor
         this.attackDamage = 2;
         this.canFire = false;
 
-        this.ui = new ActorUI(this);
+        this.addGUI();
         this.updateFrame();
     }
 

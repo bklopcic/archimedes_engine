@@ -53,7 +53,7 @@ class Actor extends Phaser.GameObjects.Container
         this.attackDamage = 0;
 
         //props that can be assigned in child classes
-        this.ui = null;
+        this.gui = null;
         this.targeter = null;
         this.inventory = null;
         
@@ -119,9 +119,9 @@ class Actor extends Phaser.GameObjects.Container
     setTeam(name) 
     {
         this.teamTag = name;
-        if (this.ui)
+        if (this.gui)
         {
-            this.ui.setTheme(this.teamTag);
+            this.gui.setTheme(this.teamTag);
         }
     }
 
@@ -133,9 +133,9 @@ class Actor extends Phaser.GameObjects.Container
     takeHit(damage) 
     {
         this.hp -= damage;
-        if (this.ui)
+        if (this.gui)
         {
-            this.ui.updateHealthBar();
+            this.gui.updateHealthBar();
         }
     }
 
@@ -151,9 +151,9 @@ class Actor extends Phaser.GameObjects.Container
         {
             this.hp = this.maxHp;
         }
-        if (this.ui)
+        if (this.gui)
         {
-            this.ui.updateHealthBar();
+            this.gui.updateHealthBar();
         }
     }
 
@@ -212,9 +212,9 @@ class Actor extends Phaser.GameObjects.Container
         this.setPosition(x, y);
         this.faceDirection = faceDirection || Direction.WEST;
         this.hp = this.maxHp;
-        if(this.ui)
+        if(this.gui)
         {
-            this.ui.updateHealthBar();
+            this.gui.updateHealthBar();
         }
         if(this.belongsToGrid)
         {
@@ -227,9 +227,9 @@ class Actor extends Phaser.GameObjects.Container
         this.body.enable = true;
     }
 
-    addUI()
+    addGUI()
     {
-        this.ui = new ActorUI(this);
+        this.gui = new ActorGUI(this);
     }
 
     toString() 

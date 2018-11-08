@@ -38,7 +38,6 @@ class Stage extends StageGrid
 
     update()
     {
-        super.update();
         this.spawn.update();
     }
 

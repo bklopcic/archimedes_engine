@@ -143,7 +143,7 @@ class TargetingSystem
     findClosestEnemy() 
     {
         let closest, distance;
-        const actors = this.stage.spawn.actorArray;
+        const actors = this.stage.spawn.allActors;
 
         for (let i = 0; i < actors.length; i++)
         {

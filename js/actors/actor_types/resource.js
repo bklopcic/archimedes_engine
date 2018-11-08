@@ -15,7 +15,7 @@ class Resource extends Actor
         this.body.setOffset(-this.sprite.width/2, 0);
 
         this.ACTOR_TYPE = "resource";
-        this.addUI();
+        this.addGUI();
     }
 
     postCollision()
@@ -27,14 +27,14 @@ class Resource extends Actor
         }
     }
 
-    spawnRocks()
+    spawnRocks(num)
     {
-        const num = genRandInt(1, 4); //variable reward
+        num = num || UtilFunctions.genRandInt(1, 4); //variable reward
         for (let i = 0; i < num; i++)
         {
-            const randX = genRandInt(0, 2) > 0 ? -1 : 1;
-            const randY = genRandInt(0, 2) > 0 ? -1 : 1;
-            this.stage.spawn.spawnActor("pickupitem", this.x + (genRandInt(0,this.body.width/2) * randX), this.y + (genRandInt(0,this.body.height/2) * randY), Direction.WEST, this.teamTag);
+            const randX = this.x + UtilFunctions.genRandInt(-this.body.width/2, this.body.width/2);
+            const randY = this.y + UtilFunctions.genRandInt(-this.body.height/2, this.body.height/2);
+            this.stage.spawn.spawnActor("pickupitem", randX, randY, Direction.WEST, this.teamTag);
         }
     }
 }

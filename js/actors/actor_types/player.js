@@ -37,7 +37,7 @@ class Player extends Actor
         this.body.setOffset(-(this.sprite.width*.4)/2, -(this.sprite.height*.4)/2);
         this.updateTarget(); //initializes target variables
 
-        this.addUI();
+        this.addGUI();
         this.inventory = new Inventory();
     }
 
