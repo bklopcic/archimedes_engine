@@ -198,5 +198,6 @@ var ACTOR_TYPES =
     bullet: Bullet,
     playerattack: PlayerAttack,
     pickupitem: PickupItem,
-    resource: Resource
+    resource: Resource,
+    testdot: TestDot
 }

@@ -1,8 +1,8 @@
 class GridChunkManager
 {
-    constructor(actorManager, data)
+    constructor(stage, data)
     {
-        this.spawner = actorManager;
+        this.spawner = stage.spawn;
         this.chunkWidth = data.chunkWidth;
         this.chunkHeight = data.chunkHeight;
         this.chunks = [];
