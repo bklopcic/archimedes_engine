@@ -66,11 +66,17 @@ class ChunkingController
 
     checkTrigger()
     {
-        
+        return UtilFunctions.checkCoordInRange(this.triggerBounds.top, this.triggerBounds.bottom, new StageCoord(this.focalObject.x, this.focalObject.y));
     }
 
     update()
     {
-
+        //If object has crossed trigger bounds, reset bounds, load/unload appropriate chunks
+        if (this.checkTrigger())
+        {
+            this.setBoundaries();
+            const centerChunk = this.chunker.getParentChunk(this.focalObject);
+            this.chunker.setActiveRange(new StageCoord(centerChunk.x - 1, centerChunk.y -1), new StageCoord(centerChunk.x + 1, centerChunk.y + 1), true);
+        }
     }
 }

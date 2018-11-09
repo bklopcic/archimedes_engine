@@ -28,7 +28,6 @@ class ChunkTestScene extends Phaser.Scene
     
     create()
     {
-        
         var width = 17;
         var height = 13;
         
