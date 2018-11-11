@@ -37,22 +37,27 @@ class GridChunkManager
             return;
         }
         forceClean = typeof forceClean == "undefined" ? false : forceClean;
+        
+        if (forceClean)
+        {
+            this.cleanActors(startIdx, endIdx);
+        }
+        this.loadChunkRange(startIdx, endIdx);
         this.activeChunkRange.startIdx = startIdx;
         this.activeChunkRange.endIdx = endIdx;
 
-        if (forceClean)
+        if (this.debugDrawer)
         {
-            this.cleanActors();
+            this.debugDraw();
         }
-        this.loadChunkRange(this.activeChunkRange.startIdx, this.activeChunkRange.endIdx);
     }
 
     loadChunk(coord)
     {
+        console.log(coord);
         const chunk = this.chunks[coord.y][coord.x];
         this.stage.spawn.loadActorsFromData(chunk.actorData);
         chunk.clearActorData();
-        
     }
 
     loadChunkRange(startIdx, endIdx)
@@ -67,26 +72,50 @@ class GridChunkManager
             for (let j = startIdx.x; j < endIdx.x; j++)
             {
                 const idx = new StageCoord(j, i);
-                if (!this.checkIdxActive(idx))
+                if (!this.checkIdxActive(idx) && this.checkIdxExists(idx))
                 {
                     this.loadChunk(idx);
                 }
-            }
-        }
-
-        if (this.debugDrawer)
-        {
-            this.debugDraw();
+            } 
         }
     }
 
-    cleanActors()
+    cleanActors(startIdx, endIdx)
     {
         const actors = this.stage.spawn.allActors;
-        for (let  i = 0; i < actors.length; i++)
+        for (let i = 0; i < actors.length; i++)
         {
             const actor = actors[i];
+            let inRange;
+            
+            if (typeof startIdx === "undefined" || typeof endIdx === "undefined")
+            {
+                inRange = this.checkInActiveBounds(actor);
+            }
+            else
+            {
+                inRange = UtilFunctions.checkCoordInRange(startIdx, endIdx, this.getParentChunkIdx(actor));
+            }
             if (actors.active && !this.checkInActiveBounds(actor))
+            {
+                actor.die();
+                if (actor.belongsToGrid)
+                {
+                    const actorIdx = this.getParentChunkIdx(actor);
+                    this.chunks[actorIdx.y][actorIdx.x].addActor(actor);
+                }
+            }
+        }
+    }
+
+    cleanFromRange(startIdx, endIdx)
+    {
+        const actors = this.stage.spawn.allActors;
+        for (let i = 0; i < actors.length; i++)
+        {
+            const actor = actors[i];
+            const inRange = UtilFunctions.checkCoordInRange(startIdx, endIdx, this.getParentChunkIdx(actor));
+            if (actors.active && !inRange)
             {
                 actor.die();
                 if (actor.belongsToGrid)

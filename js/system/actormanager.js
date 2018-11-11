@@ -103,13 +103,13 @@ class ActorManager
     }
 
     /**
-        Sets up the grid based on JSON data
+        load an array of actors
     */
     loadActorsFromData(data)
     {
-        for (var i = 0; i < data.actors.length; i++)
+        for (var i = 0; i < data.length; i++)
         {
-            const actor = data.actors[i];
+            const actor = data[i];
             this.spawnActor(actor.type, actor.x, actor.y, actor.faceDirection, actor.team);
         }
     }

@@ -49,11 +49,23 @@ class ChunkTestScene extends Phaser.Scene
         this.stage.chunker.startDebug();
 
         this.stage.chunker.setActiveRange(new StageCoord(0,0), new StageCoord(3,3));
+
+        this.point = {x:0, y:0};
+
+        this.controller = new ChunkingController(this.stage.chunker, this.point);
+        this.controller.startDebug();
+
+        this.input.on('pointermove', function (pointer)
+        {
+            this.point.x = pointer.x;
+            this.point.y = pointer.y;
+        }, this);
         
     }
     
     update()
     {
         this.stage.update();
+        this.controller.update();
     }
 }

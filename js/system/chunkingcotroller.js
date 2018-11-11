@@ -5,7 +5,7 @@ class ChunkingController
         this.chunker = chunker;
         this.focalObject = focalObject;
 
-        this.triggerPaddingX = 75;
+        this.triggerPaddingX = 50;
         this.triggerPaddingY = 50;
 
         this.triggerBounds = 
@@ -27,9 +27,21 @@ class ChunkingController
 
     setBoundaries()
     {
-        const centerChunk = this.chunker.getParentChunk(this.focalObject);
+        let centerChunk;
+         
+        if (this.chunker.checkIdxExists(this.chunker.getParentChunkIdx(this.focalObject)))
+        {
+            centerChunk = this.chunker.getParentChunkIdx(this.focalObject);
+        }
+        else
+        {
+            return;
+            // const x = this.chunker.activeChunkRange.startIdx.x + (this.chunker.activeChunkRange.endIdx.x - this.chunker.activeChunkRange.startIdx.x)/2;
+            // const y = this.triggerBounds.top.y + (this.triggerBounds.bottom.y - this.triggerBounds.top.y)/2;
+            // centerChunk = new StageCoord(x, y);
+        }
 
-        if (centerChunk.x - 1 >= 0)
+        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x - 1, centerChunk.y)))
         {
             this.triggerBounds.top.x = (centerChunk.x * this.chunker.chunkWidth) + this.chunker.chunkWidth/2 - this.triggerPaddingX;
         }
@@ -38,7 +50,7 @@ class ChunkingController
             this.triggerBounds.top.x = 0;
         }
 
-        if (centerChunk.y - 1 >= 0)
+        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x, centerChunk.y - 1)))
         {
             this.triggerBounds.top.y = (centerChunk.y * this.chunker.chunkHeight) + this.chunker.chunkHeight/2 - this.triggerPaddingY;
         }
@@ -47,7 +59,7 @@ class ChunkingController
             this.triggerBounds.top.y = 0;
         }
         
-        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x + 1, centerChunk.y)))
+        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x + 2, centerChunk.y)))
         {
             this.triggerBounds.bottom.x = (centerChunk.x * this.chunker.chunkWidth) + this.chunker.chunkWidth/2 + this.triggerPaddingX;
         }
@@ -56,7 +68,7 @@ class ChunkingController
             this.triggerBounds.bottom.x = (centerChunk.x + 1) * this.chunker.chunkWidth;
         }
 
-        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x, centerChunk.y + 1)))
+        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x, centerChunk.y + 2)))
         {
             this.triggerBounds.bottom.y = (centerChunk.y * this.chunker.chunkHeight) + this.chunker.chunkHeight/2 + this.triggerPaddingY;
         }
@@ -82,15 +94,17 @@ class ChunkingController
         if (this.checkTrigger())
         {
             this.setBoundaries();
-            const centerChunk = this.chunker.getParentChunk(this.focalObject);
-            this.chunker.setActiveRange(new StageCoord(centerChunk.x - 1, centerChunk.y -1), new StageCoord(centerChunk.x + 1, centerChunk.y + 1), true);
+            const centerChunk = this.chunker.getParentChunkIdx(this.focalObject);
+            const startIdx = new StageCoord(centerChunk.x-1, centerChunk.y-1);
+            const endIdx = new StageCoord(centerChunk.x+2, centerChunk.y+2);
+            this.chunker.setActiveRange(startIdx, endIdx, true);
         }
     }
 
     startDebug()
     {
-        this.debugDrawer = this.stage.scene.add.graphics({ fillStyle: { color: 0x0000aa }, lineStyle: { color: 0xaa8800 } });
-        this.setBoundaries();
+        this.debugDrawer = this.chunker.stage.scene.add.graphics({ fillStyle: { color: 0x0000aa }, lineStyle: { color: 0xaa8800 } });
+        this.debugDraw();
     }
 
     stopDebug()
@@ -102,6 +116,7 @@ class ChunkingController
 
     debugDraw()
     {
+        this.debugDrawer.clear();
         const x = this.triggerBounds.top.x;
         const y = this.triggerBounds.top.y;
         const w = this.triggerBounds.bottom.x - x;
