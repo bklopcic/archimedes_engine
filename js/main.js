@@ -4,7 +4,7 @@ const phaserConfig =
     width: 800,
     height: 600,
     parent: "game-container",
-    scene: [TestScene],
+    scene: [ChunkTestScene],
     physics: {
         default: "arcade"
     }

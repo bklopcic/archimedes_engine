@@ -2,21 +2,24 @@ class GridChunkManager
 {
     constructor(stage, data)
     {
-        this.spawner = stage.spawn;
+        this.stage = stage;
         this.chunkWidth = data.chunkWidth;
         this.chunkHeight = data.chunkHeight;
         this.chunks = [];
 
+        this.debugDrawer = null;
+
         this.activeChunkRange = 
         {
-            topLeft: null,
-            botttomRight: null
+            startIdx: new StageCoord(0,0),
+            endIdx: new StageCoord(0,0)
         }
 
         for (let  i = 0; i < data.chunks.length; i++)
         {
-            this.chunk[i] = [];
-            for (let j = 0; j < data.chunks[i].length; j++) {
+            this.chunks[i] = [];
+            for (let j = 0; j < data.chunks[i].length; j++)
+            {
                 const chunkData = data.chunks[i][j];
                 this.chunks[i][j] = new GridChunk(chunkData);
             }
@@ -29,7 +32,7 @@ class GridChunkManager
         {
             throw "Invalid range parameters";
         }
-        if (this.activeChunkRange.startIdx == startIdx && this.activeChunkRange.endIdx == endIdx)
+        if (this.activeChunkRange.startIdx.compareCoord(startIdx) && this.activeChunkRange.endIdx.compareCoord(endIdx))
         {
             return;
         }
@@ -47,8 +50,9 @@ class GridChunkManager
     loadChunk(coord)
     {
         const chunk = this.chunks[coord.y][coord.x];
-        this.spawner.loadActorsFromData(chunk.actorData);
+        this.stage.spawn.loadActorsFromData(chunk.actorData);
         chunk.clearActorData();
+        
     }
 
     loadChunkRange(startIdx, endIdx)
@@ -57,7 +61,7 @@ class GridChunkManager
         {
             throw "Invalid range parameters";
         }
-        
+
         for (let i = startIdx.y; i < endIdx.y; i++)
         {
             for (let j = startIdx.x; j < endIdx.x; j++)
@@ -69,11 +73,16 @@ class GridChunkManager
                 }
             }
         }
+
+        if (this.debugDrawer)
+        {
+            this.debugDraw();
+        }
     }
 
     cleanActors()
     {
-        const actors = this.spawner.allActors;
+        const actors = this.stage.spawn.allActors;
         for (let  i = 0; i < actors.length; i++)
         {
             const actor = actors[i];
@@ -96,7 +105,7 @@ class GridChunkManager
 
     checkIdxActive(coord)
     {
-        return UtilFunctions.checkCoordInRange(this.activeChunkRange.topLeft, botttomRight, coord);
+        return UtilFunctions.checkCoordInRange(this.activeChunkRange.startIdx, this.activeChunkRange.endIdx, coord);
     }
 
     checkIdxExists(coord)
@@ -114,5 +123,35 @@ class GridChunkManager
         const x = Math.floor(obj.x / this.chunkWidth);
         const y = Math.floor(obj.y / this.chunkHeight);
         return new StageCoord(x, y);
+    }
+
+    startDebug()
+    {
+        this.debugDrawer = this.stage.scene.add.graphics({ fillStyle: { color: 0x0000aa }, lineStyle: { color: 0x0033aa } });
+    }
+
+    stopDebug()
+    {
+        this.debugDrawer.clear();
+        this.debugDrawer.destroy();
+        this.debugDrawer = null;
+    }
+
+    debugDraw()
+    {
+        this.debugDrawer.clear();
+
+        for (let i = this.activeChunkRange.startIdx.y; i < this.activeChunkRange.endIdx.y; i++)
+        {
+            for (let j = this.activeChunkRange.startIdx.x; j < this.activeChunkRange.endIdx.x; j++)
+            {
+                const idx = new StageCoord(j, i);
+                
+                if (this.debugDrawer)
+                {
+                    this.debugDrawer.strokeRect(idx.x*this.chunkWidth, idx.y*this.chunkHeight, this.chunkWidth, this.chunkHeight);
+                }
+            }
+        }
     }
 }

@@ -31,9 +31,24 @@ class ChunkTestScene extends Phaser.Scene
         var width = 17;
         var height = 13;
         
-        var data = this.cache.json.get('data');
+        var data = 
+        {
+            chunkWidth: 50,
+            chunkHeight: 50,
+            chunks: [
+                [[],[],[],[],[],[],[]],
+                [[],[],[],[],[],[],[]],
+                [[],[],[],[],[],[],[]],
+                [[],[],[],[],[],[],[]],
+                [[],[],[],[],[],[],[]],
+                [[],[],[],[],[],[],[]]
+            ]
+        }
         
-        this.stage = new Stage(this, width, height);
+        this.stage = new Stage(this, width, height, 0, 0, data);
+        this.stage.chunker.startDebug();
+
+        this.stage.chunker.setActiveRange(new StageCoord(0,0), new StageCoord(3,3));
         
     }
     

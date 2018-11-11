@@ -14,6 +14,8 @@ class ChunkingController
             bottom: new StageCoord(0, 0)
         };
 
+        this.debugDrawer = null;
+
         this.setBoundaries();
     }
 
@@ -62,11 +64,16 @@ class ChunkingController
         {
             this.triggerBounds.bottom.y = (centerChunk.y + 1) * this.chunker.chunkHeight;
         }
+
+        if (this.debugDrawer)
+        {
+            this.debugDraw();
+        }
     }
 
     checkTrigger()
     {
-        return UtilFunctions.checkCoordInRange(this.triggerBounds.top, this.triggerBounds.bottom, new StageCoord(this.focalObject.x, this.focalObject.y));
+        return !UtilFunctions.checkCoordInRange(this.triggerBounds.top, this.triggerBounds.bottom, new StageCoord(this.focalObject.x, this.focalObject.y));
     }
 
     update()
@@ -78,5 +85,27 @@ class ChunkingController
             const centerChunk = this.chunker.getParentChunk(this.focalObject);
             this.chunker.setActiveRange(new StageCoord(centerChunk.x - 1, centerChunk.y -1), new StageCoord(centerChunk.x + 1, centerChunk.y + 1), true);
         }
+    }
+
+    startDebug()
+    {
+        this.debugDrawer = this.stage.scene.add.graphics({ fillStyle: { color: 0x0000aa }, lineStyle: { color: 0xaa8800 } });
+        this.setBoundaries();
+    }
+
+    stopDebug()
+    {
+        this.debugDrawer.clear();
+        this.debugDrawer.destroy();
+        this.debugDrawer = null;
+    }
+
+    debugDraw()
+    {
+        const x = this.triggerBounds.top.x;
+        const y = this.triggerBounds.top.y;
+        const w = this.triggerBounds.bottom.x - x;
+        const h = this.triggerBounds.bottom.y - y;
+        this.debugDrawer.strokeRect(x, y, w, h);
     }
 }

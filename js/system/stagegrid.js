@@ -37,7 +37,7 @@ class StageGrid
         
         //this.borderGroup = this.scene.add.group();
                 
-        this.createGrid();
+        //this.createGrid();
     }
 
     /**

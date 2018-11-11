@@ -19,22 +19,11 @@ class Stage extends StageGrid
         offsetX = offsetX || 0;
         offsetY = offsetY || 0;
 
-        if (data)
-        {
-            super(scene, data.xSize, data.ySize, data.tile, offsetX, offsetY);
-        }
-        else
-        {
-            super(scene, xSize, ySize, ["tile"], offsetX, offsetY);
-        }
+        super(scene, xSize, ySize, ["tile"], offsetX, offsetY);
+        
 
         this.spawn = new ActorManager(this, this.scene.add.group());
-        //this.chunker = new GridChunkManager(this);
-        
-        if (data)
-        {
-            this.spawn.loadActorsFromData(data);
-        }
+        this.chunker = new GridChunkManager(this, data);
     }
 
     update()
