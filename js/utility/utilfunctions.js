@@ -8,6 +8,6 @@ var UtilFunctions =
     checkCoordInRange(startCoord, endCoord, coordToCheck)
     {
         return (coordToCheck.x >= startCoord.x && coordToCheck.x < endCoord.x &&
-            coordToCheck.y >= startCoord.x && coordToCheck.y < endCoord.y);
+            coordToCheck.y >= startCoord.y && coordToCheck.y < endCoord.y);
     }
 }

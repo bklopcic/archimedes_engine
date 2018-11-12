@@ -36,7 +36,7 @@ class GridChunkManager
         {
             return;
         }
-        forceClean = typeof forceClean == "undefined" ? false : forceClean;
+        forceClean = typeof forceClean === "undefined" ? false : forceClean;
         
         if (forceClean)
         {
@@ -54,7 +54,6 @@ class GridChunkManager
 
     loadChunk(coord)
     {
-        console.log(coord);
         const chunk = this.chunks[coord.y][coord.x];
         this.stage.spawn.loadActorsFromData(chunk.actorData);
         chunk.clearActorData();
@@ -76,7 +75,7 @@ class GridChunkManager
                 {
                     this.loadChunk(idx);
                 }
-            } 
+            }
         }
     }
 
@@ -96,7 +95,7 @@ class GridChunkManager
             {
                 inRange = UtilFunctions.checkCoordInRange(startIdx, endIdx, this.getParentChunkIdx(actor));
             }
-            if (actors.active && !this.checkInActiveBounds(actor))
+            if (actor.active && !inRange)
             {
                 actor.die();
                 if (actor.belongsToGrid)

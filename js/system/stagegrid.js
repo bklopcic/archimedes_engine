@@ -37,7 +37,7 @@ class StageGrid
         
         //this.borderGroup = this.scene.add.group();
                 
-        //this.createGrid();
+        this.createGrid();
     }
 
     /**
@@ -53,7 +53,7 @@ class StageGrid
                 const xPos = (x*this.tileWidth)+this.offsetX;
                 const yPos = (y*this.tileHeight)+this.offsetY;
                 
-                this.tiles.draw(this.scene.add.image(xPos, yPos, this.tileKeys[0]));
+                //this.tiles.draw(this.scene.add.image(xPos, yPos, this.tileKeys[0]));
                 this.dataGrid[y][x] = 0;
             }
         }

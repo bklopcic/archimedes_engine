@@ -23,7 +23,7 @@ class ChunkTestScene extends Phaser.Scene
         this.load.image('tile', "assets/img/testTile.png");
         this.load.image('box', "assets/img/frame.png");
         this.load.image('dot', "assets/img/dot.png");
-        this.load.json('data', 'data/test.json');
+        this.load.json('data', 'data/chunktest.json');
     }
     
     create()
@@ -31,19 +31,7 @@ class ChunkTestScene extends Phaser.Scene
         var width = 17;
         var height = 13;
         
-        var data = 
-        {
-            chunkWidth: 50,
-            chunkHeight: 50,
-            chunks: [
-                [[],[],[],[],[],[],[]],
-                [[],[],[],[],[],[],[]],
-                [[],[],[],[],[],[],[]],
-                [[],[],[],[],[],[],[]],
-                [[],[],[],[],[],[],[]],
-                [[],[],[],[],[],[],[]]
-            ]
-        }
+        var data = this.cache.json.get("data");
         
         this.stage = new Stage(this, width, height, 0, 0, data);
         this.stage.chunker.startDebug();

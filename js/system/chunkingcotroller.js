@@ -36,9 +36,6 @@ class ChunkingController
         else
         {
             return;
-            // const x = this.chunker.activeChunkRange.startIdx.x + (this.chunker.activeChunkRange.endIdx.x - this.chunker.activeChunkRange.startIdx.x)/2;
-            // const y = this.triggerBounds.top.y + (this.triggerBounds.bottom.y - this.triggerBounds.top.y)/2;
-            // centerChunk = new StageCoord(x, y);
         }
 
         if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x - 1, centerChunk.y)))
@@ -59,7 +56,7 @@ class ChunkingController
             this.triggerBounds.top.y = 0;
         }
         
-        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x + 2, centerChunk.y)))
+        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x + 1, centerChunk.y)))
         {
             this.triggerBounds.bottom.x = (centerChunk.x * this.chunker.chunkWidth) + this.chunker.chunkWidth/2 + this.triggerPaddingX;
         }
@@ -68,7 +65,7 @@ class ChunkingController
             this.triggerBounds.bottom.x = (centerChunk.x + 1) * this.chunker.chunkWidth;
         }
 
-        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x, centerChunk.y + 2)))
+        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x, centerChunk.y + 1)))
         {
             this.triggerBounds.bottom.y = (centerChunk.y * this.chunker.chunkHeight) + this.chunker.chunkHeight/2 + this.triggerPaddingY;
         }

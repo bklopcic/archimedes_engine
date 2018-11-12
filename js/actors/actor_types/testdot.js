@@ -4,6 +4,7 @@ class TestDot extends Actor
     {
         super(stage, x, y, "dot");
 
+        this.ACTOR_TYPE = "testdot";
         this.body.immovable = true;
     }
 }
