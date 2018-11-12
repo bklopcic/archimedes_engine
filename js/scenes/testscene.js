@@ -51,8 +51,14 @@ class TestScene extends Phaser.Scene
         const player = this.stage.spawn.player(700, 200, Direction.SOUTH, "player");
         this.player = new PlayerController(player);
         this.chunkController = new ChunkingController(this.stage.chunker, player);
+        this.chunkController.triggerPaddingX = 800;
+        this.chunkController.triggerPaddingY = 600;
         this.chunkController.startDebug();
         
+        this.cameras.main.setBounds(0, 0, 1000 * 7, 800 * 6);
+        this.physics.world.setBounds(this.cameras.main.x, this.cameras.main.y, 1000 * 7, 800 * 6);
+        this.cameras.main.startFollow(player, true);
+
         console.log(this.stage.toString());
     }
     
@@ -61,5 +67,11 @@ class TestScene extends Phaser.Scene
         this.stage.update();
         this.player.update();
         this.chunkController.update();
+        this.updateWorldBounds();
+    }
+
+    updateWorldBounds()
+    {
+        
     }
 }
