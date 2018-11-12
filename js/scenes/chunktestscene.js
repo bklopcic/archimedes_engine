@@ -32,6 +32,7 @@ class ChunkTestScene extends Phaser.Scene
         var height = 13;
         
         var data = this.cache.json.get("data");
+        console.log(data);
         
         this.stage = new Stage(this, width, height, 0, 0, data);
         this.stage.chunker.startDebug();
@@ -49,6 +50,13 @@ class ChunkTestScene extends Phaser.Scene
             this.point.y = pointer.y;
         }, this);
         
+        this.input.on('pointerdown', function (pointer)
+        {
+            if (this.stage.chunker.checkIdxExists(this.stage.chunker.getParentChunkIdx(pointer)))
+            {
+                this.stage.spawn.spawnActor("testdot", pointer.x, pointer.y);
+            }
+        }, this);
     }
     
     update()

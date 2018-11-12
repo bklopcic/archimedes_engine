@@ -11,8 +11,8 @@ class GridChunkManager
 
         this.activeChunkRange = 
         {
-            startIdx: new StageCoord(0,0),
-            endIdx: new StageCoord(0,0)
+            startIdx: new StageCoord(-1,-1),
+            endIdx: new StageCoord(-1,-1)
         }
 
         for (let  i = 0; i < data.chunks.length; i++)
@@ -26,12 +26,25 @@ class GridChunkManager
         }
     }
 
+    get maxIdx()
+    {
+        return new StageCoord(this.chunks[0].length, this.chunks.length);
+    }
+
     setActiveRange(startIdx, endIdx, forceClean)
     {
         if (startIdx.x > endIdx.x || startIdx.y > endIdx.y)
         {
             throw "Invalid range parameters";
         }
+
+        //validate range to confine to existing chunks
+        startIdx.x = startIdx.x < 0 ? 0 : startIdx.x;
+        startIdx.y = startIdx.y < 0 ? 0 : startIdx.y;
+        const max = this.maxIdx;
+        endIdx.x = endIdx.x > max.x ? max.x : endIdx.x;
+        endIdx.y = endIdx.y > max.y ? max.y : endIdx.y;
+
         if (this.activeChunkRange.startIdx.compareCoord(startIdx) && this.activeChunkRange.endIdx.compareCoord(endIdx))
         {
             return;

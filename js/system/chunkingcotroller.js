@@ -94,7 +94,14 @@ class ChunkingController
             const centerChunk = this.chunker.getParentChunkIdx(this.focalObject);
             const startIdx = new StageCoord(centerChunk.x-1, centerChunk.y-1);
             const endIdx = new StageCoord(centerChunk.x+2, centerChunk.y+2);
-            this.chunker.setActiveRange(startIdx, endIdx, true);
+            try
+            {
+                this.chunker.setActiveRange(startIdx, endIdx, true);
+            }
+            catch(e)
+            {
+                console.log(e);
+            }
         }
     }
 
