@@ -5,8 +5,8 @@ class ChunkingController
         this.chunker = chunker;
         this.focalObject = focalObject;
 
-        this.triggerPaddingX = 50;
-        this.triggerPaddingY = 50;
+        this.triggerPaddingX = 100;
+        this.triggerPaddingY = 75;
 
         this.triggerBounds = 
         {
