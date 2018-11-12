@@ -26,6 +26,11 @@ class Stage extends StageGrid
         this.chunker = new GridChunkManager(this, data);
     }
 
+    get dataLiteral()
+    {
+        return this.chunker.generateData();
+    }
+
     update()
     {
         this.spawn.update();
@@ -73,18 +78,9 @@ class Stage extends StageGrid
     {
         actorBody.gameObject.collideBounds();
     }
-    
-    
-    /**
-        @return a JSON validate stringification of essential datamembers of this stage
-    */
+
     toString()
     {
-        var data = {};
-        data.xSize = this.xSize;
-        data.ySize = this.ySize;
-        data.tile = this.tileKey;
-        data.actors = this.spawn.dataLiteral;
-        return JSON.stringify(data);
+        return this.chunker.toString();
     }
 }

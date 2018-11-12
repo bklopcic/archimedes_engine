@@ -7,9 +7,17 @@
  */
 class GridChunk
 {
-    constructor(actors)
+    constructor(chunkData)
     {
-        this.actorData = actors;
+        this.actorData = chunkData.actorData;
+    }
+
+    get dataLiteral()
+    {
+        const copy = this.clone();
+        const data = {};
+        data.actorData = copy.actorData;
+        return data;
     }
 
     clearActorData()
@@ -20,5 +28,14 @@ class GridChunk
     addActor(actor)
     {
         this.actorData.push(actor.dataLiteral);
+    }
+
+    clone()
+    {
+        const arrCopy = [];
+        for (let i = 0; i < this.actorData.length; i++) {
+            arrCopy[i] = Object.assign({},this.actorData[i]);
+        }
+        return new GridChunk({actorData: arrCopy});
     }
 }

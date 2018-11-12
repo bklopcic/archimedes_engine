@@ -119,25 +119,6 @@ class GridChunkManager
             }
         }
     }
-
-    cleanFromRange(startIdx, endIdx)
-    {
-        const actors = this.stage.spawn.allActors;
-        for (let i = 0; i < actors.length; i++)
-        {
-            const actor = actors[i];
-            const inRange = UtilFunctions.checkCoordInRange(startIdx, endIdx, this.getParentChunkIdx(actor));
-            if (actors.active && !inRange)
-            {
-                actor.die();
-                if (actor.belongsToGrid)
-                {
-                    const actorIdx = this.getParentChunkIdx(actor);
-                    this.chunks[actorIdx.y][actorIdx.x].addActor(actor);
-                }
-            }
-        }
-    }
     
     checkInActiveBounds(obj)
     {
@@ -164,6 +145,46 @@ class GridChunkManager
         const x = Math.floor(obj.x / this.chunkWidth);
         const y = Math.floor(obj.y / this.chunkHeight);
         return new StageCoord(x, y);
+    }
+
+    generateData()
+    {
+        //generate a copy of chunks array
+        const chunksCopy = [];
+        for (let i = 0; i < this.chunks.length; i++)
+        {
+            chunksCopy[i] = [];
+            for (let j = 0; j < this.chunks[i].length; j++)
+            {
+                chunksCopy[i][j] = this.chunks[i][j].clone();   
+            }
+        }
+
+        //get the data from actors that are on currently active chunks
+        const actors = this.stage.spawn.allActors;
+        for (let i = 0; i < actors.length; i++)
+        {
+            const actor = actors[i];
+            if (actor.active && actor.belongsToGrid)
+            {
+                const actorIdx = this.getParentChunkIdx(actor);
+                chunksCopy[actorIdx.y][actorIdx.x].addActor(actor);
+            }
+        }
+
+        for (let  i = 0; i < chunksCopy.length; i++)
+        {
+            for (let j = 0; j < chunksCopy[i].length; j++)
+            {
+                chunksCopy[i][j] = chunksCopy[i][j].dataLiteral;   
+            }
+        }
+
+        const data = {};
+        data.chunkWidth = this.chunkWidth;
+        data.chunkHeight = this.chunkHeight;
+        data.chunks = chunksCopy;
+        return data;
     }
 
     startDebug()
@@ -194,5 +215,10 @@ class GridChunkManager
                 }
             }
         }
+    }
+
+    toString()
+    {
+        return JSON.stringify(this.generateData());
     }
 }

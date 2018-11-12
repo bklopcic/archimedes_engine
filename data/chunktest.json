@@ -3,66 +3,79 @@
     "chunkHeight": 75,
     "chunks": [
         [
-            [
-                {"type": "testdot", "x": 30, "y": 4, "faceDirection": 1, "team": "0"}
-            ],
-            [],
-            [],
-            [],
-            [],
-            [],
-            []
+            {
+                "actorData": 
+                [
+                    {"type": "testdot", "x": 30, "y": 4, "faceDirection": 1, "team": "0"}
+                ]
+            },
+            {"actorData":{"actorData":[]}},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]}
         ],
         [
-            [],
-            [],
-            [
-                {"type": "testdot", "x": 280, "y": 89, "faceDirection": 1, "team": "0"},
-                {"type": "testdot", "x": 213, "y": 132, "faceDirection": 1, "team": "0"}],
-            [],
-            [],
-            [],
-            []
+            {"actorData":[]},
+            {"actorData":[]},
+            {
+                "actorData":
+                [
+                    {"type": "testdot", "x": 280, "y": 89, "faceDirection": 1, "team": "0"},
+                    {"type": "testdot", "x": 213, "y": 132, "faceDirection": 1, "team": "0"}
+                ]
+            },
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]}
         ],
         [
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            []
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]}
         ],
         [
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            []
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]}
         ],
         [
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            []
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]}
         ],
         [
-            [],
-            [],
-            [],
-            [
-                {"type": "testdot", "x": 375, "y": 425, "faceDirection": 1, "team": "0"}
-            ],
-            [],
-            [],
-            [
-                {"type": "testdot", "x": 650, "y": 413, "faceDirection": 1, "team": "0"}
-            ]
+            {"actorData":[]},
+            {"actorData":[]},
+            {"actorData":[]},
+            {
+                "actorData":
+                [
+                    {"type": "testdot", "x": 375, "y": 425, "faceDirection": 1, "team": "0"}
+                ]
+            },
+            {"actorData":[]},
+            {"actorData":[]},
+            {
+                "actorData":
+                [
+                    {"type": "testdot", "x": 650, "y": 413, "faceDirection": 1, "team": "0"}
+                ]
+            }
         ]
     ]
 }
