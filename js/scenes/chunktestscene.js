@@ -34,7 +34,7 @@ class ChunkTestScene extends Phaser.Scene
         var data = this.cache.json.get("data");
         console.log(data);
         
-        this.stage = new Stage(this, width, height, 0, 0, data);
+        this.stage = new Stage(this, data);
         this.stage.chunker.startDebug();
 
         this.stage.chunker.setActiveRange(new StageCoord(0,0), new StageCoord(3,3));

@@ -34,9 +34,7 @@ class StageGrid
         this.tiles = this.scene.add.renderTexture(0, 0, this.tileWidth * this.xSize, this.tileHeight * this.ySize);
                 
         this.dataGrid = [];
-        
-        //this.borderGroup = this.scene.add.group();
-                
+                        
         this.createGrid();
     }
 
@@ -57,22 +55,6 @@ class StageGrid
                 this.dataGrid[y][x] = 0;
             }
         }
-        //this.createBorders(); //TODO
-    }
-
-    /**
-     * METHOD INCOMPLETE
-     */
-    createBorders() 
-    {
-        // const topLeft = new Phaser.Point(this.offsetX-(this.tileWidth/2), this.offsetY-(this.tileHeight/2));
-        // const border = this.scene.add.sprite(topLeft.x, topLeft.y, this.tileKey);
-        // border.scale.set(this.xSize, .5);
-        
-        // this.borderGroup.addChild(border);
-            
-        // border.body.setCollisionGroup(this.actorCollisionGroup);
-        
     }
 
     /**
@@ -114,9 +96,9 @@ class StageGrid
     }
 
     /**
-        Handles adding to the number of occupants at a position on the grid
-        
-        @param coord StageCoord the position to occupy
+    * Handles adding to the number of occupants at a position on the grid
+    *    
+    * @param coord StageCoord the position to occupy
     */
     enterTile(coord) 
     {

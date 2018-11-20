@@ -37,14 +37,10 @@ class TestScene extends Phaser.Scene
     }
     
     create()
-    {
-        
-        var width = 17;
-        var height = 13;
-        
+    {   
         var data = this.cache.json.get('data');
         
-        this.stage = new Stage(this, width, height, 0, 0, data);
+        this.stage = new Stage(this, data);
         this.stage.chunker.startDebug();
         console.log(this.stage.dataGrid);
         
@@ -67,11 +63,5 @@ class TestScene extends Phaser.Scene
         this.stage.update();
         this.player.update();
         this.chunkController.update();
-        this.updateWorldBounds();
-    }
-
-    updateWorldBounds()
-    {
-        
     }
 }
