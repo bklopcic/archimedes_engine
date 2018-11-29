@@ -96,8 +96,9 @@ class ActorManager
         }        
         //create a new group and add it to the parent sort group
         //TODO: add new group to container (for sorting)
-        this.actorGroups[name] = new ActorGroup(this.stage.scene, classType);
-        for (const group in this.actorGroups) {
+        this.actorGroups[name] = this.stage.scene.add.group({classType: classType, runChildUpdate: true});
+        for (const group in this.actorGroups)
+        {
             this.stage.scene.physics.add.overlap(this.actorGroups[name], this.actorGroups[group], this.stage.collisionHandler, null, this.stage);
         }
     }
@@ -117,12 +118,7 @@ class ActorManager
     /**
      * updates all actors belonging to this ActorManager
      */
-    update()
-    {
-        for (const group in this.actorGroups) {
-            this.actorGroups[group].preUpdate();
-        }
-    }
+    update(){}
 
     /**
         Creates a new Phaser.Sprite in the specified group

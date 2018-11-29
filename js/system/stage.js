@@ -31,7 +31,6 @@ class Stage
 
     update()
     {
-        this.spawn.update();
     }
 
     /**
