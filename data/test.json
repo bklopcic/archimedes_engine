@@ -1,9 +1,11 @@
 {
 	"chunkWidth": 1000,
 	"chunkHeight": 800,
+	"tileWidth": 100,
+	"tileHeight": 95,
 	"chunks": [
 		[{
-			"actorData": [{
+			"actors": [{
 				"type": "turret",
 				"x": 100,
 				"y": 100,
@@ -47,92 +49,92 @@
 				"team": "neutral"
 			}]
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}],
 		[{
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}],
 		[{
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}],
 		[{
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}],
 		[{
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}],
 		[{
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}, {
-			"actorData": []
+			"actors": []
 		}]
 	]
 }

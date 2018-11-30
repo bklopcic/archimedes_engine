@@ -9,7 +9,8 @@ class GridChunk
 {
     constructor(chunkData)
     {
-        this.actorData = chunkData.actorData;
+        this.actorData = chunkData.actors;
+        this.tileData = chunkData.tiles;
     }
 
     get dataLiteral()

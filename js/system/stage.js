@@ -11,6 +11,7 @@ class Stage
     constructor(scene, data)
     {       
         this.scene = scene;
+        this.data = data;
         this.dataGrid = [];
 
         let testTile = this.scene.textures.get("tile").source[0];
@@ -19,7 +20,7 @@ class Stage
         testTile = null;
 
         this.spawn = new ActorManager(this, this.scene.add.group());
-        this.chunker = new GridChunkManager(this, data);
+        this.chunker = new GridChunkManager(this, this.data);
 
         this.createGrid();
     }
@@ -159,7 +160,7 @@ class Stage
    */
    checkIfEmpty(coord) 
    {
-       return true; return this.dataGrid[coord.y][coord.x] == 0;
+       return true; //return this.dataGrid[coord.y][coord.x] == 0;
    }
 
     toString()
