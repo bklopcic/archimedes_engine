@@ -71,7 +71,7 @@ class PlayerController
         {
             this.controlKeys.E.reset();
             this.actor.build(this.buildings[this.selectedBuilding]);
-            console.log(this.actor.stage.dataGrid);
+            console.log(this.actor.stage.grid.dataGrid);
         }
     }
 

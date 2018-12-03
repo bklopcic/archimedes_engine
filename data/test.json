@@ -1,8 +1,26 @@
 {
 	"chunkWidth": 1000,
 	"chunkHeight": 800,
+	"numChunksX": 7,
+	"numChunksY": 7,
 	"tileWidth": 100,
-	"tileHeight": 95,
+	"tileHeight": 80,
+	"tilesPerChunkX": 10,
+	"tilesPerChunkY": 10,
+	"activeRange": 
+	{
+		"startIdx": 
+		{
+			"x": 0,
+			"y": 0
+		},
+		"endIdx": 
+		{
+			"x": 1,
+			"y": 1
+		}
+	},
+	"tileSet": ["tile"],
 	"chunks": [
 		[{
 			"actors": [{

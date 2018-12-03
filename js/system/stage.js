@@ -12,17 +12,17 @@ class Stage
     {       
         this.scene = scene;
         this.data = data;
-        this.dataGrid = [];
 
-        let testTile = this.scene.textures.get("tile").source[0];
-        this.tileWidth = testTile.width;
-        this.tileHeight = testTile.height;
-        testTile = null;
+        this.tileWidth = data.tileWidth;
+        this.tileHeight = data.tileHeight;
 
+        this.grid = new TileManager(this.scene, data.numChunksX * data.chunkWidth, data.numChunksY * data.chunkHeight, 0, 0, data.tileSet);
         this.spawn = new ActorManager(this, this.scene.add.group());
-        this.chunker = new GridChunkManager(this, this.data);
+        this.chunker = new GridChunkManager(this.scene, this.spawn, this.grid, data);
 
-        this.createGrid();
+        const startIdx = new StageCoord(data.activeRange.startIdx.x, data.activeRange.startIdx.y);
+        const endIdx =  new StageCoord(data.activeRange.endIdx.x, data.activeRange.endIdx.y);
+        this.chunker.setActiveRange(startIdx, endIdx);
     }
 
     get dataLiteral()
@@ -77,25 +77,6 @@ class Stage
         actorBody.gameObject.collideBounds();
     }
 
-    /**
-        Handles setting up the grid
-    */
-   createGrid() 
-   {
-       for (let y = 0; y < this.ySize; y++)
-       {
-           this.dataGrid[y] = [];
-           for(let x = 0; x < this.xSize; x++)
-           {
-               const xPos = (x*this.tileWidth);
-               const yPos = (y*this.tileHeight);
-               
-               //this.tiles.draw(this.scene.add.image(xPos, yPos, this.tileKeys[0]));
-               this.dataGrid[y][x] = 0;
-           }
-       }
-   }
-
    /**
        Returns the pixel coordinate of a specified StageCoord
        
@@ -129,7 +110,7 @@ class Stage
    */
    checkInBounds(coord) 
    {
-       return true; //(coord.x >= 0 && coord.x < this.xSize && coord.y >= 0 && coord.y < this.ySize);
+       return this.grid.checkInBounds(coord);
    }
 
    /**
@@ -139,7 +120,7 @@ class Stage
    */
    enterTile(coord) 
    {
-       //this.dataGrid[coord.y][coord.x]++;
+       this.grid.enterTile(coord);
    }
 
    /**
@@ -149,7 +130,7 @@ class Stage
    */
    leaveTile(coord) 
    {
-       //this.dataGrid[coord.y][coord.x]--;
+       this.grid.leaveTile(coord);
    }
 
    /**
@@ -160,7 +141,7 @@ class Stage
    */
    checkIfEmpty(coord) 
    {
-       return true; //return this.dataGrid[coord.y][coord.x] == 0;
+       return this.grid.checkIfEmpty(coord);
    }
 
     toString()

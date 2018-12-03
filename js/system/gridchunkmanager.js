@@ -1,10 +1,14 @@
 class GridChunkManager
 {
-    constructor(stage, data)
+    constructor(scene, actorManager, tileManager, data)
     {
-        this.stage = stage;
+        this.scene = scene;
+        this.spawner = actorManager;
+        this.tileManager = tileManager;
         this.chunkWidth = data.chunkWidth;
         this.chunkHeight = data.chunkHeight;
+        this.tilesPerChunkX = data.tilesPerChunkX;
+        this.tilePerChunkY = data.tilesPerChunkY;
         this.chunks = [];
 
         this.debugDrawer = null;
@@ -24,11 +28,8 @@ class GridChunkManager
                 this.chunks[i][j] = new GridChunk(chunkData);
             }
         }
-    }
 
-    get maxIdx()
-    {
-        return new StageCoord(this.chunks[0].length, this.chunks.length);
+        this.maxIdx = new StageCoord(this.chunks[0].length, this.chunks.length);
     }
 
     setActiveRange(startIdx, endIdx, forceClean)
@@ -55,6 +56,7 @@ class GridChunkManager
         {
             this.cleanActors(startIdx, endIdx);
         }
+        this.resetGrid(startIdx, endIdx);
         this.loadChunkRange(startIdx, endIdx);
         this.activeChunkRange.startIdx = startIdx;
         this.activeChunkRange.endIdx = endIdx;
@@ -67,8 +69,14 @@ class GridChunkManager
 
     loadChunk(coord)
     {
+        //get the chunk
         const chunk = this.chunks[coord.y][coord.x];
-        this.stage.spawn.loadActorsFromData(chunk.actorData);
+
+        //load the tiles
+        //this.tileManager.drawTiles(chunk.tiles);
+
+        //load the actors
+        this.spawner.loadActorsFromData(chunk.actors);
         chunk.clearActorData();
     }
 
@@ -92,9 +100,18 @@ class GridChunkManager
         }
     }
 
+    resetGrid(startIdx, endIdx)
+    {
+        const xSize = (endIdx.x - startIdx.x) * this.tilesPerChunkX;
+        const ySize = (endIdx.y - startIdx.y) * this.tilesPerChunkY;
+        const xOffset = this.chunkWidth * startIdx.x;
+        const yOffset = this.chunkHeight * startIdx.y;
+        this.tileManager.resetGrid(xSize, ySize, xOffset, yOffset, this.spawner.activeActorPositions);
+    }
+
     cleanActors(startIdx, endIdx)
     {
-        const actors = this.stage.spawn.allActors;
+        const actors = this.spawner.allActors;
         for (let i = 0; i < actors.length; i++)
         {
             const actor = actors[i];
@@ -161,7 +178,7 @@ class GridChunkManager
         }
 
         //get the data from actors that are on currently active chunks
-        const actors = this.stage.spawn.allActors;
+        const actors = this.spawner.allActors;
         for (let i = 0; i < actors.length; i++)
         {
             const actor = actors[i];
@@ -189,7 +206,7 @@ class GridChunkManager
 
     startDebug()
     {
-        this.debugDrawer = this.stage.scene.add.graphics({ fillStyle: { color: 0x0000aa }, lineStyle: { color: 0x0033aa } });
+        this.debugDrawer = this.scene.add.graphics({ fillStyle: { color: 0x0000aa }, lineStyle: { color: 0x0033aa } });
     }
 
     stopDebug()

@@ -42,7 +42,6 @@ class TestScene extends Phaser.Scene
         
         this.stage = new Stage(this, data);
         this.stage.chunker.startDebug();
-        console.log(this.stage.dataGrid);
         
         const player = this.stage.spawn.player(700, 200, Direction.SOUTH, "player");
         this.player = new PlayerController(player);

@@ -9,34 +9,34 @@ class GridChunk
 {
     constructor(chunkData)
     {
-        this.actorData = chunkData.actors;
-        this.tileData = chunkData.tiles;
+        this.actors = chunkData.actors;
+        this.tiles = chunkData.tiles;
     }
 
     get dataLiteral()
     {
         const copy = this.clone();
         const data = {};
-        data.actorData = copy.actorData;
+        data.actors = copy.actors;
         return data;
     }
 
     clearActorData()
     {
-        this.actorData = [];
+        this.actors = [];
     }
 
     addActor(actor)
     {
-        this.actorData.push(actor.dataLiteral);
+        this.actors.push(actor.dataLiteral);
     }
 
     clone()
     {
         const arrCopy = [];
-        for (let i = 0; i < this.actorData.length; i++) {
-            arrCopy[i] = Object.assign({},this.actorData[i]);
+        for (let i = 0; i < this.actors.length; i++) {
+            arrCopy[i] = Object.assign({},this.actors[i]);
         }
-        return new GridChunk({actorData: arrCopy});
+        return new GridChunk({actors: arrCopy});
     }
 }

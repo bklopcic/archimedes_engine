@@ -29,6 +29,19 @@ class ActorManager
         return dataArr;
     }
 
+    get activeActorPositions()
+    {
+        const positions = [];
+        for (let i = 0; i < this.allActors.length; i++) {
+            const actor = this.allActors[i];
+            if (actor.active && actor.belongsToGrid)
+            {
+                positions.push(actor.stagePosition);
+            }
+        }
+        return positions;
+    }
+
     /**
         Handles adding a team to the stage. 
         
@@ -71,8 +84,9 @@ class ActorManager
         @param name string team name to check
         @return bool
     */
-    checkTeamExists(name){
-        for (var i = 0; i < this.teamNames.length; i++)
+    checkTeamExists(name)
+    {
+        for (let i = 0; i < this.teamNames.length; i++)
         {
             if(this.teamNames[i] == name)
             {
@@ -108,7 +122,7 @@ class ActorManager
     */
     loadActorsFromData(data)
     {
-        for (var i = 0; i < data.length; i++)
+        for (let i = 0; i < data.length; i++)
         {
             const actor = data[i];
             this.spawnActor(actor.type, actor.x, actor.y, actor.faceDirection, actor.team);

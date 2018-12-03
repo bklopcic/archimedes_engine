@@ -107,7 +107,7 @@ class ChunkingController
 
     startDebug()
     {
-        this.debugDrawer = this.chunker.stage.scene.add.graphics({ fillStyle: { color: 0x0000aa }, lineStyle: { color: 0xaa8800 } });
+        this.debugDrawer = this.chunker.scene.add.graphics({ fillStyle: { color: 0x0000aa }, lineStyle: { color: 0xaa8800 } });
         this.debugDraw();
     }
 
