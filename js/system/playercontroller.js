@@ -70,7 +70,7 @@ class PlayerController
         if (this.controlKeys.E.duration >= 10) 
         {
             this.controlKeys.E.reset();
-            this.actor.build(this.buildings[this.selectedBuilding]);
+            //this.actor.build(this.buildings[this.selectedBuilding]);
             console.log(this.actor.stage.grid.dataGrid);
         }
     }

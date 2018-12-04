@@ -16,7 +16,7 @@ class Player extends Actor
         super(stage, x, y, "ball", direction);
         this.ACTOR_TYPE = "player";
                 
-        this.speed = 100;
+        this.speed = 450;
         this.targetable = true;
         this.collidable = true;
             
@@ -49,7 +49,7 @@ class Player extends Actor
         const xModifyer = Direction.modifyer[this.faceDirection].x;
         const yModifyer = Direction.modifyer[this.faceDirection].y;
         //this actor's position is the last tile any part of it moved into
-        const coord = this.stage.getCoordByPixels(this.x +((this.width/2)*xModifyer), this.y+((this.height/2)*yModifyer));
+        const coord = this.stage.getCoordByPixels(this.x + ((this.width/2)*xModifyer), this.y+((this.height/2)*yModifyer));
         
         if (!this.stagePosition.compareCoord(coord))
         {

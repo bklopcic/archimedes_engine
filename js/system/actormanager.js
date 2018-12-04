@@ -42,17 +42,6 @@ class ActorManager
         return positions;
     }
 
-    forceActorPositionReport()
-    {
-        for (let i = 0; i < this.allActors.length; i++) {
-            const actor = this.allActors[i];
-            if (actor.active && actor.belongsToGrid)
-            {
-                actor.updatePosition();
-            }
-        }
-    }
-
     /**
         Handles adding a team to the stage. 
         

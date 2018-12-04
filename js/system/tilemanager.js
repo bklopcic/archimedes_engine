@@ -26,8 +26,8 @@ class TileManager
      */
     resetGrid(xSize, ySize, offsetX, offsetY, positionArr)
     {
-        this.offsetX = offsetX || this.offsetX;
-        this.offsetY = offsetY || this.offsetY;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
         this.dataGrid = [];
         for (let i = 0; i < ySize; i++)
         {
@@ -50,9 +50,9 @@ class TileManager
         {
             for (let j = 0; j < tileData[i].length; j++)
             {
-                const xPos = x + this.offsetX + (this.tileWidth/2) + (j*this.tileWidth);
-                const yPos = y + this.offsetY + (this.tileHeight/2) + (i*this.tileHeight);
-                this.tiles.draw(this.scene.add.image(xPos, yPos, this.tileKeys[0]));
+                const xPos = x + (this.tileWidth/2) + (j*this.tileWidth);
+                const yPos = y + (this.tileHeight/2) + (i*this.tileHeight);
+                this.tiles.draw(this.scene.add.image(xPos, yPos, this.tileKeys[tileData[i][j]]));
             }
         }
     }
@@ -65,7 +65,7 @@ class TileManager
     */
    getTileAt(coord) 
    {
-       return new Phaser.Geom.Point((this.offsetX + coord.x) * this.tileWidth, (this.offsetY + coord.y) * this.tileHeight);
+       return new Phaser.Geom.Point(coord.x * this.tileWidth, coord.y * this.tileHeight);
    }
 
    /**
@@ -99,7 +99,6 @@ class TileManager
    */
    enterTile(coord) 
    {
-       console.log(coord);
        this.dataGrid[coord.y][coord.x]++;
    }
 

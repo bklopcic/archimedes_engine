@@ -20,7 +20,8 @@ class TestScene extends Phaser.Scene
 
     preload()
     {
-        this.load.image('tile', "assets/img/testTile.png");
+        this.load.image('tile0', "assets/img/greentile1.png");
+        this.load.image('tile1', "assets/img/greentile2.png");
         this.load.image('targetBox', 'assets/img/targetbox.png');
         this.load.spritesheet('spider', 'assets/img/spider.png', {frameWidth: 25, frameHeight: 25});
         this.load.image('wall', 'assets/img/wall.png');

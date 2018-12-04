@@ -27,51 +27,46 @@ class ChunkingController
 
     setBoundaries()
     {
-        let centerChunk;
          
         if (this.chunker.checkIdxExists(this.chunker.getParentChunkIdx(this.focalObject)))
         {
-            centerChunk = this.chunker.getParentChunkIdx(this.focalObject);
-        }
-        else
-        {
-            return;
-        }
+            const centerChunk = this.chunker.getParentChunkIdx(this.focalObject);
 
-        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x - 1, centerChunk.y)))
-        {
-            this.triggerBounds.top.x = (centerChunk.x * this.chunker.chunkWidth) + this.chunker.chunkWidth/2 - this.triggerPaddingX;
-        }
-        else
-        {
-            this.triggerBounds.top.x = 0;
-        }
+            if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x - 1, centerChunk.y)))
+            {
+                this.triggerBounds.top.x = (centerChunk.x * this.chunker.chunkWidth) + this.chunker.chunkWidth/2 - this.triggerPaddingX;
+            }
+            else
+            {
+                this.triggerBounds.top.x = 0;
+            }
 
-        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x, centerChunk.y - 1)))
-        {
-            this.triggerBounds.top.y = (centerChunk.y * this.chunker.chunkHeight) + this.chunker.chunkHeight/2 - this.triggerPaddingY;
-        }
-        else
-        {
-            this.triggerBounds.top.y = 0;
-        }
-        
-        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x + 1, centerChunk.y)))
-        {
-            this.triggerBounds.bottom.x = (centerChunk.x * this.chunker.chunkWidth) + this.chunker.chunkWidth/2 + this.triggerPaddingX;
-        }
-        else
-        {
-            this.triggerBounds.bottom.x = (centerChunk.x + 1) * this.chunker.chunkWidth;
-        }
+            if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x, centerChunk.y - 1)))
+            {
+                this.triggerBounds.top.y = (centerChunk.y * this.chunker.chunkHeight) + this.chunker.chunkHeight/2 - this.triggerPaddingY;
+            }
+            else
+            {
+                this.triggerBounds.top.y = 0;
+            }
+            
+            if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x + 1, centerChunk.y)))
+            {
+                this.triggerBounds.bottom.x = (centerChunk.x * this.chunker.chunkWidth) + this.chunker.chunkWidth/2 + this.triggerPaddingX;
+            }
+            else
+            {
+                this.triggerBounds.bottom.x = (centerChunk.x + 1) * this.chunker.chunkWidth;
+            }
 
-        if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x, centerChunk.y + 1)))
-        {
-            this.triggerBounds.bottom.y = (centerChunk.y * this.chunker.chunkHeight) + this.chunker.chunkHeight/2 + this.triggerPaddingY;
-        }
-        else
-        {
-            this.triggerBounds.bottom.y = (centerChunk.y + 1) * this.chunker.chunkHeight;
+            if (this.chunker.checkIdxExists(new StageCoord(centerChunk.x, centerChunk.y + 1)))
+            {
+                this.triggerBounds.bottom.y = (centerChunk.y * this.chunker.chunkHeight) + this.chunker.chunkHeight/2 + this.triggerPaddingY;
+            }
+            else
+            {
+                this.triggerBounds.bottom.y = (centerChunk.y + 1) * this.chunker.chunkHeight;
+            }
         }
 
         if (this.debugDrawer)

@@ -29,7 +29,8 @@ class GridChunkManager
             }
         }
 
-        this.maxIdx = new StageCoord(this.chunks[0].length, this.chunks.length);
+        this.maxIdx = new StageCoord(data.numChunksX + 1, data.numChunksY + 1);
+        console.log(this.maxIdx);
     }
 
     setActiveRange(startIdx, endIdx, forceClean)
@@ -42,9 +43,8 @@ class GridChunkManager
         //validate range to confine to existing chunks
         startIdx.x = startIdx.x < 0 ? 0 : startIdx.x;
         startIdx.y = startIdx.y < 0 ? 0 : startIdx.y;
-        const max = this.maxIdx;
-        endIdx.x = endIdx.x > max.x ? max.x : endIdx.x;
-        endIdx.y = endIdx.y > max.y ? max.y : endIdx.y;
+        endIdx.x = endIdx.x > this.maxIdx.x ? this.maxIdx.x : endIdx.x;
+        endIdx.y = endIdx.y > this.maxIdx.y ? this.maxIdx.y : endIdx.y;
 
         if (this.activeChunkRange.startIdx.compareCoord(startIdx) && this.activeChunkRange.endIdx.compareCoord(endIdx))
         {
@@ -92,7 +92,7 @@ class GridChunkManager
             for (let j = startIdx.x; j < endIdx.x; j++)
             {
                 const idx = new StageCoord(j, i);
-                if (!this.checkIdxActive(idx) && this.checkIdxExists(idx))
+                if (this.checkIdxExists(idx) && !this.checkIdxActive(idx))
                 {
                     this.loadChunk(idx);
                 }
@@ -104,11 +104,9 @@ class GridChunkManager
     {
         const xSize = (endIdx.x - startIdx.x) * this.tilesPerChunkX;
         const ySize = (endIdx.y - startIdx.y) * this.tilesPerChunkY;
-        console.log(xSize, ySize);
-        const xOffset = this.chunkWidth * startIdx.x;
-        const yOffset = this.chunkHeight * startIdx.y;
-        this.tileManager.resetGrid(xSize, ySize, xOffset, yOffset);
-        this.spawner.forceActorPositionReport();
+        const offsetX = this.chunkWidth * startIdx.x;
+        const offsetY = this.chunkHeight * startIdx.y;
+        this.tileManager.resetGrid(xSize, ySize, offsetX, offsetY, this.spawner.activeActorPositions);
     }
 
     cleanActors(startIdx, endIdx)
@@ -151,7 +149,7 @@ class GridChunkManager
 
     checkIdxExists(coord)
     {
-        return coord.x > -1 && coord.y > -1 && coord.x < this.chunks[0].length && coord.y < this.chunks.length;
+        return coord.x >= 0 && coord.y >= 0 && coord.x < this.chunks[0].length && coord.y < this.chunks.length;
     }
 
     /**
