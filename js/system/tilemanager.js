@@ -1,14 +1,12 @@
 class TileManager
 {
-    constructor(scene, width, height, offsetX, offsetY, tileKeys)
+    constructor(scene, width, height, offsetX, offsetY, tileKeys, tileWidth, tileHeight)
     {
         this.scene = scene;
         this.tileKeys = tileKeys;
 
-        let testTile = this.scene.textures.get(this.tileKeys[0]).source[0];
-        this.tileWidth = testTile.width;
-        this.tileHeight = testTile.height;
-        testTile = null;
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
 
         this.offsetX = offsetX;
         this.offsetY = offsetY;
@@ -31,10 +29,10 @@ class TileManager
         this.offsetX = offsetX || this.offsetX;
         this.offsetY = offsetY || this.offsetY;
         this.dataGrid = [];
-        for (let i = 0; i < xSize; i++)
+        for (let i = 0; i < ySize; i++)
         {
             this.dataGrid[i] = [];
-            for (let j = 0; j < ySize; j++)
+            for (let j = 0; j < xSize; j++)
             {
                 this.dataGrid[i][j] = 0;
             }
@@ -46,14 +44,14 @@ class TileManager
         }
     }
 
-    drawTiles(tileData)
+    drawTiles(x, y, tileData)
     {
         for (let i = 0; i < tileData.length; i++)
         {
             for (let j = 0; j < tileData[i].length; j++)
             {
-                const xPos = this.offsetX + (x*this.tileWidth);
-                const yPos = this.offsetY + (y*this.tileHeight);
+                const xPos = x + this.offsetX + (this.tileWidth/2) + (j*this.tileWidth);
+                const yPos = y + this.offsetY + (this.tileHeight/2) + (i*this.tileHeight);
                 this.tiles.draw(this.scene.add.image(xPos, yPos, this.tileKeys[0]));
             }
         }
@@ -72,17 +70,14 @@ class TileManager
 
    /**
        Returns a coordinate object representing a position in the grid at a specified pixel position
+       NOTE: position is relative to the currently loaded range, NOT the world
        
        @param x number representing the horizontal position (in pixels) of the requested Stage position
        @param y number representing the vertical position (in pixels) of the requested Stage position
-       @return StageCoord
-       
-       TODO: Make this method account for non-zero offset
+       @return StageCoord       
    */
    getCoordByPixels(x, y) 
    {
-       //const rawOffsetX = this.offsetX - (this.tileWidth/2);
-       //const rawOffsetY = this.offsetY - (this.tileHeight/2);
        return new StageCoord(Math.floor((x-this.offsetX)/this.tileWidth), Math.floor((y-this.offsetY)/this.tileHeight));
    }
 
@@ -104,6 +99,7 @@ class TileManager
    */
    enterTile(coord) 
    {
+       console.log(coord);
        this.dataGrid[coord.y][coord.x]++;
    }
 
@@ -116,7 +112,7 @@ class TileManager
    }
 
    /**
-       Hanldes decrementing from the number of occupants at a position on a grid
+       Handles decrementing from the number of occupants at a position on a grid
        
        @param coord StageCoord the position to unoccupy
    */

@@ -13,10 +13,7 @@ class Stage
         this.scene = scene;
         this.data = data;
 
-        this.tileWidth = data.tileWidth;
-        this.tileHeight = data.tileHeight;
-
-        this.grid = new TileManager(this.scene, data.numChunksX * data.chunkWidth, data.numChunksY * data.chunkHeight, 0, 0, data.tileSet);
+        this.grid = new TileManager(this.scene, data.numChunksX * data.chunkWidth, data.numChunksY * data.chunkHeight, 0, 0, data.tileSet, data.tileWidth, data.tileHeight);
         this.spawn = new ActorManager(this, this.scene.add.group());
         this.chunker = new GridChunkManager(this.scene, this.spawn, this.grid, data);
 
@@ -85,7 +82,7 @@ class Stage
    */
    getTileAt(coord) 
    {
-       return new Phaser.Geom.Point(coord.x * this.tileWidth, coord.y * this.tileHeight);
+       return this.grid.getTileAt(coord);
    }
 
    /**
@@ -97,9 +94,7 @@ class Stage
    */
    getCoordByPixels(x, y) 
    {
-       const rawOffsetX = (this.tileWidth/2);
-       const rawOffsetY = (this.tileHeight/2);
-       return new StageCoord(Math.floor(x/this.tileWidth), Math.floor(y/this.tileHeight));
+       return this.grid.getCoordByPixels(x, y);
    }
 
    /**
@@ -124,7 +119,7 @@ class Stage
    }
 
    /**
-       Hanldes decrementing from the number of occupants at a position on a grid
+       Handles decrementing from the number of occupants at a position on a grid
        
        @param coord StageCoord the position to unoccupy
    */

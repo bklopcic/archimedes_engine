@@ -8,7 +8,7 @@ class GridChunkManager
         this.chunkWidth = data.chunkWidth;
         this.chunkHeight = data.chunkHeight;
         this.tilesPerChunkX = data.tilesPerChunkX;
-        this.tilePerChunkY = data.tilesPerChunkY;
+        this.tilesPerChunkY = data.tilesPerChunkY;
         this.chunks = [];
 
         this.debugDrawer = null;
@@ -73,7 +73,7 @@ class GridChunkManager
         const chunk = this.chunks[coord.y][coord.x];
 
         //load the tiles
-        //this.tileManager.drawTiles(chunk.tiles);
+        this.tileManager.drawTiles(coord.x * this.chunkWidth, coord.y * this.chunkHeight, chunk.tiles);
 
         //load the actors
         this.spawner.loadActorsFromData(chunk.actors);
@@ -104,9 +104,11 @@ class GridChunkManager
     {
         const xSize = (endIdx.x - startIdx.x) * this.tilesPerChunkX;
         const ySize = (endIdx.y - startIdx.y) * this.tilesPerChunkY;
+        console.log(xSize, ySize);
         const xOffset = this.chunkWidth * startIdx.x;
         const yOffset = this.chunkHeight * startIdx.y;
-        this.tileManager.resetGrid(xSize, ySize, xOffset, yOffset, this.spawner.activeActorPositions);
+        this.tileManager.resetGrid(xSize, ySize, xOffset, yOffset);
+        this.spawner.forceActorPositionReport();
     }
 
     cleanActors(startIdx, endIdx)
