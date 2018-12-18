@@ -62,3 +62,5 @@ var Direction = {
         } 
     }
 }
+
+var ACTOR_TYPES = {};

@@ -1,7 +1,7 @@
 /**
     Pretty much just a wall... but can be targeted
 */
-class Decoy extends Actor
+ACTOR_TYPES.decoy = class extends Actor
 {
     constructor(stage, coord)
     {

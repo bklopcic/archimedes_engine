@@ -13,7 +13,7 @@ class Stage
         this.scene = scene;
         this.data = data;
 
-        this.grid = new TileManager(this.scene, data.numChunksX * data.chunkWidth, data.numChunksY * data.chunkHeight, 0, 0, data.tileSet, data.tileWidth, data.tileHeight);
+        this.grid = new TileManager(this.scene, 0, 0, data.tileSet, data.tileWidth, data.tileHeight);
         this.spawn = new ActorManager(this, this.scene.add.group());
         this.chunker = new GridChunkManager(this.scene, this.spawn, this.grid, data);
 

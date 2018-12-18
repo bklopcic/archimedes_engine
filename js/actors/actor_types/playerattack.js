@@ -1,4 +1,4 @@
-class PlayerAttack extends Actor
+ACTOR_TYPES.playerattack = class extends Actor
 {
     constructor(stage, x, y)
     {

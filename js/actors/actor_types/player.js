@@ -3,7 +3,7 @@
 * The Player has a target tile (the tile is can build on/interact with) that is updated based on 
 * its current position and the direction it's facing   
 */
-class Player extends Actor
+ACTOR_TYPES.player = class extends Actor
 {
     /**
      @param stage the stage that this Spider belongs to

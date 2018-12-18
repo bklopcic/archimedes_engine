@@ -1,4 +1,4 @@
-class GatlingTurret extends TargetingTurret
+ACTOR_TYPES.gatlingturret = class extends ACTOR_TYPES.targetingturret
 {
     
     constructor(stage, x, y, direction)

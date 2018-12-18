@@ -1,4 +1,4 @@
-class TestDot extends Actor 
+ACTOR_TYPES.testdot = class extends Actor 
 {
     constructor(stage, x, y)
     {

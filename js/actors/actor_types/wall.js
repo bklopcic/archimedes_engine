@@ -4,7 +4,7 @@
     @param stage Stage that this Wall exists on
     @param coord StageCoord the position on the Stage of this Wall
 */
-class Wall extends Actor
+ACTOR_TYPES.wall = class extends Actor
 {
     constructor(stage, x, y)
     {

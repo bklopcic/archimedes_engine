@@ -2,7 +2,7 @@
     Actor type. This Actor does not move. This Aactor has a range, and will fire directly
     at an enemy within that range. If multiple enemies are in range, it will target the nearest one
 */
-class TargetingTurret extends Turret
+ACTOR_TYPES.targetingturret = class extends ACTOR_TYPES.turret
 {
     constructor(stage, x, y, direction) 
     {

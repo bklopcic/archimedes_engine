@@ -1,6 +1,6 @@
 class TileManager
 {
-    constructor(scene, width, height, offsetX, offsetY, tileKeys, tileWidth, tileHeight)
+    constructor(scene, offsetX, offsetY, tileKeys, tileWidth, tileHeight, container)
     {
         this.scene = scene;
         this.tileKeys = tileKeys;
@@ -11,9 +11,9 @@ class TileManager
         this.offsetX = offsetX;
         this.offsetY = offsetY;
 
-        this.tiles = this.scene.add.renderTexture(0, 0, width, height);
+        this.container = container || this.scene.add.container(0, 0);
+        
         this.dataGrid = [];
-
     }
 
     /**
@@ -46,15 +46,24 @@ class TileManager
 
     drawTiles(x, y, tileData)
     {
+        if (this.bg)
+        {
+            this.bg.destroy();
+        }
+        const rt = this.scene.add.renderTexture(x, y, tileData[0].length * this.tileWidth, tileData.length * this.tileHeight);
         for (let i = 0; i < tileData.length; i++)
         {
             for (let j = 0; j < tileData[i].length; j++)
             {
-                const xPos = x + (this.tileWidth/2) + (j*this.tileWidth);
-                const yPos = y + (this.tileHeight/2) + (i*this.tileHeight);
-                this.tiles.draw(this.scene.add.image(xPos, yPos, this.tileKeys[tileData[i][j]]));
+                const xPos = x + (j*this.tileWidth);
+                const yPos = y + (i*this.tileHeight);
             }
         }
+
+        var map = this.scene.make.tilemap({ data: tileData, tileWidth: this.tileWidth, tileHeight: this.tileHeight });
+        var tiles = map.addTilesetImage("tilesheet");
+        var layer = map.createStaticLayer(0, tiles, x, y);
+        this.container.add(layer);
     }
 
     /**

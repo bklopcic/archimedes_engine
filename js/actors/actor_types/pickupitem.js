@@ -1,4 +1,4 @@
-class PickupItem extends Actor
+ACTOR_TYPES.pickupitem = class extends Actor
 {
     constructor(stage, x, y, key)
     {

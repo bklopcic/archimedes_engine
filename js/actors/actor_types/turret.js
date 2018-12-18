@@ -6,7 +6,7 @@
     @param y the vertical position of this turret
     @param direction Direction property the facing (and firing) direction of this turret (optional. Default to west)
 */
-class Turret extends Actor
+ACTOR_TYPES.turret = class extends Actor
 {
     constructor(stage, x, y, direction) 
     {

@@ -204,9 +204,13 @@ class GridChunkManager
         return data;
     }
 
-    startDebug()
+    startDebug(container)
     {
         this.debugDrawer = this.scene.add.graphics({ fillStyle: { color: 0x0000aa }, lineStyle: { color: 0x0033aa } });
+        if (container)
+        {
+            container.add(this.debugDrawer);
+        }
     }
 
     stopDebug()

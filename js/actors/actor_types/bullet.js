@@ -1,7 +1,7 @@
 /**
  * projectile that can be fired
  */
-class Bullet extends Actor
+ACTOR_TYPES.bullet = class extends Actor
 {
     constructor(stage, x, y, direction)
     {

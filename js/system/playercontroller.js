@@ -83,7 +83,7 @@ class PlayerController
             this.actor.faceDirection = Direction.NORTH;
             return true;
         }
-        else if(this.controlKeys.S.isDown || this.controlKeys.DOWN.isDown) 
+        else if( this.controlKeys.S.isDown || this.controlKeys.DOWN.isDown) 
         {
             this.actor.faceDirection = Direction.SOUTH;
             return true;

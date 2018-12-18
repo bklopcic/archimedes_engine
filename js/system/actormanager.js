@@ -6,12 +6,12 @@ class ActorManager
     /**
      * 
      * @param {Phaser.Scene} scene the phaser scene this manager exists in
-     * @param {Phaser.group} parentSortGroup the group that will be the parent for all actors (optional)
+     * @param {Phaser.group} container the container that will be the parent for all actors (optional)
      */
-    constructor(stage, parentSortGroup)
+    constructor(stage, container)
     {
         this.stage = stage;
-        this.sortGroup = parentSortGroup || this.stage.scene.add.group(); //TODO: change this to container
+        this.container = container || this.stage.scene.add.container(); //TODO: change this to container
 
         this.actorGroups = {};
         this.allActors = []; //this exists for quick iteration of all actors
@@ -148,6 +148,7 @@ class ActorManager
             actor.die();
             this.actorGroups[actorType].add(actor, true); //second arg adds actor to scene
             this.allActors.push(actor);
+            this.container.add(actor);
         }
         return this.actorGroups[actorType].getFirstDead();
     }
@@ -197,19 +198,4 @@ class ActorManager
     {
         return this.spawnActor("resource", x, y, direction, team);
     }
-}
-
-var ACTOR_TYPES = 
-{
-    player: Player, 
-    wall: Wall, 
-    turret: Turret,
-    targetingturret: TargetingTurret,
-    gatlingturret: GatlingTurret,
-    decoy: Decoy,
-    bullet: Bullet,
-    playerattack: PlayerAttack,
-    pickupitem: PickupItem,
-    resource: Resource,
-    testdot: TestDot
 }

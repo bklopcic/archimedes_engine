@@ -1,4 +1,4 @@
-class Resource extends Actor
+ACTOR_TYPES.resource = class extends Actor
 {
     constructor(stage, x, y, key)
     {
