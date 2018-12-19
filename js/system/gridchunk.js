@@ -18,6 +18,7 @@ class GridChunk
         const copy = this.clone();
         const data = {};
         data.actors = copy.actors;
+        data.tiles = copy.tiles;
         return data;
     }
 
@@ -33,10 +34,16 @@ class GridChunk
 
     clone()
     {
-        const arrCopy = [];
-        for (let i = 0; i < this.actors.length; i++) {
-            arrCopy[i] = Object.assign({},this.actors[i]);
+        const actorArrCopy = [];
+        for (let i = 0; i < this.actors.length; i++)
+        {
+            actorArrCopy[i] = Object.assign({},this.actors[i]);
         }
-        return new GridChunk({actors: arrCopy});
+        const tilesCopy = [];
+        for (let j = 0; j < this.tiles.length; j++)
+        {
+            tilesCopy[j] = Array.from(this.tiles[j]);
+        }
+        return new GridChunk({actors: actorArrCopy, tiles: tilesCopy});
     }
 }

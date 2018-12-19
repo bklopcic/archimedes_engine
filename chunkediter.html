@@ -5,6 +5,8 @@
 
         <link rel="stylesheet" type="text/css" href="css/editerstyle.css">
 
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
         <script type="text/javascript" src="js/utility/phaser.min.js"></script>
         <script type="text/javascript" src="js/utility/globaldictionaries.js"></script>
         <script type="text/javascript" src="js/utility/utilfunctions.js"></script>
@@ -24,6 +26,7 @@
         <script type="text/javascript" src="js/actors/actor_types/resource.js"></script>
         <script type="text/javascript" src="js/actors/actor_types/pickupitem.js"></script>
         <script type="text/javascript" src="js/actors/actor_types/testdot.js"></script>
+        <script type="text/javascript" src="js/actors/actor_types/eraser.js"></script>
         <script type="text/javascript" src="js/system/coordinate.js"></script>
         <script type="text/javascript" src="js/system/stagegrid.js"></script>
         <script type="text/javascript" src="js/system/stage.js"></script>
@@ -37,11 +40,54 @@
         <script type="text/javascript" src="js/scenes/bootscene.js"></script>
         <script type="text/javascript" src="js/scenes/chunkediterscene.js"></script>
         <script type="text/javascript" src="js/scenes/chunktestscene.js"></script>
+        <script type="text/javascript" src="js/domevents/editerevents.js"></script>
         <script type="text/javascript" src="js/chunkeditermain.js"></script>
 
     </head>
     <body>
-        <div id="control-panel"></div>
+        <div id="control-panel">
+            Mode:
+            <select id="mode-select">
+                <option value="place">Place</option>
+                <option value="erase">Erase</option>
+                <option value="select">Select</option>
+            </select><br>
+            Snap to grid: <input type="checkbox" id="snap-to-grid-check"><br><br>
+
+            <div id="actor-info">
+                Actor info: <br>
+                Type: 
+                <select id="type-select">
+                    <!--Dynamic content goes here-->
+                </select><br>
+                Direction: 
+                <select id="direction-select">
+                    <option value="1">West</option>
+                    <option value="2">Northwest</option>
+                    <option value="3">North</option>
+                    <option value="4">Northeast</option>
+                    <option value="5">East</option>
+                    <option value="6">Southeast</option>
+                    <option value="7">South</option>
+                    <option value="8">Southwest</option>
+                </select><br>
+                Team:
+                <select id="team-select">
+                    <option value="player">Player</option>
+                    <option value="enemy">Enemy</option>
+                    <option value="neutral">Neutral</option>
+                </select><br>
+            </div><br><br>
+
+            <div>
+                <input id="get-data-btn" type="button" value="Get Data"><input id="load-data-btn" type="button" value="Load Level"><br>
+                Chunk Index: {x:
+                <input id="chunk-x-index" type="text" value="0" size="1" maxlength="1">,
+                y: <input id="chunk-y-index"input type="text" value="0" size="1" maxlength="1">}<br>
+                Data:<br>
+                <textarea id="data-display" rows="4" cols="30"></textarea>
+            </div>
+        </div>
         <div id="game-container"></div>
     </body>
 </html>

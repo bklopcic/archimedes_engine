@@ -27,6 +27,11 @@ class Stage
         return this.chunker.generateData();
     }
 
+    get dataGrid()
+    {
+        return this.grid.dataGrid;
+    }
+
     update()
     {
     }

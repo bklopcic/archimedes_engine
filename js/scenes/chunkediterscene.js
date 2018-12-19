@@ -14,60 +14,31 @@ class ChunkEditerScene extends Phaser.Scene
         }}});
 
         this.stage;
+        this.data;
+    }
+
+    init(data)
+    {
+        if (data && data.hasOwnProperty("chunkWidth"))
+        {
+            this.data = data;
+        }
+        else
+        {
+            this.data = makeDefaultChunkData();
+        }
     }
 
     create()
     {
-        const data = {
-            chunkWidth: 1000,
-            chunkHeight: 800, 
-            numChunksX: 1,
-            numChunksY: 1,
-            tileWidth: 100,
-            tileHeight: 80,
-            tilesPerChunkX: 10,
-            tilesPerChunkY: 10,
-            activeRange: {
-                startIdx: {
-                    x: 0,
-                    y: 0
-                },
-                endIdx: {
-                    x: 1,
-                    y: 1
-                }
-            },
-            tileSet: ["tile0", "tile1"],
-            chunks: [
-                [{
-                    actors: [],
-                    tiles: [
-                        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-                        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-                        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-                        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-                        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-                        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-                        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-                        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-                        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-                        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
-                    ]
-                }]
-            ]
-        };
+        this.stage = new Stage(this, this.data);
 
-        this.stage = new Stage(this, data);
-        const debugContainer = this.add.container(0,0);
-        this.stage.chunker.startDebug(debugContainer);
-
-        this.input.on('pointerdown', function (pointer)
+        for (let a of this.stage.spawn.allActors)
         {
-            if (this.stage.chunker.checkIdxExists(this.stage.chunker.getParentChunkIdx(pointer)))
-            {
-                this.stage.spawn.spawnActor("turret", pointer.x, pointer.y);
-            }
-        }, this);
+            a.overridden = true;
+        }
+
+        this.input.on('pointerdown', this.handleClick, this);
     }
 
     update()
@@ -75,4 +46,52 @@ class ChunkEditerScene extends Phaser.Scene
         this.stage.update();
     }
 
+    getDOMSettings()
+    {
+        const settings = {};
+        settings.type = $("#type-select").val();
+        settings.direction = Number($("#direction-select").val());
+        settings.team = $("#team-select").val();
+        return settings;
+    }
+
+    handleClick(pointer)
+    {
+        if (this.stage.chunker.checkIdxExists(this.stage.chunker.getParentChunkIdx(pointer)))
+        {
+            const mode = $("#mode-select").val();
+            const gridSnap = $("#snap-to-grid-check").prop("checked");
+            console.log(gridSnap);
+            let clickX;
+            let clickY;
+            
+            if (gridSnap)
+            {
+                const coord = this.stage.getCoordByPixels(pointer.x, pointer.y);
+                const tile = this.stage.getTileAt(new StageCoord(coord.x, coord.y));
+                clickX = tile.x + this.data.tileWidth/2;
+                clickY = tile.y + this.data.tileHeight/2;
+            }
+            else
+            {
+                clickX = pointer.x;
+                clickY = pointer.y;
+            }
+
+            switch(mode)
+            {
+                case "place":
+                    const set = this.getDOMSettings();
+                    const actor = this.stage.spawn.spawnActor(set.type, clickX, clickY, set.direction, set.team);
+                    actor.overridden = true;
+                    break;
+                case "erase":
+                    this.stage.spawn.spawnActor("eraser", clickX, clickY);
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+    }
 }

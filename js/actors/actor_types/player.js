@@ -16,7 +16,7 @@ ACTOR_TYPES.player = class extends Actor
         super(stage, x, y, "ball", direction);
         this.ACTOR_TYPE = "player";
                 
-        this.speed = 450;
+        this.speed = 300;
         this.targetable = true;
         this.collidable = true;
             

@@ -18,6 +18,11 @@ class TargetingSystem
         this.target = target || null;
     }
 
+    setTarget(target)
+    {
+        this.target = target;
+    }
+
     /**
         Handles obtaining a target based on the specified criteria
         TODO

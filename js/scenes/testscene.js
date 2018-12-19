@@ -35,8 +35,6 @@ class TestScene extends Phaser.Scene
         this.cameras.main.setBounds(0, 0, data.chunkWidth * data.numChunksX, data.chunkHeight * data.numChunksY);
         this.physics.world.setBounds(this.cameras.main.x, this.cameras.main.y, data.chunkWidth * data.numChunksX, data.chunkHeight * data.numChunksY);
         this.cameras.main.startFollow(player, true);
-
-        console.log(this.stage.toString());
     }
     
     update()
