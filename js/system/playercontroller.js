@@ -21,10 +21,10 @@ class PlayerController
 
         this.controlKeys = 
         {
+            Q: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
             W: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
-            A: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
-            S: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-            D: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
+            E: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
+            R: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
         };
 
         this.scene.input.on('pointerdown', this.handleClick, this);
@@ -42,15 +42,57 @@ class PlayerController
         this.mover.update();
 
         this.actor.updatePosition();
+        this.targeter.updatePosition(new Phaser.Geom.Point(this.actor.x, this.actor.y));
+
+        if(Phaser.Input.Keyboard.JustDown(this.controlKeys.R))
+        {
+            this.build();
+        }
     }
 
     handleClick(pointer)
     {
         const clickX = this.actor.scene.cameras.main.scrollX + pointer.x;
         const clickY = this.actor.scene.cameras.main.scrollY + pointer.y;
-        this.targeter.setTarget(new Phaser.Geom.Point(clickX, clickY));
-        this.actor.faceDirection = this.targeter.getDirectionToTarget();
+        if (pointer.leftButtonDown())
+        {
+            this.moveTo(clickX, clickY);
+        }
+        else if (pointer.rightButtonDown())
+        {
+            const stage = this.actor.stage;
+            this.targeter.setTarget(new Phaser.Geom.Point(clickX, clickY));
+            let coord = stage.getCoordByPixels(clickX, clickY);
+            const mod = Direction.modifyer[this.targeter.getDirectionToTarget()];
+            console.log(mod);
+            mod.x *= -1;
+            mod.y *= -1;
+            let direction = Direction.modifyerToDirection(mod);
+            let target = stage.getTileAt(coord.getNeighbor(direction));
+            this.moveTo(target.x + stage.data.tileWidth/2, target.y + stage.data.tileHeight/2);
+        }
+        
+    }
 
-        this.mover.moveTo(clickX, clickY);        
+    moveTo(x, y)
+    {
+        this.targeter.setTarget(new Phaser.Geom.Point(x, y));
+        this.actor.faceDirection = this.targeter.getDirectionToTarget();
+        console.log(this.actor.faceDirection);
+        this.mover.moveTo(x, y);    
+    }
+
+    build()
+    {
+        const stage = this.actor.stage;
+        let targetCoord = this.actor.stagePosition.getNeighbor(this.actor.faceDirection);
+        console.log(targetCoord);
+        if (stage.checkIfEmpty(targetCoord))
+        {
+            let targetTile = stage.getTileAt(targetCoord);
+            let x = targetTile.x + stage.data.tileWidth/2;
+            let y = targetTile.y + stage.data.tileHeight/2;
+            stage.spawn.spawnActor(this.buildings[this.selectedBuilding], x, y, this.actor.faceDirection, this.actor.teamTag);
+        }
     }
 }

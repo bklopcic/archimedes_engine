@@ -10,7 +10,7 @@ class PointDirectionMover
     moveTo(x, y)
     {
         const size = this.actor.speed/60;
-        this.target = new Phaser.Geom.Rectangle(x - size/2, y-size/2, size, size);
+        this.target = new Phaser.Geom.Rectangle(x-size/2, y-size/2, size, size);
 
         this.scene.physics.moveTo(this.actor, x, y, this.actor.speed);
     }

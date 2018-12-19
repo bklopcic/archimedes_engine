@@ -177,8 +177,9 @@ class TargetingSystem
     */
     getDirectionToTarget() 
     {
-        const angle = Phaser.Math.Angle.BetweenPoints(this.position, this.target);
-        const direction = Math.ceil((angle/((Math.PI * 2)/8)+4)%8); //transform radian angle to direction
+        let angle = Phaser.Math.Angle.BetweenPoints(this.position, this.target);
+        angle = (UtilFunctions.radiansToDegrees(angle) + 202.5)%360;
+        const direction = Math.abs(Math.ceil(angle/45)); //transform radian angle to direction
         return direction;
     }
 }

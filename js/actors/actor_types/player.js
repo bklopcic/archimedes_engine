@@ -27,15 +27,10 @@ ACTOR_TYPES.player = class extends Actor
         //if this gets too complex, or other actors need similar functionality can be refactored into an
         //an inventory class as an actor tool
         this.pickUpItems = {};
-        this.targetPosition;
-        this.targetTile;
-        this.targetBox = this.scene.add.sprite(0, 0, "targetBox");
-        this.targetBox.setOrigin(.5,.5);
         this.sprite.setScale(.4,.4);
         //NOTE: the .4 is to account for the scale resizing. This should be eliminated when a regular texture is implemented for this actor
         this.body.setSize(this.sprite.width * .4, this.sprite.height * .4);
         this.body.setOffset(-(this.sprite.width*.4)/2, -(this.sprite.height*.4)/2);
-        this.updateTarget(); //initializes target variables
 
         this.addGUI();
         this.inventory = new Inventory();
@@ -57,30 +52,7 @@ ACTOR_TYPES.player = class extends Actor
             this.stagePosition = coord;
             this.currentTile = this.stage.getTileAt(this.stagePosition);
             this.stage.enterTile(this.stagePosition);
-        }
-        
-        this.updateTarget();
-    }
-
-    /**
-        Handles updating the target tile of this Player
-    */
-    updateTarget()
-    {
-        const modifyer = Direction.modifyer[this.faceDirection];
-        this.targetPosition = this.stage.getCoordByPixels(this.x + ((this.sprite.width/1.5)*modifyer.x), this.y + ((this.sprite.height/1.5)*modifyer.y));;
-        if (this.stage.checkInBounds(this.targetPosition))
-        {
-            this.targetTile = this.stage.getTileAt(this.targetPosition);
-            this.targetBox.x = this.targetTile.x;
-            this.targetBox.y = this.targetTile.y;
-            this.targetBox.setVisible(true);
-        } 
-        else 
-        {
-            this.targetTile = null;
-            this.targetBox.setVisible(false);
-        }
+        }        
     }
 
     /**
@@ -107,23 +79,5 @@ ACTOR_TYPES.player = class extends Actor
             }
         }
         return false
-    }
-
-    /**
-        Override parent die method. Handles cleaning up this Spider's other associated sprites
-    */
-    die() 
-    {
-        super.die();
-        this.targetBox.setActive(false);
-        this.targetBox.setVisible(false);
-    }
-
-    reset(x, y, faceDirection)
-    {
-        super.reset(x, y, faceDirection);
-        this.targetBox.setActive(true);
-        this.targetBox.setVisible(true);
-        this.updateTarget();
     }
 }
