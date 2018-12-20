@@ -27,8 +27,13 @@ class BootScene extends Phaser.Scene
         this.load.image("ball", "assets/img/greenball.png");
         this.load.image("rockpile", "assets/img/rockpile.png");
         this.load.image("stoneresource", "assets/img/stone_drop.png");
+        this.load.image("paul", "assets/img/pauldickson.png");
+        this.load.image("doug", "assets/img/douglasturnbull.png");
+        this.load.image("nate", "assets/img/nathanprestopnik.png");
+        this.load.image("john", "assets/img/johnbarr.png");
+        this.load.image("toby", "assets/img/tobydragon.png");
         this.load.spritesheet('crossbow', 'assets/img/crossbow_spritesheet.png', {frameWidth: 92, frameHeight: 90, frameCount:64});
-        this.load.json('data', 'data/test.json');
+        this.load.json('data', 'data/seniorpresentation.json');
     }
 
     create()

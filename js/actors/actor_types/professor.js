@@ -5,10 +5,26 @@ class Professor extends Actor
         super(stage, x, y, key, faceDirection, team, false);
         this.ACTOR_TYPE = "professor";
 
+        this.sprite.setScale(.7, .7);
+
         this.collidable = false;
 
         this.activated = false;
-        this.textObject = null;;
+        this.textObject = null;
+        this.hovered = false;
+    }
+
+    action()
+    {
+        if (this.hovered)
+        {
+            this.sprite.setAlpha(1);
+        }
+        else
+        {
+            this.sprite.setAlpha(.5);
+        }
+        this.hovered = false;
     }
 
     enemyCollision(other)
@@ -18,14 +34,16 @@ class Professor extends Actor
             if (!this.activated)
             {
                 this.showText();
+                this.activated = true;
             }
-            this.sprite.setAlpha(.5);
+            this.hovered = true;
         }
     }
 
     showText()
     {
-        this.textObject = this.add(this.scene.add.text(this.x, this.y, "Hello world!", { fontFamily: 'Arial', fontSize: 64, color: "#00ff0"}));
+        const msg = Messager.getMessage();
+        this.textObject = this.add(this.scene.add.text(msg.x, msg.y, msg.text, { fontFamily: 'Arial', fontSize: 64, color: "#ffffff"}));
     }
 
     reset(x, y, faceDirection, team)
@@ -34,6 +52,16 @@ class Professor extends Actor
         this.activated = false;
         this.textObject = null;
     }
+
+    die()
+    {
+        super.die();
+        if (this.textObject)
+        {
+            this.textObject.destroy();
+            this.textObject = null;
+        }
+    }
 }
 
 ACTOR_TYPES.nate = class extends Professor
@@ -41,6 +69,7 @@ ACTOR_TYPES.nate = class extends Professor
     constructor(stage, x, y, faceDirection, team)
     {
         super(stage, x, y, "nate", faceDirection, team);
+        this.ACTOR_TYPE = "nate";
     }
 }
 
@@ -49,6 +78,7 @@ ACTOR_TYPES.john = class extends Professor
     constructor(stage, x, y, faceDirection, team)
     {
         super(stage, x, y, "john", faceDirection, team);
+        this.ACTOR_TYPE = "john";
     }
 }
 
@@ -57,6 +87,7 @@ ACTOR_TYPES.toby = class extends Professor
     constructor(stage, x, y, faceDirection, team)
     {
         super(stage, x, y, "toby", faceDirection, team);
+        this.ACTOR_TYPE = "toby";
     }
 }
 
@@ -65,6 +96,7 @@ ACTOR_TYPES.paul = class extends Professor
     constructor(stage, x, y, faceDirection, team)
     {
         super(stage, x, y, "paul", faceDirection, team);
+        this.ACTOR_TYPE = "paul";
     }
 }
 
@@ -73,5 +105,6 @@ ACTOR_TYPES.doug = class extends Professor
     constructor(stage, x, y, faceDirection, team)
     {
         super(stage, x, y, "doug", faceDirection, team);
+        this.ACTOR_TYPE = "doug";
     }
 }

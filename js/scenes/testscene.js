@@ -20,17 +20,14 @@ class TestScene extends Phaser.Scene
     
     create()
     {   
-        const data = this.cache.json.get('data');
+        const data = this.cache.json.get("data");
         this.stage = new Stage(this, data);
-        const debugContainer = this.add.container(0,0);
-        this.stage.chunker.startDebug(debugContainer);
         
-        const player = this.stage.spawn.player(700, 200, Direction.SOUTH, "player");
+        const player = this.stage.spawn.player(1750, 200, Direction.SOUTH, "player");
         this.player = new PlayerController(player);
         this.chunkController = new ChunkingController(this.stage.chunker, player);
         this.chunkController.triggerPaddingX = 800;
         this.chunkController.triggerPaddingY = 600;
-        this.chunkController.startDebug(debugContainer);
         
         this.cameras.main.setBounds(0, 0, data.chunkWidth * data.numChunksX, data.chunkHeight * data.numChunksY);
         this.physics.world.setBounds(this.cameras.main.x, this.cameras.main.y, data.chunkWidth * data.numChunksX, data.chunkHeight * data.numChunksY);

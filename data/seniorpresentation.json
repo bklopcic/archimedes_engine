@@ -1,0 +1,221 @@
+{
+	"chunkWidth": 1000,
+	"chunkHeight": 800,
+	"numChunksX": 4,
+	"numChunksY": 4,
+	"tileWidth": 100,
+	"tileHeight": 80,
+	"tilesPerChunkX": 10,
+	"tilesPerChunkY": 10,
+	"activeRange": {
+		"startIdx": {
+			"x": 0,
+			"y": 0
+		},
+		"endIdx": {
+			"x": 1,
+			"y": 1
+		}
+	},
+	"tileSet": ["tile0", "tile1"],
+	"chunks": [
+        [{"actors":[{"type":"doug","x":650,"y":280,"faceDirection":1,"team":"neutral"},{"type":"wall","x":550,"y":760,"faceDirection":1,"team":"player"},{"type":"wall","x":650,"y":760,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":760,"faceDirection":1,"team":"player"},{"type":"wall","x":450,"y":760,"faceDirection":1,"team":"player"},{"type":"wall","x":350,"y":760,"faceDirection":1,"team":"player"},{"type":"wall","x":250,"y":760,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":680,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":600,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":520,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":440,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":360,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":40,"faceDirection":1,"team":"player"},{"type":"wall","x":850,"y":40,"faceDirection":1,"team":"player"},{"type":"wall","x":750,"y":40,"faceDirection":1,"team":"player"},{"type":"wall","x":650,"y":40,"faceDirection":1,"team":"player"},{"type":"wall","x":550,"y":40,"faceDirection":1,"team":"player"},{"type":"wall","x":450,"y":40,"faceDirection":1,"team":"player"},{"type":"wall","x":350,"y":40,"faceDirection":1,"team":"player"},{"type":"wall","x":250,"y":40,"faceDirection":1,"team":"player"},{"type":"wall","x":150,"y":40,"faceDirection":1,"team":"player"},{"type":"wall","x":50,"y":40,"faceDirection":1,"team":"player"},{"type":"wall","x":50,"y":600,"faceDirection":1,"team":"player"},{"type":"wall","x":50,"y":520,"faceDirection":1,"team":"player"},{"type":"wall","x":50,"y":440,"faceDirection":1,"team":"player"},{"type":"wall","x":50,"y":360,"faceDirection":1,"team":"player"},{"type":"wall","x":50,"y":280,"faceDirection":1,"team":"player"},{"type":"wall","x":50,"y":200,"faceDirection":1,"team":"player"},{"type":"wall","x":50,"y":120,"faceDirection":1,"team":"player"},{"type":"wall","x":50,"y":680,"faceDirection":1,"team":"player"},{"type":"wall","x":50,"y":760,"faceDirection":1,"team":"player"},{"type":"wall","x":150,"y":760,"faceDirection":1,"team":"player"}],"tiles":[[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0]]},
+        {"actors":[{"type":"john","x":1250,"y":440,"faceDirection":1,"team":"neutral"}],"tiles":[[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0]]},
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        },
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        }],
+        [{"actors":[{"type":"paul","x":750,"y":920,"faceDirection":1,"team":"neutral"},{"type":"wall","x":146,"y":840,"faceDirection":1,"team":"player"},{"type":"wall","x":154,"y":925,"faceDirection":1,"team":"player"},{"type":"wall","x":147,"y":1009,"faceDirection":1,"team":"player"},{"type":"wall","x":145,"y":1088,"faceDirection":1,"team":"player"},{"type":"wall","x":150,"y":1160,"faceDirection":1,"team":"player"},{"type":"wall","x":150,"y":1240,"faceDirection":1,"team":"player"},{"type":"wall","x":150,"y":1320,"faceDirection":1,"team":"player"},{"type":"wall","x":150,"y":1400,"faceDirection":1,"team":"player"},{"type":"wall","x":150,"y":1480,"faceDirection":1,"team":"player"},{"type":"wall","x":150,"y":1560,"faceDirection":1,"team":"player"},{"type":"wall","x":250,"y":1560,"faceDirection":1,"team":"player"},{"type":"wall","x":350,"y":1560,"faceDirection":1,"team":"player"},{"type":"wall","x":450,"y":1560,"faceDirection":1,"team":"player"},{"type":"wall","x":550,"y":1560,"faceDirection":1,"team":"player"},{"type":"wall","x":650,"y":1560,"faceDirection":1,"team":"player"},{"type":"wall","x":750,"y":1560,"faceDirection":1,"team":"player"},{"type":"wall","x":850,"y":1560,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":1560,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":1400,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":1320,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":1240,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":1160,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":1080,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":1000,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":920,"faceDirection":1,"team":"player"},{"type":"wall","x":950,"y":840,"faceDirection":1,"team":"player"},{"type":"wall","x":550,"y":840,"faceDirection":1,"team":"player"},{"type":"wall","x":550,"y":920,"faceDirection":1,"team":"player"},{"type":"wall","x":550,"y":1000,"faceDirection":1,"team":"player"},{"type":"wall","x":550,"y":1080,"faceDirection":1,"team":"player"},{"type":"wall","x":650,"y":1080,"faceDirection":1,"team":"player"},{"type":"wall","x":750,"y":1400,"faceDirection":1,"team":"player"},{"type":"wall","x":750,"y":1480,"faceDirection":1,"team":"player"},{"type":"wall","x":550,"y":1240,"faceDirection":1,"team":"player"},{"type":"wall","x":550,"y":1400,"faceDirection":1,"team":"player"},{"type":"wall","x":450,"y":1400,"faceDirection":1,"team":"player"},{"type":"wall","x":350,"y":1400,"faceDirection":1,"team":"player"},{"type":"wall","x":750,"y":1080,"faceDirection":1,"team":"player"},{"type":"wall","x":850,"y":1240,"faceDirection":1,"team":"player"},{"type":"wall","x":750,"y":1240,"faceDirection":1,"team":"player"},{"type":"wall","x":650,"y":1240,"faceDirection":1,"team":"player"},{"type":"wall","x":550,"y":1320,"faceDirection":1,"team":"player"},{"type":"wall","x":350,"y":920,"faceDirection":1,"team":"player"},{"type":"wall","x":350,"y":1000,"faceDirection":1,"team":"player"},{"type":"wall","x":350,"y":1080,"faceDirection":1,"team":"player"},{"type":"wall","x":350,"y":1160,"faceDirection":1,"team":"player"},{"type":"wall","x":350,"y":1240,"faceDirection":1,"team":"player"}],"tiles":[[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0],[0,1,0,1,0,1,0,1,0,1],[1,0,1,0,1,0,1,0,1,0]]},
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        },
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        },
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        }],
+        [{
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        },
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        },
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        },
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        }],
+        [{
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        },
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        },
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+        },
+        {
+			"actors": [],
+			"tiles": [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			]
+		}]
+    ]
+}
