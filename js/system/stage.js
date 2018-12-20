@@ -87,7 +87,10 @@ class Stage
    */
    getTileAt(coord) 
    {
-       return this.grid.getTileAt(coord);
+       let tile = this.grid.getTileAt(coord);
+       tile.x += this.chunker.activeChunkRange.startIdx.x * this.data.chunkWidth;
+       tile.y += this.chunker.activeChunkRange.startIdx.y * this.data.chunkHeight;
+       return tile;
    }
 
    /**

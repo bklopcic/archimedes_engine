@@ -42,6 +42,7 @@ ACTOR_TYPES.turret = class extends Actor
         this.hp = 7;
 
         this.setFireEvent();
+        this.updateFrame();
     }
 
     /**

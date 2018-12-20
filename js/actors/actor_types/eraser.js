@@ -5,17 +5,17 @@ ACTOR_TYPES.eraser = class extends Actor
         super(stage, x, y, "", Direction.WEST, false);
         this.sprite.destroy();
 
-        this.collidable = false;
+        this.collidable = true;
 
-        this.body.setSize(this.stage.tileWidth, this.stage.tileHeight);
+        this.body.setSize(this.stage.data.tileWidth, this.stage.data.tileHeight);
 
-        this.ticks = 0;
-        console.log(this.scene);
+        this.old = false;
     }
 
     friendlyCollision(other)
     {
         other.die();
+        console.log(other);
     }
 
     enemyCollision(other)
@@ -23,17 +23,18 @@ ACTOR_TYPES.eraser = class extends Actor
         other.die();
     }
 
-    postCollision()
-    {
-        this.die();
-    }
-
     action()
     {
-        if (this.ticks > 1)
+        if (this.old)
         {
             this.die();
         }
-        this.ticks++;
+        this.old = true;
+    }
+
+    reset(x, y)
+    {
+        super.reset(x, y);
+        this.ticks = 0;
     }
 }

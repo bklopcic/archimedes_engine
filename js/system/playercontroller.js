@@ -44,9 +44,23 @@ class PlayerController
         this.actor.updatePosition();
         this.targeter.updatePosition(new Phaser.Geom.Point(this.actor.x, this.actor.y));
 
-        if(Phaser.Input.Keyboard.JustDown(this.controlKeys.R))
+        if(Phaser.Input.Keyboard.JustDown(this.controlKeys.E))
         {
             this.build();
+        }
+        if(Phaser.Input.Keyboard.JustDown(this.controlKeys.R))
+        {
+            this.attack();
+        }
+        if(Phaser.Input.Keyboard.JustDown(this.controlKeys.Q))
+        {
+            this.selectedBuilding++;
+            this.selectedBuilding = this.selectedBuilding % this.buildings.length;
+        }
+        else if (Phaser.Input.Keyboard.JustDown(this.controlKeys.Q))
+        {
+            this.selectedBuilding--;
+            this.selectedBuilding = (this.selectedBuilding + this.buildings.length) % this.buildings.length;
         }
     }
 
@@ -78,7 +92,6 @@ class PlayerController
     {
         this.targeter.setTarget(new Phaser.Geom.Point(x, y));
         this.actor.faceDirection = this.targeter.getDirectionToTarget();
-        console.log(this.actor.faceDirection);
         this.mover.moveTo(x, y);    
     }
 
@@ -86,13 +99,23 @@ class PlayerController
     {
         const stage = this.actor.stage;
         let targetCoord = this.actor.stagePosition.getNeighbor(this.actor.faceDirection);
-        console.log(targetCoord);
         if (stage.checkIfEmpty(targetCoord))
         {
-            let targetTile = stage.getTileAt(targetCoord);
+            const targetTile = stage.getTileAt(targetCoord);
             let x = targetTile.x + stage.data.tileWidth/2;
             let y = targetTile.y + stage.data.tileHeight/2;
             stage.spawn.spawnActor(this.buildings[this.selectedBuilding], x, y, this.actor.faceDirection, this.actor.teamTag);
         }
+    }
+
+    attack()
+    {
+        const stage = this.actor.stage;
+        let targetCoord = this.actor.stagePosition.getNeighbor(this.actor.faceDirection);
+        let targetTile = stage.getTileAt(targetCoord);
+        let x = targetTile.x + stage.data.tileWidth/2;
+        let y = targetTile.y + stage.data.tileHeight/2;
+        const attack = stage.spawn.spawnActor("playerattack", x, y, this.actor.faceDirection, this.actor.teamTag);
+        attack.attackDamage = this.actor.attackDamage;
     }
 }

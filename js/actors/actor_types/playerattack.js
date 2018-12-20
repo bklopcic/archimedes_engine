@@ -7,12 +7,22 @@ ACTOR_TYPES.playerattack = class extends Actor
 
         this.collidable = false;
 
-        this.body.setSize(this.stage.tileWidth, this.stage.tileHeight);
+        this.body.setSize(this.stage.data.tileWidth, this.stage.data.tileHeight);
+
+        this.old = false;
+    }
+
+    action()
+    {
+        if (this.old)
+        {
+            this.die();
+        }
+        this.old = true;
     }
 
     friendlyCollision(other)
     {
-        other.heal(2);
     }
 
     enemyCollision(other)
@@ -30,5 +40,11 @@ ACTOR_TYPES.playerattack = class extends Actor
     postCollision()
     {
         this.die();
+    }
+
+    reset(x, y, faceDirection, teamTag)
+    {
+        super.reset(x, y, faceDirection, teamTag);
+        this.old = false;
     }
 }

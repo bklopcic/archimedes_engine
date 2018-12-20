@@ -38,7 +38,7 @@ class ChunkEditerScene extends Phaser.Scene
             a.overridden = true;
         }
 
-        this.input.on('pointerdown', this.handleClick, this);
+        this.input.on("pointerdown", this.handleClick, this);
     }
 
     update()
@@ -61,7 +61,6 @@ class ChunkEditerScene extends Phaser.Scene
         {
             const mode = $("#mode-select").val();
             const gridSnap = $("#snap-to-grid-check").prop("checked");
-            console.log(gridSnap);
             let clickX;
             let clickY;
             
