@@ -1,4 +1,4 @@
-ACTOR_TYPES.unbreakable = class extends ACTOR_TYPES
+ACTOR_TYPES.unbreakablewall = class extends Actor
 {
     constructor(stage, x, y, faceDirection, teamTag)
     {
@@ -8,6 +8,10 @@ ACTOR_TYPES.unbreakable = class extends ACTOR_TYPES
         
         this.body.immovable = true; //He doesn't move
         
+        this.body.setSize(this.sprite.width, this.sprite.height/2);
+        this.body.setOffset(-this.sprite.width/2, -this.sprite.height/4);
+        this.sprite.y = -this.sprite.height/4;
+
         this.collidable = true;
         this.targetable = false; //He can't be directly targeted
     }

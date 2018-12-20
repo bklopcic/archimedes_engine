@@ -1,12 +1,13 @@
-ACTOR_TYPES.pickupitem = class extends Actor
+class PickupItem extends Actor
 {
-    constructor(stage, x, y, key)
+    constructor(stage, x, y, key, faceDirection, teamTag)
     {
-        super(stage, x, y, "stoneresource", Direction.WEST, false);
+        super(stage, x, y, key, faceDirection, teamTag, false);
 
         this.collidable = false;
         this.targetable = false;
         this.collected = false;
+        this.pickupType = "pickup Item"
     }
 
     enemyCollision(other)
@@ -14,7 +15,7 @@ ACTOR_TYPES.pickupitem = class extends Actor
         if (other.inventory)
         {
             this.collected = true;
-            other.inventory.addItem("stone", 1);
+            other.inventory.addItem(this.pickupType, 1);
         }
     }
 
@@ -30,5 +31,25 @@ ACTOR_TYPES.pickupitem = class extends Actor
     {
         super.reset(x, y, direction);
         this.collected = false;
+    }
+}
+
+ACTOR_TYPES.log = class extends PickupItem
+{
+    constructor(stage, x, y, faceDirection, teamTag)
+    {
+        super(stage, x, y, "log", faceDirection, teamTag);
+
+        this.pickupType = "log";
+    }
+}
+
+ACTOR_TYPES.stone = class extends PickupItem
+{
+    constructor(stage, x, y, faceDirection, teamTag)
+    {
+        super(stage, x, y, "stoneresource", faceDirection, teamTag);
+
+        this.pickupType = "stone";
     }
 }

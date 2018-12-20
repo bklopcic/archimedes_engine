@@ -28,6 +28,8 @@ class PlayerController
         };
 
         this.scene.input.on('pointerdown', this.handleClick, this);
+
+        this.faceFrames = {1: 28, 2: 182, 3: 209, 4: 59, 5: 88, 6: 117, 7: 139, 8: 160};
     }
 
     /**
@@ -43,6 +45,8 @@ class PlayerController
 
         this.actor.updatePosition();
         this.targeter.updatePosition(new Phaser.Geom.Point(this.actor.x, this.actor.y));
+        this.actor.sprite.setFrame(this.faceFrames[this.actor.faceDirection]);
+        
 
         if(Phaser.Input.Keyboard.JustDown(this.controlKeys.E))
         {

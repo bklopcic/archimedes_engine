@@ -27,13 +27,21 @@ ACTOR_TYPES.player = class extends Actor
         //if this gets too complex, or other actors need similar functionality can be refactored into an
         //an inventory class as an actor tool
         this.pickUpItems = {};
-        this.sprite.setScale(.4,.4);
+        this.sprite.setScale(.5,.5);
         //NOTE: the .4 is to account for the scale resizing. This should be eliminated when a regular texture is implemented for this actor
-        this.body.setSize(this.sprite.width * .4, this.sprite.height * .4);
-        this.body.setOffset(-(this.sprite.width*.4)/2, -(this.sprite.height*.4)/2);
+        this.body.setSize(this.sprite.width/4, this.sprite.height/4);
+        this.body.setOffset(-22, -5);
 
         this.addGUI();
         this.inventory = new Inventory();
+
+        this.scene.anims.create({
+            key: 'player-west-walk',
+            frames: this.scene.anims.generateFrameNumbers("blue-dude", { start: 61, end: 87 }),
+            frameRate: 24,
+            repeat: -1
+        });
+        this.sprite.anims.load("player-west-walk");
     }
 
     /**

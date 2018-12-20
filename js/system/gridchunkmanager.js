@@ -30,7 +30,6 @@ class GridChunkManager
         }
 
         this.maxIdx = new StageCoord(data.numChunksX + 1, data.numChunksY + 1);
-        console.log(this.maxIdx);
     }
 
     setActiveRange(startIdx, endIdx, forceClean)

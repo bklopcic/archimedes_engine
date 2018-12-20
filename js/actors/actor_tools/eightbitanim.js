@@ -12,7 +12,7 @@ class EightBitAnim
      * @param {string} animName the name of the animation
      * @param {number} length the length of the animation
      */
-    constructor(actor, animName, startFrame, length)
+    constructor(actor, animName, startFrame, length, directions)
     {
         this.actor = actor;
         this.startFrame = startFrame || 0;
@@ -20,7 +20,7 @@ class EightBitAnim
 
         this.angles = {};
 
-        for (let i = 1; i <= 8; i++)
+        for (let i = 0; i < directions.length; i++)
         {
             let frames = [];
             for (let j = this.startFrame; j < this.startFrame + this.length; j++)

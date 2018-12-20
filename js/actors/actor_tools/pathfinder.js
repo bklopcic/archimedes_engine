@@ -4,6 +4,7 @@ const PATH_FINDER =
 
     findPath: function(grid, fromX, fromY, toX, toY, callback)
     {
+        console.log(grid, fromX, fromY, toX, toY);
         this.easyStar.setGrid(grid);
 
         this.easyStar.findPath(fromX, fromY, toX, toY, callback);
@@ -11,6 +12,14 @@ const PATH_FINDER =
     },
 
     tweenActor: function(actor, path, tileWidth, tileHeight)
+    {
+        const tweens = this.getTweens(actor, path, tileWidth, tileHeight);
+        actor.scene.tweens.timeline({
+            tweens: tweens
+        });
+    },
+
+    getTweens: function(actor, path, tileWidth, tileHeight)
     {
         var tweens = [];
         for(var i = 0; i < path.length-1; i++){
@@ -22,10 +31,6 @@ const PATH_FINDER =
                 y: {value: ey*tileHeight + tileHeight/2, duration: 200}
             });
         }
-    
-        actor.scene.tweens.timeline({
-            tweens: tweens
-        });
         return tweens;
     }
 };

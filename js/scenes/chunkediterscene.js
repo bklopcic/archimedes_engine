@@ -10,7 +10,7 @@ class ChunkEditerScene extends Phaser.Scene
                 default: 'arcade',
                 arcade: 
                 {
-                    debug: false
+                    debug: true
         }}});
 
         this.stage;
