@@ -6,6 +6,7 @@ ACTOR_TYPES.bullet = class extends Actor
     constructor(stage, x, y, direction)
     {
         super(stage, x, y, "bullet", direction, false);
+        this.ACTOR_TYPE = "bullet";
 
         this.targetable = false;
         this.collidable = false;

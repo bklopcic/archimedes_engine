@@ -32,7 +32,7 @@ ACTOR_TYPES.player = class extends Actor
         this.body.setSize(this.sprite.width/4, this.sprite.height/4);
         this.body.setOffset(-22, -5);
 
-        this.addGUI();
+        //this.addGUI();
         this.inventory = new Inventory();
 
         this.scene.anims.create({
@@ -62,6 +62,8 @@ ACTOR_TYPES.player = class extends Actor
             this.stage.enterTile(this.stagePosition);
         }        
     }
+
+    takeHit(){}
 
     /**
         Places a new actor on the stage at this player's current target tile. The new actor is passed

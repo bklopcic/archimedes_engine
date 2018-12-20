@@ -43,7 +43,7 @@ class Professor extends Actor
     showText()
     {
         const msg = Messager.getMessage();
-        this.textObject = this.add(this.scene.add.text(msg.x, msg.y, msg.text, { fontFamily: 'Arial', fontSize: 64, color: "#ffffff"}));
+        this.textObject = this.add(this.scene.add.text(msg.x, msg.y, msg.text, { fontFamily: 'Arial', fontSize: 24, color: "#ffffff"}));
     }
 
     reset(x, y, faceDirection, team)
