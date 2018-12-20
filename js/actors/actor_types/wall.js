@@ -6,9 +6,9 @@
 */
 ACTOR_TYPES.wall = class extends Actor
 {
-    constructor(stage, x, y)
+    constructor(stage, x, y, faceDirection, teamTag)
     {
-        super(stage, x, y, 'wall');
+        super(stage, x, y, 'wall', faceDirection, teamTag, true);
 
         this.ACTOR_TYPE = "wall";
         

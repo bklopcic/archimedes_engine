@@ -40,7 +40,7 @@ class EightBitAnim
     play(frameRate, loop)
     {
         frameRate = frameRate || 12;
-        loop = loop || false;
+        loop = false;
         this.angles[this.actor.faceDirection].play(frameRate, loop);
     }
 }

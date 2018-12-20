@@ -13,7 +13,7 @@ ACTOR_TYPES.player = class extends Actor
     constructor(stage, x, y, direction) 
     {
         direction = direction || Direction.WEST;
-        super(stage, x, y, "ball", direction);
+        super(stage, x, y, "blue-dude", direction);
         this.ACTOR_TYPE = "player";
                 
         this.speed = 300;
