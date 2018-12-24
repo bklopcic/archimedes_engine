@@ -4,10 +4,11 @@
 */
 ACTOR_TYPES.targetingturret = class extends ACTOR_TYPES.turret
 {
-    constructor(stage, x, y, direction) 
+    constructor(stage, x, y, direction, key) 
     {
         direction = direction || Direction.WEST;
-        super(stage, x, y, direction);
+        key = key || "gear-crossbow";
+        super(stage, x, y, direction, key);
 
         this.ACTOR_TYPE = "targetingturret";
             

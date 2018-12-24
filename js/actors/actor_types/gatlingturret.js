@@ -1,10 +1,11 @@
 ACTOR_TYPES.gatlingturret = class extends ACTOR_TYPES.targetingturret
 {
     
-    constructor(stage, x, y, direction)
+    constructor(stage, x, y, direction, key)
     {
         direction = direction || Direction.WEST;
-        super(stage, x, y, direction);
+        key = key || "gatling-crossbow";
+        super(stage, x, y, direction, key);
         this.ACTOR_TYPE = "gatlingturret";
         
         this.fireRate = 400;

@@ -36,3 +36,4 @@ const PATH_FINDER =
 };
 
 PATH_FINDER.easyStar.setAcceptableTiles([0]);
+PATH_FINDER.easyStar.enableDiagonals();

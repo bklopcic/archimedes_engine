@@ -8,10 +8,11 @@
 */
 ACTOR_TYPES.turret = class extends Actor
 {
-    constructor(stage, x, y, direction) 
+    constructor(stage, x, y, direction, key) 
     {
         direction = direction || Direction.WEST;
-        super(stage, x, y, "crossbow", direction);
+        key = key || "crossbow";
+        super(stage, x, y, key, direction);
 
         this.ACTOR_TYPE = "turret";
 

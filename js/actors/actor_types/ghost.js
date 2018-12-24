@@ -25,7 +25,7 @@ ACTOR_TYPES.ghost = class extends Actor
             {
                 const start = this.stage.getCoordByPixels(this.x, this.y);
                 const end = this.stage.getCoordByPixels(this.targeter.target.x, this.targeter.target.y);
-                PATH_FINDER.findPath(this.stage.dataGrid, start.x, start.y, end.x, end.y, path => this.setPath(path));
+                PATH_FINDER.findPath(this.stage.dataGrid, start.x, start.y, end.x, end.y, (path) => {this.setPath(path)});
             }
         }
     }
