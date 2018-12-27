@@ -32,11 +32,12 @@ ACTOR_TYPES.ghost = class extends Actor
 
     setPath(path)
     {
+        console.log(path);
         if (path)
         {
             this.tweens = PATH_FINDER.getTweens(this, path, this.stage.data.tileWidth, this.stage.data.tileHeight);
-            tweens[0].onComplete = () => {this.tweenCallback()};
-            this.scene.sweens.add(this.tweens[0]);
+            this.tweens[0].onComplete = () => {this.tweenCallback()};
+            this.scene.tweens.add(this.tweens[0]);
             this.tweening = true;
         }
     }
@@ -52,7 +53,7 @@ ACTOR_TYPES.ghost = class extends Actor
 
     postCollision()
     {
-        this.die();
+        //this.die();
     }
 
     findPlayer()

@@ -4,7 +4,6 @@ const PATH_FINDER =
 
     findPath: function(grid, fromX, fromY, toX, toY, callback)
     {
-        console.log(grid, fromX, fromY, toX, toY);
         this.easyStar.setGrid(grid);
 
         this.easyStar.findPath(fromX, fromY, toX, toY, callback);
@@ -35,5 +34,6 @@ const PATH_FINDER =
     }
 };
 
-PATH_FINDER.easyStar.setAcceptableTiles([0]);
+PATH_FINDER.easyStar.setAcceptableTiles([0, 1]);
+PATH_FINDER.easyStar.setTileCost(1, 1);
 PATH_FINDER.easyStar.enableDiagonals();
