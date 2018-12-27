@@ -9,11 +9,11 @@ ACTOR_TYPES.gatlingturret = class extends ACTOR_TYPES.targetingturret
         this.ACTOR_TYPE = "gatlingturret";
         
         this.fireRate = 400;
-        this.range = 15;
+        this.range = 300;
         
         this.maxHp = 10;
         this.hp = this.maxHp;
         
-        this.tint = "#0xFF000";
+        this.targeter.range = this.range;
     }
 }

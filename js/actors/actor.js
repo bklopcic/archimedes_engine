@@ -11,9 +11,9 @@ class Actor extends Phaser.GameObjects.Container
         @param {StageCoord} coord StageCoord of the starting position of this Actor
         @param {string} key string name of image (or spritesheet) that this actor will use as its body
         @param {Direction.prop} direction Direction property representing the direction this Actor starts off facing (optional. Defaults to west)
-        @param {bool} belongsToGrid whether this Actor should report its position to the grid (optional, defaults to true)
+        @param {bool} isObstacle whether this Actor should report its position to the grid (optional, defaults to true)
     */
-    constructor(stage, x, y, key, direction, belongsToGrid)
+    constructor(stage, x, y, key, direction, isObstacle)
     {    
         const stagePosition = stage.getCoordByPixels(x, y);
         const currentTile = stage.getTileAt(stagePosition);
@@ -23,10 +23,10 @@ class Actor extends Phaser.GameObjects.Container
         this.add(this.sprite);
         this.stage = stage;
         this.faceDirection = direction || Direction.WEST;
-        this.belongsToGrid = (typeof belongsToGrid=="undefined"||typeof belongsToGrid==null)?true:belongsToGrid;
+        this.isObstacle = (typeof isObstacle=="undefined"||typeof isObstacle==null)?true:isObstacle;
         this.stagePosition = null;
         this.currentTile = null;
-        if (this.belongsToGrid)
+        if (this.isObstacle)
         {
             this.stagePosition = stagePosition;
             this.currentTile = currentTile;
@@ -45,6 +45,11 @@ class Actor extends Phaser.GameObjects.Container
         //collision will only occur if both actors have collideable set to true
         //if neither object is collideable then collision callbacks will not occur
         this.collidable = false;
+
+        //whether this actor should be saved when it is in an unloading chunk. By default,
+        //this property will be rest back to true when an actor is reset. If an actor subclass
+        //is to always be non-chunkable, the reset method must be overridden
+        this.chunkable = true;
         
         this.teamTag = "-1";
         //whether this actor can be targeted by other actors
@@ -198,7 +203,7 @@ class Actor extends Phaser.GameObjects.Container
     */
     die() 
     {
-        if (this.belongsToGrid)
+        if (this.isObstacle)
         {
             this.stage.leaveTile(this.stagePosition);
         }
@@ -218,11 +223,12 @@ class Actor extends Phaser.GameObjects.Container
         this.setPosition(x, y);
         this.faceDirection = faceDirection || Direction.WEST;
         this.hp = this.maxHp;
+        this.chunkable = true;
         if(this.gui)
         {
             this.gui.updateHealthBar();
         }
-        if(this.belongsToGrid)
+        if(this.isObstacle)
         {
             this.stagePosition = this.stage.getCoordByPixels(x, y);
             this.currentTile = this.stage.getTileAt(this.stagePosition);

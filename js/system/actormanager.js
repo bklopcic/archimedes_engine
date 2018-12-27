@@ -34,7 +34,7 @@ class ActorManager
         const positions = [];
         for (let i = 0; i < this.allActors.length; i++) {
             const actor = this.allActors[i];
-            if (actor.active && actor.belongsToGrid)
+            if (actor.active && actor.isObstacle)
             {
                 positions.push(actor.stagePosition);
             }

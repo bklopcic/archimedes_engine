@@ -52,7 +52,13 @@ ACTOR_TYPES.targetingturret = class extends ACTOR_TYPES.turret
     */
     setTeam(name)
     {
-        this.targeter.tag = name;
         super.setTeam(name);
+        this.targeter.tag = name;
+    }
+
+    reset(x, y, direction)
+    {
+        super.reset(x, y, direction);
+        this.targeter.updatePosition(new Phaser.Geom.Point(this.x, this.y));
     }
 }

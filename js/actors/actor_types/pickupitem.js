@@ -39,7 +39,7 @@ ACTOR_TYPES.log = class extends PickupItem
     constructor(stage, x, y, faceDirection, teamTag)
     {
         super(stage, x, y, "log", faceDirection, teamTag);
-
+        this.ACTOR_TYPE = "log";
         this.pickupType = "log";
     }
 }
@@ -49,7 +49,7 @@ ACTOR_TYPES.stone = class extends PickupItem
     constructor(stage, x, y, faceDirection, teamTag)
     {
         super(stage, x, y, "stoneresource", faceDirection, teamTag);
-
+        this.ACTOR_TYPE = "stone";
         this.pickupType = "stone";
     }
 }

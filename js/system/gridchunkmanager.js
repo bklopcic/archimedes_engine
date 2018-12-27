@@ -127,7 +127,7 @@ class GridChunkManager
             if (actor.active && !inRange)
             {
                 actor.die();
-                if (actor.belongsToGrid)
+                if (actor.chunkable)
                 {
                     const actorIdx = this.getParentChunkIdx(actor);
                     this.chunks[actorIdx.y][actorIdx.x].addActor(actor);
@@ -181,7 +181,7 @@ class GridChunkManager
         for (let i = 0; i < actors.length; i++)
         {
             const actor = actors[i];
-            if (actor.active && actor.belongsToGrid)
+            if (actor.active && actor.isObstacle)
             {
                 const actorIdx = this.getParentChunkIdx(actor);
                 chunksCopy[actorIdx.y][actorIdx.x].addActor(actor);

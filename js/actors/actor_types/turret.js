@@ -40,7 +40,6 @@ ACTOR_TYPES.turret = class extends Actor
         super.reset(x, y, faceDirection);
 
         this.canFire = false;
-        this.hp = 7;
 
         this.setFireEvent();
         this.updateFrame();
@@ -83,6 +82,7 @@ ACTOR_TYPES.turret = class extends Actor
             return;
         }
         const bullet = this.stage.spawn.bullet(0, 0, this.faceDirection, this.teamTag);
+        bullet.chunkable = false;
         const modifyerX = Direction.modifyer[this.faceDirection].x;
         const modifyerY = Direction.modifyer[this.faceDirection].y;
         bullet.setPosition(this.x +(((this.sprite.width/2)+(bullet.sprite.width/2)) * modifyerX), this.y+(((this.sprite.height/2)+(bullet.sprite.height/2)) * modifyerY));

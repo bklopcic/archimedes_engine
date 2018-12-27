@@ -55,7 +55,7 @@ class TargetingSystem
     */
     getTargetPosition() 
     {
-        if (this.target != null)
+        if (this.target)
         {
             return new Phaser.Geom.Point(this.target.x, this.target.y);
         }
