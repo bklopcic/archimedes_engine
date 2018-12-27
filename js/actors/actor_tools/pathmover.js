@@ -26,10 +26,11 @@ class PathMover
 
     moveTo(x, y)
     {
-        if (this.actor.x != x && this.actor.y != y)
+        if (this.actor.x == x && this.actor.y == y)
         {
-            this.target = new Phaser.Geom.Point(x, y);
+            return;
         }
+        this.target = new Phaser.Geom.Point(x, y);
     }
 
     pathCallback(path)
@@ -49,9 +50,8 @@ class PathMover
                 this.mover.moveTo(x, y);
             }
         }
-        else if (this.pathInProgress)
+        else
         {
-            this.mover.moveTo(this.target.x, this.target.y);
             this.target = null;
         }
     }

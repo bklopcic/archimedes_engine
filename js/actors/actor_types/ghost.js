@@ -26,7 +26,6 @@ ACTOR_TYPES.ghost = class extends Actor
         {
             if (this.targeter.checkTargetInRange())
             {
-                console.log("initiating move");
                 this.mover.moveTo(this.targeter.target.x, this.targeter.target.y);
             }
         }

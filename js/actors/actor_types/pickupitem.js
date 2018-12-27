@@ -12,7 +12,7 @@ class PickupItem extends Actor
 
     enemyCollision(other)
     {
-        if (other.inventory)
+        if (other.inventory && !this.collected)
         {
             this.collected = true;
             other.inventory.addItem(this.pickupType, 1);

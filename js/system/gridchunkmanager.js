@@ -29,7 +29,7 @@ class GridChunkManager
             }
         }
 
-        this.maxIdx = new StageCoord(data.numChunksX + 1, data.numChunksY + 1);
+        this.maxIdx = new StageCoord(data.numChunksX, data.numChunksY);
     }
 
     setActiveRange(startIdx, endIdx, forceClean)
@@ -105,18 +105,16 @@ class GridChunkManager
         const ySize = (endIdx.y - startIdx.y) * this.tilesPerChunkY;
         const offsetX = this.chunkWidth * startIdx.x;
         const offsetY = this.chunkHeight * startIdx.y;
-
-        //get positions of all obstacles
-        const positions = [];
+        this.tileManager.resetGrid(xSize, ySize, offsetX, offsetY);
+        
+        //rerecord positions of all obstacles
         for (let a of this.spawner.allActors)
         {
             if (a.active && a.isObstacle)
             {
-                positions.push(a.stagePosition);
+                this.tileManager.enterTile(this.tileManager.getCoordByPixels(a.x, a.y));
             }
         }
-
-        this.tileManager.resetGrid(xSize, ySize, offsetX, offsetY, positions);
     }
 
     cleanActors(startIdx, endIdx)

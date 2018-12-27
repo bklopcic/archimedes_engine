@@ -22,7 +22,7 @@ class Actor extends Phaser.GameObjects.Container
         this.add(this.sprite);
         this.stage = stage;
         this.faceDirection = direction || Direction.WEST;
-        this.isObstacle = (typeof isObstacle=="undefined"||typeof isObstacle==null)?true:isObstacle;
+        this.isObstacle = isObstacle;
         this.stagePosition = null;
         if (this.isObstacle)
         {
@@ -197,18 +197,21 @@ class Actor extends Phaser.GameObjects.Container
     */
     die() 
     {
-        if (this.isObstacle)
+        if (this.active)
         {
-            this.stage.leaveTile(this.stagePosition);
+            if (this.isObstacle)
+            {
+                this.stage.leaveTile(this.stage.getCoordByPixels(this.x, this.y));
+            }
+            this.setActive(false);
+            this.setVisible(false);
+            this.body.enable = false; 
         }
-        this.setActive(false);
-        this.setVisible(false);
-        this.body.enable = false;
     }
 
     /**
      * 
-     * @param {xint} x position to place this actor
+     * @param {int} x position to place this actor
      * @param {int} y position to place this actor
      * @param {Direction} faceDirection faceDirection of this actor (optional)
      */
