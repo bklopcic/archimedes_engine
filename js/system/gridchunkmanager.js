@@ -190,7 +190,7 @@ class GridChunkManager
         for (let i = 0; i < actors.length; i++)
         {
             const actor = actors[i];
-            if (actor.active && actor.isObstacle)
+            if (actor.active && actor.chunkable)
             {
                 const actorIdx = this.getParentChunkIdx(actor);
                 chunksCopy[actorIdx.y][actorIdx.x].addActor(actor);

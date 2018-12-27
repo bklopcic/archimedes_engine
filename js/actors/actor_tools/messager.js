@@ -2,7 +2,7 @@ const Messager = {
     messages: [
         {x: 100, y: 0, text:"What's an actor?"},
         {x: -300, y: -100, text:"What do actors do?"},
-        {x: -250, y: -70, text: ["Those actors", "are boring."]},
+        {x: -70, y: -150, text: ["Those actors", "are boring."]},
         {x: -100, y: -160, text:["How do you manage all those different", "structures in your code?"]},
         {x: -400, y: -70, text:["That's a lot of objects...","won't your computer", "slow down?"]},
         {x: 70, y: -70, text:["Even so there's", "a lot of things", "in your world."]},
