@@ -66,7 +66,7 @@ ACTOR_TYPES.turret = class extends Actor
 
     setFireEvent()
     {
-        this.scene.time.addEvent({delay: this.fireRate, callback: function(){this.canFire = true}, callbackScope: this});
+        this.scene.time.addEvent({delay: this.fireRate, callback: function(){if (this.active){this.canFire = true;}}, callbackScope: this});
     }
 
     /**
@@ -81,7 +81,7 @@ ACTOR_TYPES.turret = class extends Actor
         {
             return;
         }
-        const bullet = this.stage.spawn.bullet(0, 0, this.faceDirection, this.teamTag);
+        const bullet = this.stage.spawnActor("bullet", 0, 0, this.faceDirection, this.teamTag);
         bullet.chunkable = false;
         const modifyerX = Direction.modifyer[this.faceDirection].x;
         const modifyerY = Direction.modifyer[this.faceDirection].y;

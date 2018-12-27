@@ -16,7 +16,6 @@ class Actor extends Phaser.GameObjects.Container
     constructor(stage, x, y, key, direction, isObstacle)
     {    
         const stagePosition = stage.getCoordByPixels(x, y);
-        const currentTile = stage.getTileAt(stagePosition);
         
         super(stage.scene, x, y); //call parent constructor in our own context
         this.sprite = this.scene.add.sprite(0, 0, key); //we place the sprite at 0, 0 because it is relative to the container's position
@@ -25,11 +24,9 @@ class Actor extends Phaser.GameObjects.Container
         this.faceDirection = direction || Direction.WEST;
         this.isObstacle = (typeof isObstacle=="undefined"||typeof isObstacle==null)?true:isObstacle;
         this.stagePosition = null;
-        this.currentTile = null;
         if (this.isObstacle)
         {
             this.stagePosition = stagePosition;
-            this.currentTile = currentTile;
             this.stage.enterTile(this.stagePosition);
         }
 
@@ -95,7 +92,6 @@ class Actor extends Phaser.GameObjects.Container
         if (!this.stagePosition.compareCoord(coord)){
             this.stage.leaveTile(this.stagePosition);
             this.stagePosition = coord;
-            this.currentTile = this.stage.getTileAt(this.stagePosition);
             this.stage.enterTile(this.stagePosition);
         }
     }
@@ -192,9 +188,7 @@ class Actor extends Phaser.GameObjects.Container
         }
     }
 
-    collidBounds(){
-        console.log("base class collide bounds");
-    }
+    collidBounds(){}
 
     /**
         Handles destroying this object.
@@ -231,7 +225,6 @@ class Actor extends Phaser.GameObjects.Container
         if(this.isObstacle)
         {
             this.stagePosition = this.stage.getCoordByPixels(x, y);
-            this.currentTile = this.stage.getTileAt(this.stagePosition);
             this.stage.enterTile(this.stagePosition);
         }
         this.setActive(true);

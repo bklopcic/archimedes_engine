@@ -1,6 +1,6 @@
-class TileManager
+class GridManager
 {
-    constructor(scene, offsetX, offsetY, tileKeys, tileWidth, tileHeight, container)
+    constructor(scene, tileKeys, tileWidth, tileHeight, container)
     {
         this.scene = scene;
         this.tileKeys = tileKeys;
@@ -8,8 +8,8 @@ class TileManager
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
 
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
+        this.offsetX = 0;
+        this.offsetY = 0;
 
         this.container = container || this.scene.add.container(0, 0);
         
@@ -46,11 +46,6 @@ class TileManager
 
     drawTiles(x, y, tileData)
     {
-        if (this.bg)
-        {
-            this.bg.destroy();
-        }
-        const rt = this.scene.add.renderTexture(x, y, tileData[0].length * this.tileWidth, tileData.length * this.tileHeight);
         for (let i = 0; i < tileData.length; i++)
         {
             for (let j = 0; j < tileData[i].length; j++)

@@ -29,19 +29,6 @@ class ActorManager
         return dataArr;
     }
 
-    get activeActorPositions()
-    {
-        const positions = [];
-        for (let i = 0; i < this.allActors.length; i++) {
-            const actor = this.allActors[i];
-            if (actor.active && actor.isObstacle)
-            {
-                positions.push(actor.stagePosition);
-            }
-        }
-        return positions;
-    }
-
     /**
         Handles adding a team to the stage. 
         
@@ -168,35 +155,5 @@ class ActorManager
         this.addActorToTeam(actor, team);
         actor.reset(x, y, direction);
         return actor;
-    }
-
-    player(x, y, direction, team)
-    {
-        return this.spawnActor("player", x, y, direction, team);
-    }
-
-    wall(x, y, direction, team)
-    {
-        return this.spawnActor("wall", x, y, direction, team);
-    }
-
-    turret(x, y, direction, team)
-    {
-        return this.spawnActor("turret", x, y, direction, team);
-    }
-
-    targetingTurret(x, y, direction, team)
-    {
-        return this.spawnActor("targetingturret", x, y, direction, team);
-    }
-
-    bullet(x, y, direction, team)
-    {
-        return this.spawnActor("bullet", x, y, direction, team);
-    }
-
-    resource(x, y, direction, team)
-    {
-        return this.spawnActor("resource", x, y, direction, team);
     }
 }

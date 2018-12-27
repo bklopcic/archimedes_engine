@@ -105,7 +105,18 @@ class GridChunkManager
         const ySize = (endIdx.y - startIdx.y) * this.tilesPerChunkY;
         const offsetX = this.chunkWidth * startIdx.x;
         const offsetY = this.chunkHeight * startIdx.y;
-        this.tileManager.resetGrid(xSize, ySize, offsetX, offsetY, this.spawner.activeActorPositions);
+
+        //get positions of all obstacles
+        const positions = [];
+        for (let a of this.spawner.allActors)
+        {
+            if (a.active && a.isObstacle)
+            {
+                positions.push(a.stagePosition);
+            }
+        }
+
+        this.tileManager.resetGrid(xSize, ySize, offsetX, offsetY, positions);
     }
 
     cleanActors(startIdx, endIdx)

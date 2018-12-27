@@ -13,7 +13,7 @@ class Stage
         this.scene = scene;
         this.data = data;
 
-        this.grid = new TileManager(this.scene, 0, 0, data.tileSet, data.tileWidth, data.tileHeight);
+        this.grid = new GridManager(this.scene, data.tileSet, data.tileWidth, data.tileHeight);
         this.spawn = new ActorManager(this, this.scene.add.group());
         this.chunker = new GridChunkManager(this.scene, this.spawn, this.grid, data);
 
@@ -22,6 +22,26 @@ class Stage
         this.chunker.setActiveRange(startIdx, endIdx);
     }
 
+    get tileWidth()
+    {
+        return this.grid.tileWidth;
+    }
+
+    get tileHeight()
+    {
+        return this.grid.tileHeight;
+    }
+
+    get chunkWidth()
+    {
+        return this.chunker.chunkWidth;
+    }
+
+    get chunkHeight()
+    {
+        return this.chunker.chunkHeight;
+    }
+    
     get dataLiteral()
     {
         return this.chunker.generateData();
@@ -38,9 +58,9 @@ class Stage
 
     /**
      * resolves collisions between actors by the following ruleset:
-     *      - actors' collision handlers will only be called if at least one actor is collideable
+     *      - actors' collision handlers will only be called if at least one actor is collidable
      * 
-     *      - if both actors are collideable, collision physics will be applied, otherwise they will simply overlap
+     *      - if both actors are collidable, collision physics will be applied, otherwise they will simply overlap
      * 
      *      - if colliding actors are on the same team, their internal friendlyCollision() methods will be
      *        called in turn, passing in a reference to the other actor
@@ -79,76 +99,81 @@ class Stage
         actorBody.gameObject.collideBounds();
     }
 
-   /**
-       Returns the pixel coordinate of a specified StageCoord
-       
-       @param {StageCoord} coord the position on the grid to retrieve the tile from
-       @return Phaser.Geom.Point representing the pixel coordinate of the StageCoord
-   */
-   getTileAt(coord) 
-   {
-       let tile = this.grid.getTileAt(coord);
-       tile.x += this.chunker.activeChunkRange.startIdx.x * this.data.chunkWidth;
-       tile.y += this.chunker.activeChunkRange.startIdx.y * this.data.chunkHeight;
-       return tile;
-   }
+    /**
+         Returns the pixel coordinate of a specified StageCoord
+        
+        @param {StageCoord} coord the position on the grid to retrieve the tile from
+        @return Phaser.Geom.Point representing the pixel coordinate of the StageCoord
+    */
+    getTileAt(coord) 
+    {
+        let tile = this.grid.getTileAt(coord);
+        tile.x += this.chunker.activeChunkRange.startIdx.x * this.chunkWidth;
+        tile.y += this.chunker.activeChunkRange.startIdx.y * this.chunkHeight;
+        return tile;
+    }
 
-   /**
-       Returns a coordinate object representing a position in the grid at a specified pixel position
-       
-       @param x number representing the horizontal position (in pixels) of the requested Stage position
-       @param y number representing the vertical position (in pixels) of the requested Stage position
-       @return StageCoord       
-   */
-   getCoordByPixels(x, y) 
-   {
-       return this.grid.getCoordByPixels(x, y);
-   }
+    /**
+         Returns a coordinate object representing a position in the grid at a specified pixel position
+        
+        @param x number representing the horizontal position (in pixels) of the requested Stage position
+        @param y number representing the vertical position (in pixels) of the requested Stage position
+        @return StageCoord       
+    */
+    getCoordByPixels(x, y) 
+    {
+        return this.grid.getCoordByPixels(x, y);
+    }
 
-   /**
-       Checks if a specified position is within the bounds of the stage.
-       
-       @param coord StageCoord representing the position to be checked
-       @return bool (true if in bounds, false if not)
-   */
-   checkInBounds(coord) 
-   {
-       return this.grid.checkInBounds(coord);
-   }
+    /**
+         Checks if a specified position is within the bounds of the stage.
+        
+        @param coord StageCoord representing the position to be checked
+        @return bool (true if in bounds, false if not)
+    */
+    checkInBounds(coord) 
+    {
+        return this.grid.checkInBounds(coord);
+    }
 
-   /**
-   * Handles adding to the number of occupants at a position on the grid
-   *    
-   * @param coord StageCoord the position to occupy
-   */
-   enterTile(coord) 
-   {
-       this.grid.enterTile(coord);
-   }
+    /**
+     * Handles adding to the number of occupants at a position on the grid
+     *    
+     * @param coord StageCoord the position to occupy
+     */
+    enterTile(coord) 
+    {
+        this.grid.enterTile(coord);
+    }
 
-   /**
-       Handles decrementing from the number of occupants at a position on a grid
-       
-       @param coord StageCoord the position to unoccupy
-   */
-   leaveTile(coord) 
-   {
-       this.grid.leaveTile(coord);
-   }
+    /**
+         Handles decrementing from the number of occupants at a position on a grid
+        
+        @param coord StageCoord the position to unoccupy
+    */
+    leaveTile(coord) 
+    {
+        this.grid.leaveTile(coord);
+    }
 
-   /**
-       Checks if a specified position on the grid is occupied by another actor
-       
-       @param coord StageCoord the position to check
-       @return bool (true if empty, false otherwise)
-   */
-   checkIfEmpty(coord) 
-   {
-       return this.grid.checkIfEmpty(coord);
-   }
+    /**
+         Checks if a specified position on the grid is occupied by another actor
+        
+        @param coord StageCoord the position to check
+        @return bool (true if empty, false otherwise)
+    */
+    checkIfEmpty(coord) 
+    {
+        return this.grid.checkIfEmpty(coord);
+    }
 
     toString()
     {
         return this.chunker.toString();
+    }
+
+    spawnActor(type, x, y, direction, team)
+    {
+        return this.spawn.spawnActor(type, x, y, direction, team);
     }
 }

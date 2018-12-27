@@ -43,7 +43,7 @@ class PlayerController
         }
         this.mover.update();
 
-        this.actor.updatePosition();
+        //this.actor.updatePosition();
         this.targeter.updatePosition(new Phaser.Geom.Point(this.actor.x, this.actor.y));
         this.actor.sprite.setFrame(this.faceFrames[this.actor.faceDirection]);
         
@@ -102,7 +102,7 @@ class PlayerController
     build()
     {
         const stage = this.actor.stage;
-        let targetCoord = this.actor.stagePosition.getNeighbor(this.actor.faceDirection);
+        let targetCoord = stage.getCoordByPixels(this.actor.x, this.actor.y).getNeighbor(this.actor.faceDirection);
         if (stage.checkIfEmpty(targetCoord))
         {
             const targetTile = stage.getTileAt(targetCoord);
@@ -115,7 +115,7 @@ class PlayerController
     attack()
     {
         const stage = this.actor.stage;
-        let targetCoord = this.actor.stagePosition.getNeighbor(this.actor.faceDirection);
+        let targetCoord = stage.getCoordByPixels(this.actor.x, this.actor.y).getNeighbor(this.actor.faceDirection);
         let targetTile = stage.getTileAt(targetCoord);
         let x = targetTile.x + stage.data.tileWidth/2;
         let y = targetTile.y + stage.data.tileHeight/2;

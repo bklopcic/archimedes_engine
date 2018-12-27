@@ -13,7 +13,7 @@ ACTOR_TYPES.player = class extends Actor
     constructor(stage, x, y, direction) 
     {
         direction = direction || Direction.WEST;
-        super(stage, x, y, "blue-dude", direction);
+        super(stage, x, y, "blue-dude", direction, false);
         this.ACTOR_TYPE = "player";
                 
         this.speed = 300;
@@ -58,7 +58,6 @@ ACTOR_TYPES.player = class extends Actor
         {
             this.stage.leaveTile(this.stagePosition);
             this.stagePosition = coord;
-            this.currentTile = this.stage.getTileAt(this.stagePosition);
             this.stage.enterTile(this.stagePosition);
         }        
     }

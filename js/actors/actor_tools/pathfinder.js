@@ -35,5 +35,4 @@ const PATH_FINDER =
 };
 
 PATH_FINDER.easyStar.setAcceptableTiles([0, 1]);
-PATH_FINDER.easyStar.setTileCost(1, 1);
 PATH_FINDER.easyStar.enableDiagonals();

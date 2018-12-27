@@ -23,7 +23,7 @@ class TestScene extends Phaser.Scene
         const data = this.cache.json.get("data");
         this.stage = new Stage(this, data);
         
-        const player = this.stage.spawn.player(1750, 200, Direction.SOUTH, "player");
+        const player = this.stage.spawnActor("player", 1750, 200, Direction.SOUTH, "player");
         this.player = new PlayerController(player);
         this.chunkController = new ChunkingController(this.stage.chunker, player);
         this.chunkController.triggerPaddingX = 800;
