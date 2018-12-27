@@ -10,7 +10,7 @@ class TestScene extends Phaser.Scene
                 default: 'arcade',
                 arcade: 
                 {
-                    debug: false
+                    debug: true
         }}});
 
         this.player;
@@ -22,10 +22,13 @@ class TestScene extends Phaser.Scene
     {   
         const data = this.cache.json.get("data");
         this.stage = new Stage(this, data);
+        const container = this.add.container(0,0);
+        this.stage.chunker.startDebug(container);
         
         const player = this.stage.spawnActor("player", 1750, 200, Direction.SOUTH, "player");
         this.player = new PlayerController(player);
         this.chunkController = new ChunkingController(this.stage.chunker, player);
+        this.chunkController.startDebug(container);
         this.chunkController.triggerPaddingX = 800;
         this.chunkController.triggerPaddingY = 600;
         

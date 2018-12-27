@@ -10,7 +10,7 @@ class PlayerController
         this.actor = actor;
         this.scene = this.actor.scene;
         this.targeter = new TargetingSystem(this.actor.stage, new Phaser.Geom.Point(this.actor.x, this.actor.y), this.actor.teamTag);
-        this.mover = new PointDirectionMover(this.actor);
+        this.mover = new PathMover(this.actor);
         
         this.maxHp = this.actor.maxHp;
         
@@ -56,10 +56,11 @@ class PlayerController
         {
             this.attack();
         }
-        if(Phaser.Input.Keyboard.JustDown(this.controlKeys.Q))
+        if(Phaser.Input.Keyboard.JustDown(this.controlKeys.W))
         {
-            this.selectedBuilding++;
-            this.selectedBuilding = this.selectedBuilding % this.buildings.length;
+            // this.selectedBuilding++;
+            // this.selectedBuilding = this.selectedBuilding % this.buildings.length;
+            console.log(this.actor.stage.dataGrid);
         }
         else if (Phaser.Input.Keyboard.JustDown(this.controlKeys.Q))
         {

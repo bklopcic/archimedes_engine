@@ -1,8 +1,8 @@
 class PickupItem extends Actor
 {
-    constructor(stage, x, y, key, faceDirection, teamTag)
+    constructor(stage, x, y, key, faceDirection)
     {
-        super(stage, x, y, key, faceDirection, teamTag, false);
+        super(stage, x, y, key, faceDirection, false);
 
         this.collidable = false;
         this.targetable = false;
@@ -36,9 +36,9 @@ class PickupItem extends Actor
 
 ACTOR_TYPES.log = class extends PickupItem
 {
-    constructor(stage, x, y, faceDirection, teamTag)
+    constructor(stage, x, y, faceDirection)
     {
-        super(stage, x, y, "log", faceDirection, teamTag);
+        super(stage, x, y, "log", faceDirection);
         this.ACTOR_TYPE = "log";
         this.pickupType = "log";
     }
@@ -46,9 +46,9 @@ ACTOR_TYPES.log = class extends PickupItem
 
 ACTOR_TYPES.stone = class extends PickupItem
 {
-    constructor(stage, x, y, faceDirection, teamTag)
+    constructor(stage, x, y, faceDirection)
     {
-        super(stage, x, y, "stoneresource", faceDirection, teamTag);
+        super(stage, x, y, "stoneresource", faceDirection);
         this.ACTOR_TYPE = "stone";
         this.pickupType = "stone";
     }

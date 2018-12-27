@@ -1,16 +1,19 @@
 ACTOR_TYPES.ghost = class extends Actor
 {
-    constructor(stage, x, y, faceDirection, teamTag)
+    constructor(stage, x, y, faceDirection)
     {
-        super(stage, x, y, "ghost", faceDirection, teamTag, false);
+        super(stage, x, y, "ghost", faceDirection, false);
 
         this.ACTOR_TYPE = "ghost";
         this.sprite.setScale(.25, .25);
         this.body.setSize(75, 75);
         this.body.setOffset(-(this.sprite.width/2) * .25, (-this.sprite.height/2)*.25);
 
-        this.targeter = new TargetingSystem(this.stage, new Phaser.Geom.Point(this.x, this.y), this.teamTag, 200, null);
-        this.tweening = false;
+        this.speed = 100;
+        this.range = 500;
+
+        this.targeter = new TargetingSystem(this.stage, new Phaser.Geom.Point(this.x, this.y), this.teamTag, this.range, null);
+        this.mover = new PathMover(this);
     }
 
     action()
@@ -21,30 +24,14 @@ ACTOR_TYPES.ghost = class extends Actor
         }
         else
         {
-            if (!this.tweening && this.targeter.checkTargetInRange())
+            if (this.targeter.checkTargetInRange())
             {
-                const start = this.stage.getCoordByPixels(this.x, this.y);
-                const end = this.stage.getCoordByPixels(this.targeter.target.x, this.targeter.target.y);
-                PATH_FINDER.findPath(this.stage.dataGrid, start.x, start.y, end.x, end.y, (path) => {this.setPath(path)});
+                console.log("initiating move");
+                this.mover.moveTo(this.targeter.target.x, this.targeter.target.y);
             }
         }
-    }
-
-    setPath(path)
-    {
-        console.log(path);
-        if (path)
-        {
-            this.tweens = PATH_FINDER.getTweens(this, path, this.stage.data.tileWidth, this.stage.data.tileHeight);
-            this.tweens[0].onComplete = () => {this.tweenCallback()};
-            this.scene.tweens.add(this.tweens[0]);
-            this.tweening = true;
-        }
-    }
-
-    tweenCallback()
-    {
-        this.tweening = false;
+        this.mover.update();
+        this.targeter.updatePosition(new Phaser.Geom.Point(this.x, this.y));
     }
 
     enemyCollision(other)

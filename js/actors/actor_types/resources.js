@@ -1,8 +1,8 @@
 class resource extends Actor
 {
-    constructor(stage, x, y, key, faceDirection, teamTag)
+    constructor(stage, x, y, key, faceDirection)
     {
-        super(stage, x, y, key, faceDirection, teamTag, true);
+        super(stage, x, y, key, faceDirection, true);
 
         this.collidable = true;
         this.targetable = false;
@@ -42,9 +42,9 @@ class resource extends Actor
 
 ACTOR_TYPES.treeresource = class extends resource
 {
-    constructor(stage, x, y, faceDirection, teamTag)
+    constructor(stage, x, y, faceDirection)
     {
-        super(stage, x, y, "tree", faceDirection, teamTag);
+        super(stage, x, y, "tree", faceDirection);
         this.ACTOR_TYPE = "treeresource";
 
         this.body.setCircle(15 , -14, -15);
@@ -55,9 +55,9 @@ ACTOR_TYPES.treeresource = class extends resource
 
 ACTOR_TYPES.stoneresource = class extends resource
 {
-    constructor(stage, x, y, faceDirection, teamTag)
+    constructor(stage, x, y, faceDirection)
     {
-        super(stage, x, y, "rockpile", faceDirection, teamTag);
+        super(stage, x, y, "rockpile", faceDirection);
         this.ACTOR_TYPE = "stoneresource";
         this.body.setOffset(-this.sprite.width/2, -this.sprite.height/4.2);
         this.sprite.y -= 36;

@@ -1,8 +1,8 @@
 ACTOR_TYPES.unbreakablewall = class extends Actor
 {
-    constructor(stage, x, y, faceDirection, teamTag)
+    constructor(stage, x, y, faceDirection)
     {
-        super(stage, x, y, "dark-wall", faceDirection, teamTag, true);
+        super(stage, x, y, "dark-wall", faceDirection, true);
 
         this.ACTOR_TYPE = "unbreakablewall";
         

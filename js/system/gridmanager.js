@@ -110,6 +110,7 @@ class GridManager
    {
        for (let i = 0; i < positionArr.length; i++)
        {
+           console.log(positionArr[i]);
            this.enterTile(positionArr[i]);
        }
    }
