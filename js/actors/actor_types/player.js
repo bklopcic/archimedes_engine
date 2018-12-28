@@ -13,12 +13,13 @@ ACTOR_TYPES.player = class extends Actor
     constructor(stage, x, y, direction) 
     {
         direction = direction || Direction.WEST;
-        super(stage, x, y, "blue-dude", direction, false);
+        super(stage, x, y, "blue-dude", direction);
         this.ACTOR_TYPE = "player";
                 
         this.speed = 300;
         this.targetable = true;
         this.collidable = true;
+        this.setAsObstacle(false);
             
         this.maxHp = 10;
         this.hp = this.maxHp;
@@ -42,24 +43,6 @@ ACTOR_TYPES.player = class extends Actor
             repeat: -1
         });
         this.sprite.anims.load("player-west-walk");
-    }
-
-    /**
-        Handles updating this Player's position on the stage and setting all values accordingly.
-    */
-    updatePosition() 
-    {
-        const xModifyer = Direction.modifyer[this.faceDirection].x;
-        const yModifyer = Direction.modifyer[this.faceDirection].y;
-        //this actor's position is the last tile any part of it moved into
-        const coord = this.stage.getCoordByPixels(this.x + ((this.width/2)*xModifyer), this.y+((this.height/2)*yModifyer));
-        
-        if (!this.stagePosition.compareCoord(coord))
-        {
-            this.stage.leaveTile(this.stagePosition);
-            this.stagePosition = coord;
-            this.stage.enterTile(this.stagePosition);
-        }        
     }
 
     takeHit(){}

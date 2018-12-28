@@ -2,10 +2,11 @@ ACTOR_TYPES.playerattack = class extends Actor
 {
     constructor(stage, x, y)
     {
-        super(stage, x, y, "", Direction.WEST, false);
+        super(stage, x, y, "", Direction.WEST);
         this.sprite.destroy();
 
         this.collidable = false;
+        this.setAsObstacle(false);
 
         this.body.setSize(this.stage.data.tileWidth, this.stage.data.tileHeight);
 

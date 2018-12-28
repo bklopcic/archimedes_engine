@@ -2,11 +2,12 @@ class PickupItem extends Actor
 {
     constructor(stage, x, y, key, faceDirection)
     {
-        super(stage, x, y, key, faceDirection, false);
+        super(stage, x, y, key, faceDirection);
 
         this.collidable = false;
         this.targetable = false;
         this.collected = false;
+        this.setAsObstacle(false);
         this.pickupType = "pickup Item"
     }
 

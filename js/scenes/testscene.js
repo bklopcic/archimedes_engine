@@ -10,7 +10,7 @@ class TestScene extends Phaser.Scene
                 default: 'arcade',
                 arcade: 
                 {
-                    debug: true
+                    debug: false
         }}});
 
         this.player;
@@ -39,7 +39,6 @@ class TestScene extends Phaser.Scene
     
     update()
     {
-        this.stage.update();
         this.player.update();
         this.chunkController.update();
     }

@@ -52,8 +52,9 @@ class Stage
         return this.grid.dataGrid;
     }
 
-    update()
+    get allActors()
     {
+        return this.spawn.allActors;
     }
 
     /**

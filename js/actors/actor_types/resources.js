@@ -2,10 +2,11 @@ class resource extends Actor
 {
     constructor(stage, x, y, key, faceDirection)
     {
-        super(stage, x, y, key, faceDirection, true);
+        super(stage, x, y, key, faceDirection);
 
         this.collidable = true;
         this.targetable = false;
+        this.isObstacle = true;
         
         this.maxHp = 14;
         this.hp = this.maxHp;

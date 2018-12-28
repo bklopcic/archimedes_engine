@@ -12,7 +12,7 @@ ACTOR_TYPES.turret = class extends Actor
     {
         direction = direction || Direction.WEST;
         key = key || "crossbow";
-        super(stage, x, y, key, direction, true);
+        super(stage, x, y, key, direction);
 
         this.ACTOR_TYPE = "turret";
 
@@ -20,6 +20,7 @@ ACTOR_TYPES.turret = class extends Actor
                 
         this.targetable = true;
         this.collidable = true;
+        this.isObstacle = true;
         this.body.immovable = true;
 
         this.body.setCircle(30, -30, -25);

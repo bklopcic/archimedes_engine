@@ -2,8 +2,9 @@ ACTOR_TYPES.ghost = class extends Actor
 {
     constructor(stage, x, y, faceDirection)
     {
-        super(stage, x, y, "ghost", faceDirection, false);
+        super(stage, x, y, "ghost", faceDirection);
 
+        this.setAsObstacle(false);
         this.ACTOR_TYPE = "ghost";
         this.sprite.setScale(.25, .25);
         this.body.setSize(75, 75);

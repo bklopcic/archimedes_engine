@@ -6,5 +6,6 @@ ACTOR_TYPES.testdot = class extends Actor
 
         this.ACTOR_TYPE = "testdot";
         this.body.immovable = true;
+        this.setAsObstacle(false);
     }
 }

@@ -13,22 +13,13 @@ class Actor extends Phaser.GameObjects.Container
         @param {Direction.prop} direction Direction property representing the direction this Actor starts off facing (optional. Defaults to west)
         @param {bool} isObstacle whether this Actor should report its position to the grid (optional, defaults to true)
     */
-    constructor(stage, x, y, key, direction, isObstacle)
-    {    
-        const stagePosition = stage.getCoordByPixels(x, y);
-        
+    constructor(stage, x, y, key, direction)
+    {            
         super(stage.scene, x, y); //call parent constructor in our own context
         this.sprite = this.scene.add.sprite(0, 0, key); //we place the sprite at 0, 0 because it is relative to the container's position
         this.add(this.sprite);
         this.stage = stage;
         this.faceDirection = direction || Direction.WEST;
-        this.isObstacle = isObstacle;
-        this.stagePosition = null;
-        if (this.isObstacle)
-        {
-            this.stagePosition = stagePosition;
-            this.stage.enterTile(this.stagePosition);
-        }
 
         this.scene.physics.add.existing(this);
         this.body.setCollideWorldBounds(true);
@@ -36,6 +27,14 @@ class Actor extends Phaser.GameObjects.Container
         //NOTE: can also set body to be a circle using: this.body.setCircle()
         this.body.setSize(this.sprite.width, this.sprite.height);
         this.body.setOffset(-this.sprite.width/2, -this.sprite.height/2);
+
+        //whether this actor should be tracked on the data grod. Actors marked as obstacles
+        //will be factored in when other actors are pathfinding. Obstacle actors cannot be the
+        //direct target of a pathfind, nor can they pathfind. If an obstacle actor wishes to move
+        //it must first call stage.leaveTile() and then updatePosition() once it is done moving
+        //USE setAsObstacle(trueOrFalse) TO CHANGE OBSTACLE STATUS OF ACTOR
+        this.isObstacle = true;
+        this.updatePosition();
 
 
         //whether or not collision physics should effect this actor when it overlaps another actor
@@ -81,18 +80,41 @@ class Actor extends Phaser.GameObjects.Container
         return data;
     }
 
+    get stagePosition()
+    {
+        return this.stage.getCoordByPixels(this.x, this.y);
+    }
+
     /**
-    * Updates this Actor's properties to reflect it's current coordinate on the stage
-    * NOTE: call any time an actor moves
+    * Updates this Actor's properties to reflect it's current coordinate on the stage.
+    * NOTE: stage.leaveTile must be called BEFORE and an actor marked as an obstacle moves
     */
     updatePosition() 
-    {        
-        const coord = this.stage.getCoordByPixels(this.x, this.y);
-        
-        if (!this.stagePosition.compareCoord(coord)){
-            this.stage.leaveTile(this.stagePosition);
-            this.stagePosition = coord;
+    {     
+        if (this.isObstacle)
+        {
             this.stage.enterTile(this.stagePosition);
+        }   
+    }
+
+    /**
+     * Set up this actor to be an obstacle
+     * @param {bool} mode whether this actor is no an obstacle or not
+     */
+    setAsObstacle(mode)
+    {
+        if (this.isObstacle == mode)
+        {
+            return;
+        }
+        this.isObstacle = mode;
+        if (this.isObstacle)
+        {
+            this.stage.enterTile(this.stagePosition);
+        }
+        else
+        {
+            this.stage.leaveTile(this.stagePosition);
         }
     }
 
@@ -201,7 +223,7 @@ class Actor extends Phaser.GameObjects.Container
         {
             if (this.isObstacle)
             {
-                this.stage.leaveTile(this.stage.getCoordByPixels(this.x, this.y));
+                this.stage.leaveTile(this.stagePosition);
             }
             this.setActive(false);
             this.setVisible(false);
@@ -218,17 +240,13 @@ class Actor extends Phaser.GameObjects.Container
     reset(x, y, faceDirection)
     {
         this.setPosition(x, y);
+        this.updatePosition();
         this.faceDirection = faceDirection || Direction.WEST;
         this.hp = this.maxHp;
         this.chunkable = true;
         if(this.gui)
         {
             this.gui.updateHealthBar();
-        }
-        if(this.isObstacle)
-        {
-            this.stagePosition = this.stage.getCoordByPixels(x, y);
-            this.stage.enterTile(this.stagePosition);
         }
         this.setActive(true);
         this.setVisible(true);

@@ -1,12 +1,13 @@
 class Professor extends Actor
 {
-    constructor(stage, x, y, key, faceDirection, team)
+    constructor(stage, x, y, key, faceDirection)
     {
-        super(stage, x, y, key, faceDirection, team, false);
+        super(stage, x, y, key, faceDirection);
         this.ACTOR_TYPE = "professor";
-
+        
         this.sprite.setScale(.7, .7);
-
+        
+        this.setAsObstacle(false);
         this.collidable = false;
 
         this.activated = false;
@@ -48,7 +49,7 @@ class Professor extends Actor
 
     reset(x, y, faceDirection, team)
     {
-        super.reset(x, y, faceDirection, team);
+        super.reset(x, y, faceDirection);
         this.activated = false;
         this.textObject = null;
     }

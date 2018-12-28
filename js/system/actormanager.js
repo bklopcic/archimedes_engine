@@ -81,6 +81,7 @@ class ActorManager
             }
         }
         return false;
+        //change to return this.teamNames.indexOf(name) != -1;
     }
 
     /**
@@ -96,7 +97,6 @@ class ActorManager
             return;
         }        
         //create a new group and add it to the parent sort group
-        //TODO: add new group to container (for sorting)
         this.actorGroups[name] = this.stage.scene.add.group({classType: classType, runChildUpdate: true});
         for (const group in this.actorGroups)
         {
@@ -105,7 +105,7 @@ class ActorManager
     }
 
     /**
-        load an array of actors
+    *   load an array of actors
     */
     loadActorsFromData(data)
     {
