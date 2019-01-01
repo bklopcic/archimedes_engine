@@ -1,19 +1,11 @@
-ACTOR_TYPES.unbreakablewall = class extends Actor
+ACTOR_TYPES.unbreakablewall = class extends ACTOR_TYPES.wall
 {
-    constructor(stage, x, y, faceDirection)
+    constructor(stage, x, y, faceDirection, key)
     {
-        super(stage, x, y, "dark-wall", faceDirection);
+        key = key || "dark-wall";
+        super(stage, x, y, faceDirection, key);
 
         this.ACTOR_TYPE = "unbreakablewall";
-        
-        this.body.immovable = true;
-        
-        this.body.setSize(this.sprite.width, this.sprite.height/2);
-        this.body.setOffset(-this.sprite.width/2, -this.sprite.height/4);
-        this.sprite.y = -this.sprite.height/4;
-
-        this.collidable = true;
-        this.targetable = false; //He can't be directly targeted
     }
 
     takeHit(){}

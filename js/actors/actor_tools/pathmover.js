@@ -19,7 +19,15 @@ class PathMover
         {
             const start = this.stage.getCoordByPixels(this.actor.x, this.actor.y);
             const end = this.stage.getCoordByPixels(this.target.x, this.target.y);
-            PATH_FINDER.findPath(this.stage.dataGrid, start.x, start.y, end.x, end.y, path => this.pathCallback(path));
+            if (start.compareCoord(end))
+            {
+                this.mover.moveTo(this.target.x, this.target.y);
+                this.target = null;
+            }
+            else
+            {
+                PATH_FINDER.findPath(this.stage.dataGrid, start.x, start.y, end.x, end.y, path => this.pathCallback(path));
+            }
         }
         this.mover.update();
     }
@@ -37,10 +45,9 @@ class PathMover
     {
         if (path && path.length > 0 && this.pathInProgress)
         {
-            if (path.length == 1)
+            if (path.length <= 2)
             {
                 this.mover.moveTo(this.target.x, this.target.y);
-                this.target = null; //you have reached your destination
             }
             else
             {

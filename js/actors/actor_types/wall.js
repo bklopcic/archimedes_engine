@@ -6,13 +6,14 @@
 */
 ACTOR_TYPES.wall = class extends Actor
 {
-    constructor(stage, x, y, faceDirection)
+    constructor(stage, x, y, faceDirection, key)
     {
-        super(stage, x, y, 'wall', faceDirection);
+        key = key || "wall";
+        super(stage, x, y, key, faceDirection);
 
         this.ACTOR_TYPE = "wall";
         
-        this.isObstacle = true;
+        this.setAsObstacle(true);
         this.body.immovable = true; //He doesn't move
 
         this.body.setSize(this.sprite.width, this.sprite.height/2);
