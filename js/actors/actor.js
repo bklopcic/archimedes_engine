@@ -165,10 +165,10 @@ class Actor extends Phaser.GameObjects.Container
     }
 
     /**
-     * adds to this actor's hp. Hp will not exceed max
-     * 
-     * @param {number} amt amount of hp to add to this actor
-     */
+    * adds to this actor's hp. Hp will not exceed max
+    * 
+    * @param {number} amt amount of hp to add to this actor
+    */
     heal(amt)
     {
         this.hp += amt;
@@ -199,9 +199,9 @@ class Actor extends Phaser.GameObjects.Container
     friendlyCollision(other) {}
 
     /**
-     * This method is called after the collision handler has been called on both actors.
-     * This is where Actors should run any necessary operations on themselves for collision.
-     */
+    * This method is called after the collision handler has been called on both actors.
+    * This is where Actors should run any necessary operations on themselves for collision.
+    */
     postCollision()
     {
         if (this.hp <= 0)
@@ -232,11 +232,11 @@ class Actor extends Phaser.GameObjects.Container
     }
 
     /**
-     * 
-     * @param {int} x position to place this actor
-     * @param {int} y position to place this actor
-     * @param {Direction} faceDirection faceDirection of this actor (optional)
-     */
+    * 
+    * @param {int} x position to place this actor
+    * @param {int} y position to place this actor
+    * @param {Direction} faceDirection faceDirection of this actor (optional)
+    */
     reset(x, y, faceDirection)
     {
         this.setPosition(x, y);

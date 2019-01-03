@@ -28,7 +28,8 @@ class PlayerController
         };
 
         this.scene.input.on('pointerdown', this.handleClick, this);
-
+        this.scene.input.on('pointermove', this.handleMouseMove, this);
+        
         this.faceFrames = {1: 28, 2: 182, 3: 209, 4: 59, 5: 88, 6: 117, 7: 139, 8: 160};
     }
 
@@ -71,17 +72,17 @@ class PlayerController
 
     handleClick(pointer)
     {
-        const clickX = this.actor.scene.cameras.main.scrollX + pointer.x;
-        const clickY = this.actor.scene.cameras.main.scrollY + pointer.y;
+        const mouseX = this.actor.scene.cameras.main.scrollX + pointer.x;
+        const mouseY = this.actor.scene.cameras.main.scrollY + pointer.y;
         if (pointer.leftButtonDown())
         {
-            this.moveTo(clickX, clickY);
+            this.moveTo(mouseX, mouseY);
         }
         else if (pointer.rightButtonDown())
         {
             const stage = this.actor.stage;
-            this.targeter.setTarget(new Phaser.Geom.Point(clickX, clickY));
-            let coord = stage.getCoordByPixels(clickX, clickY);
+            this.targeter.setTarget(new Phaser.Geom.Point(mouseX, mouseY));
+            let coord = stage.getCoordByPixels(mouseX, mouseY);
             const mod = Direction.modifyer[this.targeter.getDirectionToTarget()];
             console.log(mod);
             mod.x *= -1;
@@ -91,6 +92,14 @@ class PlayerController
             this.moveTo(target.x + stage.data.tileWidth/2, target.y + stage.data.tileHeight/2);
         }
         
+    }
+
+    handleMouseMove(pointer)
+    {
+        const mouseX = this.actor.scene.cameras.main.scrollX + pointer.x;
+        const mouseY = this.actor.scene.cameras.main.scrollY + pointer.y;
+        this.targeter.setTarget(new Phaser.Geom.Point(mouseX, mouseY));
+        this.actor.faceDirection = this.targeter.getDirectionToTarget();
     }
 
     moveTo(x, y)

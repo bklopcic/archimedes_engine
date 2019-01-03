@@ -38,6 +38,7 @@ class GridChunkManager
         {
             throw "Invalid range parameters";
         }
+        forceClean = typeof forceClean === "undefined" ? false : forceClean;
 
         //validate range to confine to existing chunks
         startIdx.x = startIdx.x < 0 ? 0 : startIdx.x;
@@ -49,7 +50,6 @@ class GridChunkManager
         {
             return;
         }
-        forceClean = typeof forceClean === "undefined" ? false : forceClean;
         
         if (forceClean)
         {
