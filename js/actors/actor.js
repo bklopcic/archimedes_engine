@@ -33,8 +33,8 @@ class Actor extends Phaser.GameObjects.Container
         //direct target of a pathfind, nor can they pathfind. If an obstacle actor wishes to move
         //it must first call stage.leaveTile() and then updatePosition() once it is done moving
         //USE setAsObstacle(trueOrFalse) TO CHANGE OBSTACLE STATUS OF ACTOR
-        this.isObstacle = true;
-        this.updatePosition();
+        this.isObstacle = false;
+        //this.updatePosition();
 
 
         //whether or not collision physics should effect this actor when it overlaps another actor
@@ -103,19 +103,15 @@ class Actor extends Phaser.GameObjects.Container
      */
     setAsObstacle(mode)
     {
-        if (this.isObstacle == mode)
-        {
-            return;
-        }
-        this.isObstacle = mode;
-        if (this.isObstacle)
+        if (mode && !this.isObstacle)
         {
             this.stage.enterTile(this.stagePosition);
         }
-        else
+        else if (!mode && this.isObstacle)
         {
             this.stage.leaveTile(this.stagePosition);
         }
+        this.isObstacle = mode;
     }
 
     /**
