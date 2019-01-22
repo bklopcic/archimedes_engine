@@ -41,11 +41,6 @@ class ChunkEditerScene extends Phaser.Scene
         this.input.on("pointerdown", this.handleClick, this);
     }
 
-    update()
-    {
-        this.stage.update();
-    }
-
     getDOMSettings()
     {
         const settings = {};

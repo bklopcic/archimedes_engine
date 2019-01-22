@@ -34,8 +34,6 @@ class Actor extends Phaser.GameObjects.Container
         //it must first call stage.leaveTile() and then updatePosition() once it is done moving
         //USE setAsObstacle(trueOrFalse) TO CHANGE OBSTACLE STATUS OF ACTOR
         this.isObstacle = false;
-        //this.updatePosition();
-
 
         //whether or not collision physics should effect this actor when it overlaps another actor
         //collision will only occur if both actors have collideable set to true
