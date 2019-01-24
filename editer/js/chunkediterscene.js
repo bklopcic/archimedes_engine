@@ -39,6 +39,47 @@ class ChunkEditerScene extends Phaser.Scene
         }
 
         this.input.on("pointerdown", this.handleClick, this);
+
+        this.point = new Phaser.Geom.Point(this.data.chunkWidth/2, this.data.chunkHeight/2);
+
+        this.chunkController = new ChunkingController(this.stage.chunker, this.point);
+        this.chunkController.startDebug();
+        this.chunkController.triggerPaddingX = 800;
+        this.chunkController.triggerPaddingY = 600;
+        
+        this.cameraSpeed = 10;
+        this.cameras.main.setBounds(0, 0, this.data.chunkWidth * this.data.numChunksX, this.data.chunkHeight * this.data.numChunksY);
+        this.physics.world.setBounds(this.cameras.main.x, this.cameras.main.y, this.data.chunkWidth * this.data.numChunksX, this.data.chunkHeight * this.data.numChunksY);
+        this.cameras.main.startFollow(this.point, true);
+
+        this.controlKeys = 
+        {
+            A: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+            W: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
+            D: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+            S: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
+        };
+    }
+
+    update()
+    {
+        if(this.controlKeys.A.isDown)
+        {
+            this.point.x-= this.cameraSpeed;
+        }
+        else if(this.controlKeys.D.isDown)
+        {
+            this.point.x+= this.cameraSpeed;
+        }
+        if(this.controlKeys.W.isDown)
+        {
+            this.point.y-= this.cameraSpeed;
+        }
+        else if (this.controlKeys.S.isDown)
+        {
+            this.point.y+= this.cameraSpeed;
+        }
+        this.chunkController.update();
     }
 
     getDOMSettings()

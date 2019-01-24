@@ -7,6 +7,8 @@ class GridChunkManager
         this.tileManager = tileManager;
         this.chunkWidth = data.chunkWidth;
         this.chunkHeight = data.chunkHeight;
+        this.numChunksX = data.numChunksX;
+        this.numChunksY = data.numChunksY;
         this.tilesPerChunkX = data.tilesPerChunkX;
         this.tilesPerChunkY = data.tilesPerChunkY;
         this.chunks = [];
@@ -208,6 +210,21 @@ class GridChunkManager
         const data = {};
         data.chunkWidth = this.chunkWidth;
         data.chunkHeight = this.chunkHeight;
+        data.numChunksX = this.numChunksX;
+        data.numChunksY = this.numChunksX;
+        data.tilesPerChunkX = this.tilesPerChunkX;
+        data.tilesPerChunkY = this.tilesPerChunkY;
+        data.tileWidth = this.tileManager.tileWidth;
+        data.tileHeight = this.tileManager.tileHeight;
+        data.tileSet = this.tileManager.tileKeys;
+        data.activeRange = {
+            startIdx: {
+                x: 0, y: 0
+            },
+            endIdx: {
+                x: 1, y: 1
+            }
+        }
         data.chunks = chunksCopy;
         return data;
     }
