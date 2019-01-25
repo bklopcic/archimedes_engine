@@ -41,11 +41,11 @@ class ChunkEditerScene extends Phaser.Scene
         this.input.on("pointerdown", this.handleClick, this);
 
         this.point = new Phaser.Geom.Point(this.data.chunkWidth/2, this.data.chunkHeight/2);
-
+        const debugContainer = this.add.container(0,0);
         this.chunkController = new ChunkingController(this.stage.chunker, this.point);
-        this.chunkController.startDebug();
-        this.chunkController.triggerPaddingX = 800;
-        this.chunkController.triggerPaddingY = 600;
+        this.stage.chunker.startDebug(debugContainer);
+        this.chunkController.triggerPaddingX = this.data.chunkWidth * .8;
+        this.chunkController.triggerPaddingY = this.data.chunkHeight * .8;
         
         this.cameraSpeed = 10;
         this.cameras.main.setBounds(0, 0, this.data.chunkWidth * this.data.numChunksX, this.data.chunkHeight * this.data.numChunksY);
@@ -63,23 +63,44 @@ class ChunkEditerScene extends Phaser.Scene
 
     update()
     {
+        this.moveCamera();
+        this.chunkController.update();
+    }
+
+    moveCamera()
+    {
         if(this.controlKeys.A.isDown)
         {
             this.point.x-= this.cameraSpeed;
+            if (this.point.x < 0)
+            {
+                this.point.x = 0;
+            }
         }
         else if(this.controlKeys.D.isDown)
         {
             this.point.x+= this.cameraSpeed;
+            if (this.point.x > this.physics.world.bounds.width -1)
+            {
+                this.point.x = this.physics.world.bounds.width -1;
+            }
         }
         if(this.controlKeys.W.isDown)
         {
             this.point.y-= this.cameraSpeed;
+            if (this.point.y < 0)
+            {
+                this.point.y = 0;
+            }
         }
         else if (this.controlKeys.S.isDown)
         {
             this.point.y+= this.cameraSpeed;
+            if (this.point.y > this.physics.world.bounds.height -1)
+            {
+                this.point.y = this.physics.world.bounds.height -1;
+            }
         }
-        this.chunkController.update();
     }
 
     getDOMSettings()
@@ -97,20 +118,15 @@ class ChunkEditerScene extends Phaser.Scene
         {
             const mode = $("#mode-select").val();
             const gridSnap = $("#snap-to-grid-check").prop("checked");
-            let clickX;
-            let clickY;
+            let clickX = this.cameras.main.scrollX + pointer.x;
+            let clickY = this.cameras.main.scrollY + pointer.y;
             
             if (gridSnap)
             {
-                const coord = this.stage.getCoordByPixels(pointer.x, pointer.y);
+                const coord = this.stage.getCoordByPixels(clickX, clickY);
                 const tile = this.stage.getTileAt(new StageCoord(coord.x, coord.y));
                 clickX = tile.x + this.data.tileWidth/2;
                 clickY = tile.y + this.data.tileHeight/2;
-            }
-            else
-            {
-                clickX = pointer.x;
-                clickY = pointer.y;
             }
 
             switch(mode)

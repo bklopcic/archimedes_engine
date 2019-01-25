@@ -1,81 +1,575 @@
 {
-    "chunkWidth": 100,
-    "chunkHeight": 75,
-    "chunks": [
-        [
-            {
-                "actorData": 
-                [
-                    {"type": "testdot", "x": 30, "y": 4, "faceDirection": 1, "team": "0"}
-                ]
-            },
-            {"actorData":{"actorData":[]}},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]}
-        ],
-        [
-            {"actorData":[]},
-            {"actorData":[]},
-            {
-                "actorData":
-                [
-                    {"type": "testdot", "x": 280, "y": 89, "faceDirection": 1, "team": "0"},
-                    {"type": "testdot", "x": 213, "y": 132, "faceDirection": 1, "team": "0"}
-                ]
-            },
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]}
-        ],
-        [
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]}
-        ],
-        [
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]}
-        ],
-        [
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]}
-        ],
-        [
-            {"actorData":[]},
-            {"actorData":[]},
-            {"actorData":[]},
-            {
-                "actorData":
-                [
-                    {"type": "testdot", "x": 375, "y": 425, "faceDirection": 1, "team": "0"}
-                ]
-            },
-            {"actorData":[]},
-            {"actorData":[]},
-            {
-                "actorData":
-                [
-                    {"type": "testdot", "x": 650, "y": 413, "faceDirection": 1, "team": "0"}
-                ]
-            }
-        ]
-    ]
+	"chunkWidth": 100,
+	"chunkHeight": 80,
+	"numChunksX": 10,
+	"numChunksY": 10,
+	"tilesPerChunkX": 1,
+	"tilesPerChunkY": 1,
+	"tileWidth": 100,
+	"tileHeight": 80,
+	"tileSet": ["tile0", "tile1"],
+	"activeRange": {
+		"startIdx": {
+			"x": 0,
+			"y": 0
+		},
+		"endIdx": {
+			"x": 1,
+			"y": 1
+		}
+	},
+	"chunks": [
+		[{
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [{
+				"type": "stone",
+				"x": 357,
+				"y": 55,
+				"faceDirection": 1,
+				"team": "player"
+			}],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}],
+		[{
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [{
+				"type": "stone",
+				"x": 756,
+				"y": 125,
+				"faceDirection": 1,
+				"team": "player"
+			}],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}],
+		[{
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}],
+		[{
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [{
+				"type": "stone",
+				"x": 239,
+				"y": 265,
+				"faceDirection": 1,
+				"team": "player"
+			}],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [{
+				"type": "stone",
+				"x": 441,
+				"y": 291,
+				"faceDirection": 1,
+				"team": "player"
+			}],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}],
+		[{
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [{
+				"type": "stone",
+				"x": 234,
+				"y": 361,
+				"faceDirection": 1,
+				"team": "player"
+			}],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}],
+		[{
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [{
+				"type": "stone",
+				"x": 849,
+				"y": 429,
+				"faceDirection": 1,
+				"team": "player"
+			}],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}],
+		[{
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}],
+		[{
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}],
+		[{
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [{
+				"type": "stone",
+				"x": 138,
+				"y": 672,
+				"faceDirection": 1,
+				"team": "player"
+			}],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}],
+		[{
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}, {
+			"actors": [],
+			"tiles": [
+				[0]
+			]
+		}]
+	]
 }
