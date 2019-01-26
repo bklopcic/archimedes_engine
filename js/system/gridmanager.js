@@ -14,6 +14,7 @@ class GridManager
         this.container = container || this.scene.add.container(0, 0);
         
         this.dataGrid = [];
+        this.maps = [];
     }
 
     /**
@@ -46,19 +47,25 @@ class GridManager
 
     drawTiles(x, y, tileData)
     {
-        for (let i = 0; i < tileData.length; i++)
+        //quick and dirty memory management
+        //potential issue: no guaruntee both maps with be the same size...
+        const length = this.maps.length;
+        console.log(this.maps);
+        for (let i = 0; i < length; i++)
         {
-            for (let j = 0; j < tileData[i].length; j++)
+            if (this.maps[i].x == x && this.maps[i].y == y)
             {
-                const xPos = x + (j*this.tileWidth);
-                const yPos = y + (i*this.tileHeight);
+                this.maps[i].map.destroy();
+                this.maps.splice(i, 1);
+                break;
             }
         }
-
-        var map = this.scene.make.tilemap({ data: tileData, tileWidth: this.tileWidth, tileHeight: this.tileHeight });
-        var tiles = map.addTilesetImage("tilesheet");
-        var layer = map.createStaticLayer(0, tiles, x, y);
+        const map = this.scene.make.tilemap({ data: tileData, tileWidth: this.tileWidth, tileHeight: this.tileHeight });
+        const tiles = map.addTilesetImage("tilesheet");
+        const layer = map.createStaticLayer(0, tiles, x, y);
         this.container.add(layer);
+        this.maps.push({map: map, x: x, y: y});
+        console.log(this.maps.length);
     }
 
     /**

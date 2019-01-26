@@ -17,6 +17,7 @@ $(document).ready(function(){
 
     $("#load-data-btn").click(function(){
         game.scene.start("chunk-editer", JSON.parse($("#data-display").val()));
+        exitTileMode();
     });
 
     $("#clear-data-btn").click(function(){
@@ -30,18 +31,6 @@ $(document).ready(function(){
     $("#new-stage-form-container").hide();
 
     $("#create-new-btn").click(function(){
-        const defaultData = makeDefaultChunkData();
-        const config = {
-            numChunksX: defaultData.numChunksX,
-            numChunksY: defaultData.numChunksY, 
-            chunkWidth: defaultData.chunkWidth, 
-            chunkHeight: defaultData.chunkHeight, 
-            tilesPerChunkX: defaultData.tilesPerChunkX, 
-            tilesPerChunksY: defaultData.tilesPerChunkY, 
-            tileWidth: defaultData.tileWidth, 
-            tileHeight: defaultData.tileHeight
-        };
-        //$("#new-stage-config-display").val(JSON.stringify(config).replace(/,/g, ",\n"));
         $("#new-stage-form-container").show();
     });
 
@@ -57,7 +46,33 @@ $(document).ready(function(){
             Number($("#tile-height").val())
         );
         $("#new-stage-form-container").hide();
+        exitTileMode();
         game.scene.start("chunk-editer", data);     
+    });
+
+    $("#tile-select").click(function(e){
+        if ($("#edit-tile-mode-btn").prop("checked"))
+        {
+            const scene = game.scene.getScene("chunk-editer");
+            const tileCountX = $(this).get(0).naturalWidth / scene.data.tileWidth;
+            const tileCountY = $(this).get(0).naturalHeight / scene.data.tileHeight;
+            const tileX = Math.floor((e.offsetX / $(this).width()) * tileCountX);
+            const tileY = Math.floor((e.offsetY / $(this).height()) * tileCountY);
+            scene.selectedTileType = tileX + tileCountX * tileY;
+            console.log(scene.selectedTileType);
+        }
+    });
+
+    $("#edit-tile-mode-btn").click(function(){
+
+        if ($(this).prop("checked"))
+        {
+            enterTileMode();
+        }
+        else
+        {
+            exitTileMode();
+        }
     });
 
 });

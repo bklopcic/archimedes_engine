@@ -12,6 +12,8 @@ class GridChunkManager
         this.tilesPerChunkX = data.tilesPerChunkX;
         this.tilesPerChunkY = data.tilesPerChunkY;
         this.chunks = [];
+        this.onChunkLoadEvent = null;
+        this.onChunkLoadEventContext = this;
 
         this.debugDrawer = null;
 
@@ -79,6 +81,11 @@ class GridChunkManager
         //load the actors
         this.spawner.loadActorsFromData(chunk.actors);
         chunk.clearActorData();
+
+        if (this.onChunkLoadEvent != null)
+        {
+            this.onChunkLoadEvent.call(this.onChunkLoadEventContext);
+        }
     }
 
     loadChunkRange(startIdx, endIdx)

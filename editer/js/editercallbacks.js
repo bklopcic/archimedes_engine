@@ -48,3 +48,19 @@ function generateStageData(numChunksX, numChunksY, chunkWidth, chunkHeight, tile
     }
     return data;
 }
+
+function enterTileMode()
+{
+    $("#edit-tile-mode-btn").prop("checked", true);
+    const scene = game.scene.getScene("chunk-editer");
+    scene.selectedTileType = 0;
+    scene.hideActors();
+}
+
+function exitTileMode()
+{
+    $("#edit-tile-mode-btn").prop("checked", false);
+    const scene = game.scene.getScene("chunk-editer");
+    scene.selectedTileType = null;
+    scene.showActors();
+}

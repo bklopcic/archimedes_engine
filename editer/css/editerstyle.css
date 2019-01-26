@@ -46,6 +46,11 @@ body
     background:rgb(102, 196, 228); 
 }
 
+#tile-select
+{
+    width: 230px;
+}
+
 #new-stage-form h3
 {
     text-align: center;
